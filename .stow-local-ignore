@@ -1,0 +1,14 @@
+^\.git
+^\.gitignore
+
+\#.*\#       # emacs autosave files
+
+LICENSE
+
+^/root
+
+justfile
+
+README.org
+
+^/pkglist

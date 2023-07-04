@@ -1,0 +1,34 @@
+@document.meta
+title: {TODAY_OF_FILENAME} 
+description: Journal Entry for {TODAY_OF_FILENAME} 
+authors: aditya-yadav
+categories: [
+    daily
+]
+created: {TODAY}
+updated: {TODAY}
+version: 1.1.1
+@end
+
+* Time Line
+  - (-) 06:30..07:00 -> Morning routine with a little game
+  - (-) 07:00..08:00 -> Make plans for the day and touch up on some tech news 
+  - 08:00..09:00 -> 
+  - 09:00..10:00 -> 
+  - 10:00..11:00 -> 
+  - 11:00..12:00 -> 
+  - 12:00..13:00 -> 
+  - 13:00..14:00 -> 
+  - 14:00..15:00 -> 
+  - 15:00..16:00 -> 
+  - 16:00..17:00 -> 
+  - 17:00..18:00 -> 
+  - 18:00..19:00 -> 
+  - 19:00..20:00 -> 
+  - 20:00..21:00 -> 
+  - 21:00..22:00 -> 
+  - 22:00..23:00 -> Sleep till 6:30
+
+* Todo List
+  - Read (atmost) 30 chapters of manga
+  - 
