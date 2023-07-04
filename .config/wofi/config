@@ -1,0 +1,6 @@
+show=drun
+width=750
+height=400
+show_all=false
+insensitive=true
+prompt= Hmm, what do you want to run?

@@ -1,0 +1,53 @@
+#+title: Readme
+#+description: Emacs config Readme
+#+latex_header_extra: hypersetup{colorlinks=true,linkcolor=blue}
+#+author: Aditya Yadav
+
+* Starting with emacs
+This is my personal emacs config.
+It is mostly used for coding ,note taking purpose and some system mangement.
+you can get started with it using the this git clone
+#+begin_src bash
+git clone https://github.com/aadi58002/emacs-config.git ~/.config/emacs
+#+end_src
+
+Use the below command to start the emacs server and on the first run it should install the plugins automatically.
+#+begin_src bash
+emacsclient -c -a '' -e '(server-start)'
+#+end_src
+
+After that command finishes then launch emacs with below command
+#+begin_src bash
+emacsclient -c -a ''
+#+end_src
+* Keybindings General Guide
+:n -> Normal state 
+:i -> Insert state 
+:v -> Visual state 
+:ni -> Means it works in both normal and insert state 
+
+C-d -> Ctrl + d
+C-c C-x -> You can press Ctrl + c then leave them (you don't have to hold them) and then press Ctrl + x to invoke the command
+If there is no mode specified it is globally bound and you can call it from anywhere
+|------------+--------------------------------+--------------------------------------+-----------------------------------------------------------|
+| Evil state | Keybinding (Mode if specified) | Command                              | Comment                                                   |
+|------------+--------------------------------+--------------------------------------+-----------------------------------------------------------|
+| :nv        | SPC SPC                        | find-find                            | Interactive selection of files and folders                |
+|            |                                |                                      |                                                           |
+| :nv        | SPC g g                        | magit-status                         | Emacs git client Start window                             |
+|            |                                |                                      |                                                           |
+| :nv        | SPC f r                        | consult-recent-file                  | Recent files you have opening                             |
+|            |                                |                                      |                                                           |
+| :nv        | M-/                            | evilnc-comment-or-uncomment-lines    | Comment and uncomment sections of code or line            |
+|            |                                |                                      |                                                           |
+| :nv        | SPC m l c  (org-mode)          | org-cliplink                         | Insert the link in clipboard with the html title from web |
+|            |                                |                                      |                                                           |
+| all        | C-h k                          | helpful-key                          | To get help for a keybinding you don't know command for   |
+| all        | C-d                            | evil-multiedit-match-symbol-and-next | Press multiple times to select next instance of the word  |
+| all        | C-c a  (lsp-mode)              | format-all-buffer                    | Format the current file                                   |
+|------------+--------------------------------+--------------------------------------+-----------------------------------------------------------|
+
+* References
+[[https://aadi58002.github.io/Linux-Blog/guide/Emacs/Introduction.html][My Blog about emacs]]
+* Issues
+Feel free to create issue if you find any problems or want a feature or package to be implemented or intergrated.
