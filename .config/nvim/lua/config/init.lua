@@ -4,7 +4,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' m'
+vim.g.maplocalleader = ','
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -31,3 +31,6 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
 
 vim.opt.clipboard = 'unnamedplus'
+
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'

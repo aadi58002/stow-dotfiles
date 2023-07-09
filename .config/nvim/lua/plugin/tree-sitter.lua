@@ -6,7 +6,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync" },
     opts = {
-        ensure_installed = { "lua", "help", "rust", "typescript", "javascript", "query", "astro", "css", "tsx" },
+        ensure_installed = { "lua", "help", "rust", "typescript", "javascript", "query", "astro", "css", "tsx" , "org"},
         sync_install = true,
         auto_install = true,
         highlight = { enable = true },

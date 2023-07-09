@@ -46,6 +46,9 @@ return {
         cmp.setup({
             mapping = {
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            },
+            sources = {
+                { name = 'orgmode' }
             }
         })
     end

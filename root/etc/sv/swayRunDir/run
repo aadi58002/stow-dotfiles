@@ -9,5 +9,5 @@ if [ ! -d $RUNTIME_DIR ];
 then
 	mkdir -p $RUNTIME_DIR
 	chown $ID $RUNTIME_DIR -R;
-	chmod 0700 $RUNTIMR_DIR -R;
+	chmod 0700 $RUNTIME_DIR -R;
 fi

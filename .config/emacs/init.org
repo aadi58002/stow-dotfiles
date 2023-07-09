@@ -188,9 +188,6 @@ Setting some default which suit well for me as well as enabling some performance
 * Custom Function
 *** Emms Custom function
 #+begin_src emacs-lisp
-(defun +emms/emms-player-mpd-set-value-or-toggle (name val)
-        (emms-player-mpd-send (concat name " " val) nil #'ignore))
-
 (defun +emms/emms-player-mpd-single-on ()
   "Turn single flag on for mpd player"
   (interactive)
@@ -257,7 +254,7 @@ Start a kitty terminal session where the emacs current file (works with open dir
 Elpaca package manager which support async install of packages for faster install.
 It is in actively developing emacs package manager but it is not widely documented like straight.el or package.el by default.
 #+begin_src emacs-lisp
-(defvar elpaca-installer-version 0.4)
+(defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -488,15 +485,6 @@ Everyone forgets keybindings
    '(emms-playlist-track-face ((t (:foreground "#5da3e7"))))
    '(org-ellipsis (( t(:foreground "#C678DD"))))))
 #+end_src
-**** Modus theme
-High contrast theme
-#+begin_src emacs-lisp
-;; (use-package modus-themes
-;;   :config
-;;   (setq modus-themes-italic-constructs t
-;;         modus-themes-bold-constructs t)
-;;   (load-theme 'modus-vivendi-tinted t))
-#+end_src
 *** Doom modeline
 Changing the default modeline to a better one ( in my opinion )
 #+begin_src emacs-lisp
@@ -524,16 +512,6 @@ Icons in the auto completion which pop ups from the bottom ( in vertico )
   :config
   (all-the-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
-#+end_src
-**** Corfu Icons
-Icons in the word or completion menu under cursor
-#+begin_src emacs-lisp
-;; (use-package kind-icon
-;;   :after corfu
-;;   :custom
-;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-;;   :config
-;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
 **** Dired Icons
 Icons in file manager as well
@@ -594,37 +572,12 @@ Smart commentor for most of the languages
   ;; Svelte Mode
   (define-derived-mode svelte-mode web-mode "Svelte")
   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
-  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
 
-  ;; C++ Mode
-  (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
-                                        . ,(eglot-alternatives
-                                            '("ccls" "clangd"))))
-  ;; web-mode setup
-  (define-derived-mode vue-mode web-mode "Vue")
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-  
-  (defun vue-eglot-init-options ()
-    (let ((tsdk-path (expand-file-name
-                      "lib"
-                      (shell-command-to-string "npm list --global --parseable typescript | head -n1 | tr -d \"\n\""))))
-      `(:typescript (:tsdk ,tsdk-path
-                           :languageFeatures (:completion
-                                              (:defaultTagNameCase "both"
-                                                                   :defaultAttrNameCase "kebabCase"
-                                                                   :getDocumentNameCasesRequest nil
-                                                                   :getDocumentSelectionRequest nil)
-                                              :diagnostics
-                                              (:getDocumentVersionRequest nil))
-                           :documentFeatures (:documentFormatting
-                                              (:defaultPrintWidth 100
-                                                                  :getDocumentPrintWidthRequest nil)
-                                              :documentSymbol t
-                                              :documentColor t)))))
-  
-  ;; Volar
-  (add-to-list 'eglot-server-programs
-               `(vue-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options)))))
+  ;; ;; C++ Mode
+  ;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
+  ;;                                       . ,(eglot-alternatives
+  ;;                                           '("ccls" "clangd")))))
 #+end_src
 *** Rust
 #+begin_src emacs-lisp
@@ -632,10 +585,6 @@ Smart commentor for most of the languages
   :config
   (setq rustic-enable-detached-file-support t)
   (setq rustic-lsp-client 'eglot))
-#+end_src
-*** Python
-#+begin_src emacs-lisp
-(use-package poetry)
 #+end_src
 *** Project Management
 #+begin_src emacs-lisp
@@ -665,10 +614,6 @@ DIR must include a .project file to be considered a project."
       (cons 'local root)))
 
 (add-hook 'project-find-functions 'project-x-try-local 90)
-#+end_src
-*** Proto
-#+begin_src emacs-lisp
-;; (use-package protobuf-mode)
 #+end_src
 *** Rest Client
 #+begin_src emacs-lisp
@@ -911,12 +856,12 @@ Better command for default actions like buffer management, find and grep actions
         xref-show-definitions-function #'consult-xref)
 
   ;; Enable using fd with consult
-  (defvar consult--fd-command nil)
+  (defvar consult--fd-command t)
   (defun consult--fd-builder (input)
     (unless consult--fd-command
       (setq consult--fd-command
-            (if (eq 0 (call-process-shell-command "fdfind"))
-                "fdfind"
+            (if (eq 0 (call-process-shell-command "fd"))
+                "fd"
               "fd")))
     (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
                  (`(,re . ,hl) (funcall consult--regexp-compiler
@@ -966,11 +911,11 @@ Better command for default actions like buffer management, find and grep actions
         '((sequence "TODO(t)" "PROJ(p)" "ACTIVE(a)" "REVIEW(r)" "START(s)" "NEXT(N)" "WORKING(w)" "HOLD(h)" "|" "DONE(d)" "KILL(k)")
           (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
-  (defun adi/org-setup()
+  (defun +org/org-setup()
     (org-indent-mode +1)
     (toc-org-mode +1))
 
-  (add-hook 'org-mode-hook 'adi/org-setup))
+  (add-hook 'org-mode-hook '+org/org-setup))
 #+end_src
 *** Org Modern
 Better sytling default for org mode bring more to the modern era style

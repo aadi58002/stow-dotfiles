@@ -30,12 +30,6 @@ return {
                 "Command History"
             },
             {
-                "<leader>g",
-                "<cmd>Telescope git_files<cr>",
-                desc =
-                "Find git Files (root dir)"
-            },
-            {
                 "<leader><space>",
                 "<cmd>Telescope file_browser path=%:p:h select_buffer=true hidden=true<cr>",
                 desc =

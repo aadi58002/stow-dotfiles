@@ -64,9 +64,6 @@
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
-(defun +emms/emms-player-mpd-set-value-or-toggle (name val)
-        (emms-player-mpd-send (concat name " " val) nil #'ignore))
-
 (defun +emms/emms-player-mpd-single-on ()
   "Turn single flag on for mpd player"
   (interactive)
@@ -295,12 +292,6 @@
    '(emms-playlist-track-face ((t (:foreground "#5da3e7"))))
    '(org-ellipsis (( t(:foreground "#C678DD"))))))
 
-;; (use-package modus-themes
-;;   :config
-;;   (setq modus-themes-italic-constructs t
-;;         modus-themes-bold-constructs t)
-;;   (load-theme 'modus-vivendi-tinted t))
-
 (use-package doom-modeline
   :elpaca (doom-modeline :host github :repo "seagle0128/doom-modeline")
   :init (doom-modeline-mode 1)
@@ -318,13 +309,6 @@
   :config
   (all-the-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
-
-;; (use-package kind-icon
-;;   :after corfu
-;;   :custom
-;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-;;   :config
-;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package all-the-icons-dired
   :config
@@ -376,44 +360,17 @@
   ;; Svelte Mode
   (define-derived-mode svelte-mode web-mode "Svelte")
   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
-  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
 
-  ;; C++ Mode
-  (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
-                                        . ,(eglot-alternatives
-                                            '("ccls" "clangd"))))
-  ;; web-mode setup
-  (define-derived-mode vue-mode web-mode "Vue")
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-  
-  (defun vue-eglot-init-options ()
-    (let ((tsdk-path (expand-file-name
-                      "lib"
-                      (shell-command-to-string "npm list --global --parseable typescript | head -n1 | tr -d \"\n\""))))
-      `(:typescript (:tsdk ,tsdk-path
-                           :languageFeatures (:completion
-                                              (:defaultTagNameCase "both"
-                                                                   :defaultAttrNameCase "kebabCase"
-                                                                   :getDocumentNameCasesRequest nil
-                                                                   :getDocumentSelectionRequest nil)
-                                              :diagnostics
-                                              (:getDocumentVersionRequest nil))
-                           :documentFeatures (:documentFormatting
-                                              (:defaultPrintWidth 100
-                                                                  :getDocumentPrintWidthRequest nil)
-                                              :documentSymbol t
-                                              :documentColor t)))))
-  
-  ;; Volar
-  (add-to-list 'eglot-server-programs
-               `(vue-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options)))))
+  ;; ;; C++ Mode
+  ;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
+  ;;                                       . ,(eglot-alternatives
+  ;;                                           '("ccls" "clangd")))))
 
 (use-package rustic
   :config
   (setq rustic-enable-detached-file-support t)
   (setq rustic-lsp-client 'eglot))
-
-(use-package poetry)
 
 ;; Credits to karthink > https://github.com/karthink/project-x/blob/234f528bf3cf320b0d07ca61c6f9b2566167f0b3/project-x.el#L157
 ;; Recognize directories as projects by defining a new project backend `local'
@@ -441,8 +398,6 @@ DIR must include a .project file to be considered a project."
       (cons 'local root)))
 
 (add-hook 'project-find-functions 'project-x-try-local 90)
-
-;; (use-package protobuf-mode)
 
 (use-package restclient)
 
@@ -639,12 +594,12 @@ DIR must include a .project file to be considered a project."
         xref-show-definitions-function #'consult-xref)
 
   ;; Enable using fd with consult
-  (defvar consult--fd-command nil)
+  (defvar consult--fd-command t)
   (defun consult--fd-builder (input)
     (unless consult--fd-command
       (setq consult--fd-command
-            (if (eq 0 (call-process-shell-command "fdfind"))
-                "fdfind"
+            (if (eq 0 (call-process-shell-command "fd"))
+                "fd"
               "fd")))
     (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
                  (`(,re . ,hl) (funcall consult--regexp-compiler
@@ -689,11 +644,11 @@ DIR must include a .project file to be considered a project."
         '((sequence "TODO(t)" "PROJ(p)" "ACTIVE(a)" "REVIEW(r)" "START(s)" "NEXT(N)" "WORKING(w)" "HOLD(h)" "|" "DONE(d)" "KILL(k)")
           (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
-  (defun adi/org-setup()
+  (defun +org/org-setup()
     (org-indent-mode +1)
     (toc-org-mode +1))
 
-  (add-hook 'org-mode-hook 'adi/org-setup))
+  (add-hook 'org-mode-hook '+org/org-setup))
 
 (use-package org-modern
   :config
