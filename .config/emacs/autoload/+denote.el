@@ -4,8 +4,6 @@
 ;;
 ;;; Helpers
 
-
-
 ;;;###autoload
 (defun +denote/add-todo-keyword ()
   "Add the todo keyword to the new captured note if it is under the Todo Sub directory"
@@ -91,3 +89,23 @@ set to '(template subdirectory title keywords)."
   (interactive)
   (let ((denote-prompts '(template subdirectory title keywords)))
     (call-interactively #'denote)))
+
+;;;###autoload
+(defun +denote/journal-create-or-open ()
+  "Create an entry tagged 'journal' with the date as its title.
+If a journal for the current day exists, visit it.  If multiple
+entries exist, prompt with completion for a choice between them.
+Else create a new file."
+  (interactive)
+  (let* ((today (format-time-string "%A %e %B %Y"))
+         (string (denote-sluggify today))
+         (files (denote-directory-files-matching-regexp string)))
+    (cond
+     ((> (length files) 1)
+      (find-file (completing-read "Select file: " files nil :require-match)))
+     (files
+      (find-file (car files)))
+     (t
+      (denote
+       today
+       '("journal"))))))

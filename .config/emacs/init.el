@@ -91,6 +91,7 @@
 (autoload #'+denote/pick-silo-open (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/pick-silo-then-command (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/subdirectory-with-template (concat user-emacs-directory "autoload/+denote"))
+(autoload #'+denote/journal-create-or-open (concat user-emacs-directory "autoload/+denote"))
 
 (autoload #'Competitive-coding-output-input-toggle (concat user-emacs-directory "autoload/+silly"))
 
@@ -355,17 +356,17 @@
   (cl-defmethod eglot-initialization-options ((server eglot-deno))
     "Passes through required deno initialization options"
     (list :enable t
-    :lint t))
+          :lint t))
 
   ;; Svelte Mode
   (define-derived-mode svelte-mode web-mode "Svelte")
   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
 
-  ;; ;; C++ Mode
-  ;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
-  ;;                                       . ,(eglot-alternatives
-  ;;                                           '("ccls" "clangd")))))
+;; ;; C++ Mode
+;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
+;;                                       . ,(eglot-alternatives
+;;                                           '("ccls" "clangd")))))
 
 (use-package rustic
   :config
@@ -648,7 +649,24 @@ DIR must include a .project file to be considered a project."
     (org-indent-mode +1)
     (toc-org-mode +1))
 
-  (add-hook 'org-mode-hook '+org/org-setup))
+  (add-hook 'org-mode-hook '+org/org-setup)
+
+
+  ;; Capture templates
+  (with-eval-after-load 'org-capture
+    (add-to-list 'org-capture-templates
+                 '("t" "Todo" plain
+                   (file denote-last-path)
+                   (function
+                    (lambda ()
+                      (let ((denote-directory (file-name-as-directory denote-todo-directory))
+                            (denote-org-capture-specifiers "%l\n%i\n* TODO %?"))
+                        (denote-org-capture))))
+                   :no-save t
+                   :immediate-finish nil
+                   :kill-buffer t
+                   :jump-to-captured t))
+    (add-hook 'org-capture-after-finalize-hook '+denote/add-todo-keyword)))
 
 (use-package org-modern
   :config
@@ -696,30 +714,32 @@ DIR must include a .project file to be considered a project."
   :config
   (setq denote-excluded-directories-regexp "Archived"
         denote-directory "~/Documents/Denote"
+        denote-todo-directory (concat (denote-directory) "Todo")
+        denote-journal-directory (concat (denote-directory) "Journal")
         denote-templates
-            `((Note . "* ")
-              (Resouces .
-                ,(concat "* Videos\n"
-                         "** Start\n"
-                         "** Watching\n"
-                         "** Completed\n\n"
-                         "* Blogs\n"
-                         "** Start\n"
-                         "** Reading\n"
-                         "** Completed\n"))
-              (Todo . "* TODO "))
+        `((Note . "* ")
+          (Resouces .
+                    ,(concat "* Videos\n"
+                             "** Start\n"
+                             "** Watching\n"
+                             "** Completed\n\n"
+                             "* Blogs\n"
+                             "** Start\n"
+                             "** Reading\n"
+                             "** Completed\n"))
+          (Todo . "* TODO "))
         denote-infer-keywords t
         +denote/silo-directories
-            (let (values)
-                (dolist (dir `("Entertainment" "Resources" "Todo" "Archived") values)
-                (setq values (cons (concat (denote-directory) dir) values))))
+        (let (values)
+          (dolist (dir `("Entertainment" "Resources" "Todo" "Archived" "Journal") values)
+            (setq values (cons (concat (denote-directory) dir) values))))
         +denote/commands-for-silos
-            '(denote
-                denote-date
-                denote-open-or-create
-                denote-subdirectory
-                denote-template
-                denote-type)
+        '(denote
+          denote-date
+          denote-open-or-create
+          denote-subdirectory
+          denote-template
+          denote-type)
         denote-sort-keywords t
         denote-excluded-keywords-regexp nil
         denote-date-prompt-use-org-read-date t
@@ -750,15 +770,15 @@ DIR must include a .project file to be considered a project."
 
 
 (general-define-key
-  :states '(normal motion)
-           "C-c a" 'org-capture)
+ :states '(normal motion)
+ "C-c a" 'org-capture)
 
 (general-define-key
-  :keymaps 'org-mode-map
-            :states 'normal
-            "<RET>" '+org/dwim-at-point
-            "?\t" 'org-cycle
-            "z i" '(org-toggle-inline-images :whick-key "inline images"))
+ :keymaps 'org-mode-map
+ :states 'normal
+ "<RET>" '+org/dwim-at-point
+ "?\t" 'org-cycle
+ "z i" '(org-toggle-inline-images :whick-key "inline images"))
 
 (aadi/leader-keys
   "SPC" 'find-file
@@ -793,6 +813,7 @@ DIR must include a .project file to be considered a project."
   "n d" 'denote-date
   "n s" '+denote/pick-silo-then-command
   "n i" 'denote-link
+  "n j" '+denote/journal-create-or-open
   "n I" 'denote-link-add-links
   "n b" 'denote-link-backlinks
   "n f" '(:ignore t :which-key "file link")
@@ -811,36 +832,36 @@ DIR must include a .project file to be considered a project."
   "l c" 'org-cliplink)
 
 (general-define-key 
-  :states '(normal motion)
-           "?" '(consult-line :which-key "filter buffer")
-           "g" '(:ignore t :which-key "goto")
-           "g e" 'consult-compile-error
-           "g l" 'consult-goto-line)
+ :states '(normal motion)
+ "?" '(consult-line :which-key "filter buffer")
+ "g" '(:ignore t :which-key "goto")
+ "g e" 'consult-compile-error
+ "g l" 'consult-goto-line)
 
 (general-define-key 
-  :states 'insert
-           "C-s" 'tempel-complete)
+ :states 'insert
+ "C-s" 'tempel-complete)
 (general-define-key 
-  :states '(insert normal)
-  :keymaps 'tempel-map
-           "S-TAB" 'tempel-previous
-           "TAB" 'tempel-next)
+ :states '(insert normal)
+ :keymaps 'tempel-map
+ "S-TAB" 'tempel-previous
+ "TAB" 'tempel-next)
 
 (general-define-key 
-  :prefix "C-h"
-           "f" 'helpful-callable
-           "v" 'helpful-variable
-           "k" 'helpful-key
-           "F" 'helpful-function
-           "C" 'helpful-command)
+ :prefix "C-h"
+ "f" 'helpful-callable
+ "v" 'helpful-variable
+ "k" 'helpful-key
+ "F" 'helpful-function
+ "C" 'helpful-command)
 
 (general-define-key 
-  :keymaps 'transient-map
-            "<>" 'transient-quit-one)
+ :keymaps 'transient-map
+ "<>" 'transient-quit-one)
 
 (general-define-key 
-  :keymaps 'dashboard-mode-map
-           "RET" 'dashboard-return)
+ :keymaps 'dashboard-mode-map
+ "RET" 'dashboard-return)
 
 (general-define-key "C-;" 'embark-act)
 

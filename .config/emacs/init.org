@@ -225,6 +225,7 @@ Setting some default which suit well for me as well as enabling some performance
 (autoload #'+denote/pick-silo-open (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/pick-silo-then-command (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/subdirectory-with-template (concat user-emacs-directory "autoload/+denote"))
+(autoload #'+denote/journal-create-or-open (concat user-emacs-directory "autoload/+denote"))
 #+end_src
 *** Competitive layout
 With smart-compile this function is very useful to run multiple test cases with compilation.
@@ -567,17 +568,17 @@ Smart commentor for most of the languages
   (cl-defmethod eglot-initialization-options ((server eglot-deno))
     "Passes through required deno initialization options"
     (list :enable t
-    :lint t))
+          :lint t))
 
   ;; Svelte Mode
   (define-derived-mode svelte-mode web-mode "Svelte")
   (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
 
-  ;; ;; C++ Mode
-  ;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
-  ;;                                       . ,(eglot-alternatives
-  ;;                                           '("ccls" "clangd")))))
+;; ;; C++ Mode
+;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
+;;                                       . ,(eglot-alternatives
+;;                                           '("ccls" "clangd")))))
 #+end_src
 *** Rust
 #+begin_src emacs-lisp
@@ -915,7 +916,24 @@ Better command for default actions like buffer management, find and grep actions
     (org-indent-mode +1)
     (toc-org-mode +1))
 
-  (add-hook 'org-mode-hook '+org/org-setup))
+  (add-hook 'org-mode-hook '+org/org-setup)
+
+
+  ;; Capture templates
+  (with-eval-after-load 'org-capture
+    (add-to-list 'org-capture-templates
+                 '("t" "Todo" plain
+                   (file denote-last-path)
+                   (function
+                    (lambda ()
+                      (let ((denote-directory (file-name-as-directory denote-todo-directory))
+                            (denote-org-capture-specifiers "%l\n%i\n* TODO %?"))
+                        (denote-org-capture))))
+                   :no-save t
+                   :immediate-finish nil
+                   :kill-buffer t
+                   :jump-to-captured t))
+    (add-hook 'org-capture-after-finalize-hook '+denote/add-todo-keyword)))
 #+end_src
 *** Org Modern
 Better sytling default for org mode bring more to the modern era style
@@ -972,35 +990,36 @@ Notes capturing utility
   :config
   (setq denote-excluded-directories-regexp "Archived"
         denote-directory "~/Documents/Denote"
+        denote-todo-directory (concat (denote-directory) "Todo")
+        denote-journal-directory (concat (denote-directory) "Journal")
         denote-templates
-            `((Note . "* ")
-              (Resouces .
-                ,(concat "* Videos\n"
-                         "** Start\n"
-                         "** Watching\n"
-                         "** Completed\n\n"
-                         "* Blogs\n"
-                         "** Start\n"
-                         "** Reading\n"
-                         "** Completed\n"))
-              (Todo . "* TODO "))
+        `((Note . "* ")
+          (Resouces .
+                    ,(concat "* Videos\n"
+                             "** Start\n"
+                             "** Watching\n"
+                             "** Completed\n\n"
+                             "* Blogs\n"
+                             "** Start\n"
+                             "** Reading\n"
+                             "** Completed\n"))
+          (Todo . "* TODO "))
         denote-infer-keywords t
         +denote/silo-directories
-            (let (values)
-                (dolist (dir `("Entertainment" "Resources" "Todo" "Archived") values)
-                (setq values (cons (concat (denote-directory) dir) values))))
+        (let (values)
+          (dolist (dir `("Entertainment" "Resources" "Todo" "Archived" "Journal") values)
+            (setq values (cons (concat (denote-directory) dir) values))))
         +denote/commands-for-silos
-            '(denote
-                denote-date
-                denote-open-or-create
-                denote-subdirectory
-                denote-template
-                denote-type)
+        '(denote
+          denote-date
+          denote-open-or-create
+          denote-subdirectory
+          denote-template
+          denote-type)
         denote-sort-keywords t
         denote-excluded-keywords-regexp nil
         denote-date-prompt-use-org-read-date t
         denote-backlinks-show-context t))
-
 #+end_src
 * Waiting for packages to load successfully 
 Wait till all the packages are installed with elpaca
@@ -1036,15 +1055,15 @@ Remove this block with you are using straight.el
 
 
 (general-define-key
-  :states '(normal motion)
-           "C-c a" 'org-capture)
+ :states '(normal motion)
+ "C-c a" 'org-capture)
 
 (general-define-key
-  :keymaps 'org-mode-map
-            :states 'normal
-            "<RET>" '+org/dwim-at-point
-            "?\t" 'org-cycle
-            "z i" '(org-toggle-inline-images :whick-key "inline images"))
+ :keymaps 'org-mode-map
+ :states 'normal
+ "<RET>" '+org/dwim-at-point
+ "?\t" 'org-cycle
+ "z i" '(org-toggle-inline-images :whick-key "inline images"))
 #+end_src
 ** Leader key map
 #+begin_src emacs-lisp
@@ -1081,6 +1100,7 @@ Remove this block with you are using straight.el
   "n d" 'denote-date
   "n s" '+denote/pick-silo-then-command
   "n i" 'denote-link
+  "n j" '+denote/journal-create-or-open
   "n I" 'denote-link-add-links
   "n b" 'denote-link-backlinks
   "n f" '(:ignore t :which-key "file link")
@@ -1101,42 +1121,42 @@ Remove this block with you are using straight.el
 ** Goto
 #+begin_src emacs-lisp
 (general-define-key 
-  :states '(normal motion)
-           "?" '(consult-line :which-key "filter buffer")
-           "g" '(:ignore t :which-key "goto")
-           "g e" 'consult-compile-error
-           "g l" 'consult-goto-line)
+ :states '(normal motion)
+ "?" '(consult-line :which-key "filter buffer")
+ "g" '(:ignore t :which-key "goto")
+ "g e" 'consult-compile-error
+ "g l" 'consult-goto-line)
 #+end_src
 ** Tempel
 #+begin_src emacs-lisp
 (general-define-key 
-  :states 'insert
-           "C-s" 'tempel-complete)
+ :states 'insert
+ "C-s" 'tempel-complete)
 (general-define-key 
-  :states '(insert normal)
-  :keymaps 'tempel-map
-           "S-TAB" 'tempel-previous
-           "TAB" 'tempel-next)
+ :states '(insert normal)
+ :keymaps 'tempel-map
+ "S-TAB" 'tempel-previous
+ "TAB" 'tempel-next)
 #+end_src
 ** Helpful
 #+begin_src emacs-lisp
 (general-define-key 
-  :prefix "C-h"
-           "f" 'helpful-callable
-           "v" 'helpful-variable
-           "k" 'helpful-key
-           "F" 'helpful-function
-           "C" 'helpful-command)
+ :prefix "C-h"
+ "f" 'helpful-callable
+ "v" 'helpful-variable
+ "k" 'helpful-key
+ "F" 'helpful-function
+ "C" 'helpful-command)
 #+end_src
 ** Transitient
 #+begin_src emacs-lisp
 (general-define-key 
-  :keymaps 'transient-map
-            "<>" 'transient-quit-one)
+ :keymaps 'transient-map
+ "<>" 'transient-quit-one)
 
 (general-define-key 
-  :keymaps 'dashboard-mode-map
-           "RET" 'dashboard-return)
+ :keymaps 'dashboard-mode-map
+ "RET" 'dashboard-return)
 #+end_src
 ** Embark
 #+begin_src emacs-lisp
