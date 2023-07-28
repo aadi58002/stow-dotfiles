@@ -30,5 +30,6 @@ rustic-mode ;; Available rustic-mode
 
 (cp "use std::io::{self, Write, BufRead};" n "macro_rules! input {" n "() => (std::io::stdin().lock().lines().next().map_or(Err(io::Error::new(io::ErrorKind::UnexpectedEof, \"Input BufRead reached EOF before\".to_string())), |line| line).unwrap());" n> "($($arg:tt)*) => ({ std::io::stdout().write_fmt(format_args!($($arg)*)).unwrap(); std::io::stdout().flush().unwrap(); input!() });" n "}" n n "fn main() {" n> q n "}")
 
-python-mode ;; Available python-mode
+python-mode python-ts-mode;; Available python-mode
 (!! "#!/usr/bin/env python")
+(leet "#!/usr/bin/env python" n n "from typing import List" n n "class Solution:" n> n n "sol = Solution()")

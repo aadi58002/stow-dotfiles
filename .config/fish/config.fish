@@ -142,6 +142,12 @@ status --is-interactive; and begin
     set -gx PATH "$PNPM_HOME" $PATH
     # pnpm end
 
+
+    # kind completion fish | source
+    # kubectl completion fish | source
+    # helm completion fish | source
+
+    
     zoxide init fish | source
 
 end

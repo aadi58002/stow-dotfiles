@@ -8,7 +8,6 @@
 (save-place-mode 1)                                          ;;When you open a file the cursor will be in the same position at which you closed the file
 (setq read-process-output-max (* 1024 1024))                 ;;Emacs can read output from programs faster ( makes lsp mode faster )
 (set-default-coding-systems 'utf-8)                          ;;Don't want to have encoding errors
-(setq inhibit-startup-screen t)                              ;;Don't want to see the emacs startup screen
 (setq visible-bell t)                                        ;;Blinks the top bar and modeline to the color set in doom-themes-visual-bell
 (setq-default tab-width 4)                                   ;;The tab width battle continues
 (setq-default evil-shift-width tab-width)                    ;;We want the tab width to be same in the vim mode of emacs
@@ -34,21 +33,12 @@
       dired-dwim-target t
       dired-auto-revert-buffer #'dired-directory-changed-p
       dired-make-directory-clickable nil
+      dired-clean-up-buffers-too t
       dired-free-space nil)
 
-(setq resize-mini-windows t)
+;; (setq resize-mini-windows t)
 
 (add-hook 'dired-mode-hook #'hl-line-mode)
-(setq dired-isearch-filenames 'dwim
-      dired-create-destination-dirs 'ask
-      dired-vc-rename-file t
-      dired-do-revert-buffer (lambda (dir  (not (file-remote-p dir ))) )
-      dired-clean-up-buffers-too t
-      dired-clean-confirm-killing-deleted-buffers t
-      dired-x-hands-off-my-keys t     ; easier to show the keys I use
-      dired-bind-man nil
-      dired-bind-info nil
-      delete-by-moving-to-trash t)
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -149,24 +139,13 @@
   (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-tree)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
 
-(setq evil-move-cursor-back nil
-      evil-ex-search-vim-style-regexp t
-      evil-ex-visual-char-range t        ; column range for ex commands
-      ;; Only do highlighting in selected window so that Emacs has less work
-      ;; to do highlighting them all.
-      evil-ex-interactive-search-highlight 'selected-window
-      ;; It's infuriating that innocuous "beginning of line" or "end of line"
-      ;; errors will abort macros, so suppress them:
-      evil-kbd-macro-suppress-motion-error t
-      ;; more vim-like behavior
-      evil-symbol-word-search t
-      evil-want-fine-undo t
-      evil-move-beyond-eol t
-      evil-search-module 'evil-search
-      evil-vsplit-window-right t
-      evil-split-window-below t)
+  (setq evil-move-cursor-back nil
+        evil-want-fine-undo t
+        evil-move-beyond-eol t
+        evil-vsplit-window-right t
+        evil-split-window-below t))
 
 (with-eval-after-load 'evil
   (with-eval-after-load 'elpaca-ui (evil-make-intercept-map elpaca-ui-mode-map))
@@ -175,12 +154,11 @@
 (use-package general
   :after (evil)
   :config
-
-  (general-create-definer aadi/leader-keys
+  (general-create-definer +general/leader-keys
     :states '(normal motion visual operator emacs)
     :keymaps '(override global local)
     :prefix "SPC")
-  (general-create-definer aadi/leader-local-keys
+  (general-create-definer +general/leader-local-keys
     :states '(normal motion visual operator emacs)
     :keymaps '(override global local)
     :prefix "SPC m")
@@ -192,7 +170,7 @@
 (use-package evil-collection
   :after (evil)
   :config
-  (evil-collection-init))
+  (evil-collection-init '(dired org dashboard magit emms)))
 
 (use-package undo-tree
   :config
@@ -226,8 +204,6 @@
 
 (use-package helpful)
 
-(use-package unicode-fonts)
-
 (use-package fontaine
   :config
   (setq fontaine-presets
@@ -258,15 +234,15 @@
   (setq dashboard-items '((recents  . 5)
                           (projects . 5)
                           (agenda . 5)))
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-projects-backend 'project-el)
-  (setq dashboard-startup-banner (random-element-of-list banner-icons-list))
-  (setq dashboard-banner-logo-title "")
-  (setq dashboard-image-banner-max-height 500)
-  (setq dashboard-set-footer nil)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-set-init-info t)
-  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (setq dashboard-set-heading-icons t
+        dashboard-projects-backend 'project-el
+        dashboard-startup-banner (random-element-of-list banner-icons-list)
+        dashboard-banner-logo-title ""
+        dashboard-image-banner-max-height 500
+        dashboard-set-footer nil
+        dashboard-set-file-icons t
+        dashboard-set-init-info t
+        initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   (dashboard-setup-startup-hook))
 (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 
@@ -315,64 +291,6 @@
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
-(use-package evil-nerd-commenter)
-
-(use-package project)
-
-(use-package flycheck
-  :config
-  (global-flycheck-mode 1))
-
-(use-package flycheck-eglot
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
-
-(use-package eglot
-  :elpaca (eglot :host github :repo "joaotavora/eglot")
-  :after (web-mode project)
-  :hook ((prog-mode . eglot-ensure))
-  :config
-
-  ;; (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
-  (setq eglot-events-buffer-size 0
-        eglot-autoshutdown t)
-  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
-
-  ;; Yaml mode 
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
-
-  ;; Deno mode 
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
-  (add-to-list 'eglot-server-programs '((javascript-mode typescript-mode tsx-ts-mode js-jsx-mode) . (eglot-deno "deno" "lsp")))
-
-  (defclass eglot-deno (eglot-lsp-server) ()
-    :documentation "A custom class for deno lsp.")
-
-  (cl-defmethod eglot-initialization-options ((server eglot-deno))
-    "Passes through required deno initialization options"
-    (list :enable t
-          :lint t))
-
-  ;; Svelte Mode
-  (define-derived-mode svelte-mode web-mode "Svelte")
-  (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
-  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
-
-;; ;; C++ Mode
-;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
-;;                                       . ,(eglot-alternatives
-;;                                           '("ccls" "clangd")))))
-
-(use-package rustic
-  :config
-  (setq rustic-enable-detached-file-support t)
-  (setq rustic-lsp-client 'eglot))
-
 ;; Credits to karthink > https://github.com/karthink/project-x/blob/234f528bf3cf320b0d07ca61c6f9b2566167f0b3/project-x.el#L157
 ;; Recognize directories as projects by defining a new project backend `local'
 ;; -------------------------------------
@@ -400,23 +318,123 @@ DIR must include a .project file to be considered a project."
 
 (add-hook 'project-find-functions 'project-x-try-local 90)
 
-(use-package restclient)
-
 (use-package web-mode
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2))
 
-(use-package treesit
-  :elpaca nil)
+(use-package rustic
+  :config
+  (setq rustic-enable-detached-file-support t)
+  (setq rustic-lsp-client 'eglot))
 
-(use-package treesit-langs
-  :elpaca (treesit-langs :host github :repo "kiennq/treesit-langs"))
+(use-package treesit
+  :elpaca nil
+  :init
+  (setq treesit-language-source-alist
+        '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
+          ;; (c . ("https://github.com/tree-sitter/tree-sitter-c"))
+          ;; (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+          (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+          ;; (go . ("https://github.com/tree-sitter/tree-sitter-go"))
+          (html . ("https://github.com/tree-sitter/tree-sitter-html"))
+          (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+          (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+          (lua . ("https://github.com/MunifTanjim/tree-sitter-lua"))
+          ;; (make . ("https://github.com/alemuller/tree-sitter-make"))
+          ;; (ocaml . ("https://github.com/tree-sitter/tree-sitter-ocaml" "ocaml/src" "ocaml"))
+          (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+          ;; (php . ("https://github.com/tree-sitter/tree-sitter-php"))
+          (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+          (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+          ;; (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby"))
+          (rust . ("https://github.com/tree-sitter/tree-sitter-rust"))
+          (sql . ("https://github.com/derekstride/tree-sitter-sql" "gh-pages"))
+          (svelte . ("https://github.com/Himujjal/tree-sitter-svelte"))
+          (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))))
+  ;; (zig . ("https://github.com/GrayJack/tree-sitter-zig"))))
+  :config
+  (setq major-mode-remap-alist
+        '((yaml-mode . yaml-ts-mode)
+          (bash-mode . bash-ts-mode)
+          (js-mode . js-ts-mode)
+          (js-jsx-mode . js-ts-mode)
+          (lua-mode . lua-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          (json-mode . json-ts-mode)
+          (css-mode . css-ts-mode)
+          (html-mode . html-ts-mode)
+          (toml-mode . toml-ts-mode)
+          (rust-mode . rust-ts-mode)
+          (python-mode . python-ts-mode)))
+
+  (defun +treesit/treesit-install-all-languages ()
+    "Install all languages specified by `treesit-language-source-alist'."
+    (interactive)
+    (let ((languages (mapcar 'car treesit-language-source-alist)))
+      (dolist (lang languages)
+	    (treesit-install-language-grammar lang)
+	    (message "`%s' parser was installed." lang)
+	    (sit-for 0.75)))))
+
+;; (use-package treesit-langs
+;;   :elpaca (treesit-langs :host github :repo "kiennq/treesit-langs"))
 ;; (use-package tree-sitter
 ;;   :config
 ;;   (global-tree-sitter-mode))
 ;; (use-package tree-sitter-langs)
+
+(use-package project)
+
+(use-package flycheck
+  :config
+  (global-flycheck-mode 1))
+
+(use-package flycheck-eglot
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))
+
+(use-package eglot
+  :elpaca (eglot :host github :repo "joaotavora/eglot")
+  :after (web-mode project)
+  :hook ((prog-mode . eglot-ensure))
+  :config
+
+  ;; (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+  (setq eglot-events-buffer-size 0
+        eglot-autoshutdown t)
+  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+
+  ;; Yaml mode 
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
+
+  ;; ;; Deno mode 
+  ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
+  ;; (add-to-list 'eglot-server-programs '((javascript-mode typescript-mode tsx-ts-mode js-jsx-mode) . (eglot-deno "deno" "lsp")))
+
+  ;; (defclass eglot-deno (eglot-lsp-server) ()
+  ;;   :documentation "A custom class for deno lsp.")
+
+  ;; (cl-defmethod eglot-initialization-options ((server eglot-deno))
+  ;;   "Passes through required deno initialization options"
+  ;;   (list :enable t
+  ;;         :lint t))
+
+  ;; Svelte Mode
+  (define-derived-mode svelte-mode web-mode "Svelte")
+  (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
+  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio"))))
+
+;; ;; C++ Mode
+;; (add-to-list 'eglot-server-programs `((c-mode c-ts-mode c++-mode c++-ts-mode)
+;;                                       . ,(eglot-alternatives
+;;                                           '("ccls" "clangd")))))
 
 (use-package magit
   :config
@@ -444,6 +462,8 @@ DIR must include a .project file to be considered a project."
 (use-package evil-multiedit
   :config
   (evil-multiedit-default-keybinds))
+
+(use-package evil-nerd-commenter)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -780,7 +800,7 @@ DIR must include a .project file to be considered a project."
  "?\t" 'org-cycle
  "z i" '(org-toggle-inline-images :whick-key "inline images"))
 
-(aadi/leader-keys
+(+general/leader-keys
   "SPC" 'find-file
   "RET" '+denote/pick-silo-open
   "z" 'org-agenda
@@ -825,7 +845,7 @@ DIR must include a .project file to be considered a project."
   "m" '(:ignore t :which-key "org localleader")
   "a" '+denote/move-from-todo-to-archive)
 
-(aadi/leader-local-keys org-mode-map
+(+general/leader-local-keys org-mode-map
   "h" '(:ignore t :which-key "heading")
   "h h" 'consult-org-heading
   "l" '(:ignore t :which-key "link")
@@ -848,6 +868,10 @@ DIR must include a .project file to be considered a project."
  "TAB" 'tempel-next)
 
 (general-define-key 
+ :keymaps 'minibuffer-local-map
+ "<escape>" 'keyboard-escape-quit)
+
+(general-define-key 
  :prefix "C-h"
  "f" 'helpful-callable
  "v" 'helpful-variable
@@ -857,7 +881,7 @@ DIR must include a .project file to be considered a project."
 
 (general-define-key 
  :keymaps 'transient-map
- "<>" 'transient-quit-one)
+ "<ESC>" 'transient-quit-one)
 
 (general-define-key 
  :keymaps 'dashboard-mode-map
@@ -865,10 +889,10 @@ DIR must include a .project file to be considered a project."
 
 (general-define-key "C-;" 'embark-act)
 
-(aadi/leader-keys :keymaps 'eglot-mode-map "m" '(:ignore t :which-key "eglot localleader"))
-(aadi/leader-local-keys :keymaps 'eglot-mode-map "a" 'eglot-format)
+(+general/leader-keys :keymaps 'eglot-mode-map "m" '(:ignore t :which-key "eglot localleader"))
+(+general/leader-local-keys :keymaps 'eglot-mode-map "a" 'eglot-format)
 
-(aadi/leader-local-keys
+(+general/leader-local-keys
   :keymaps 'rustic-mode-map
   "z" 'Competitive-coding-output-input-toggle
   "r" 'rust-reset
