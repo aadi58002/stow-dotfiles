@@ -179,6 +179,8 @@
         undo-tree-auto-save-history t)
   (global-undo-tree-mode))
 
+(use-package eat)
+
 (use-package tramp
   :elpaca nil)
 

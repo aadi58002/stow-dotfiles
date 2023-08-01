@@ -349,6 +349,10 @@ A package which integrates into emacs keep undo history
   (global-undo-tree-mode))
 #+end_src
 ** Generally helpful Package
+*** Eat
+#+begin_src emacs-lisp
+(use-package eat)
+#+end_src
 *** Tramp
 #+begin_src emacs-lisp
 (use-package tramp
