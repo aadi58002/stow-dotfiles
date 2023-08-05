@@ -55,6 +55,8 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 ### Personal Blog
 export BLOG_DEVELOPMENT="True"
 
+### Nix
+export NIXPKGS_ALLOW_UNFREE=1
 
 status --is-login; and begin
 
