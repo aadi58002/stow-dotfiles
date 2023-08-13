@@ -387,27 +387,18 @@ DIR must include a .project file to be considered a project."
 ;;   (global-tree-sitter-mode))
 ;; (use-package tree-sitter-langs)
 
-(use-package project)
-
-(use-package flycheck
-  :config
-  (global-flycheck-mode 1))
-
-(use-package flycheck-eglot
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
+(use-package project
+  :elpaca nil)
 
 (use-package eglot
-  :elpaca (eglot :host github :repo "joaotavora/eglot")
+  :elpaca nil
   :after (web-mode project)
   :hook ((prog-mode . eglot-ensure))
   :config
 
-  ;; (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
   (setq eglot-events-buffer-size 0
         eglot-autoshutdown t)
-  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
   ;; Yaml mode 
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))

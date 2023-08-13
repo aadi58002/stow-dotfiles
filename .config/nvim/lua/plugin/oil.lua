@@ -1,0 +1,24 @@
+-- plugin/oil.nvim
+return {
+    {
+        'stevearc/oil.nvim',
+        opts = {
+            view_options = {
+                show_hidden = true,
+            },
+        },
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        keys = {
+            {
+                "gd",
+                function()
+                    local oil = require('oil')
+                    oil.open()
+                end,
+                mode = "n" ,desc =
+                "Open parent dir with oil"
+            },
+        }
+    }
+}
