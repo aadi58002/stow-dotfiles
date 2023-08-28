@@ -12,10 +12,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local plugins_list = { 'dashboard', 'oil' , 'undotree', 'which-key', 'telescope', 'tokyonight', 'tree-sitter', 'playground', 'lsp', 'neogit', 'gitsigns', 'lualine', 'autopair', 'comment' }
+local plugins_list = { 'oil' , 'undotree', 'which-key', 'telescope', 'tokyonight', 'tree-sitter', 'playground', 'lsp', 'neogit', 'gitsigns', 'lualine', 'autopair', 'comment' }
 local plugins = {}
 for i = 1, #plugins_list do
     table.insert(plugins, { require('plugin.' .. plugins_list[i]) })
 end
-
 require("lazy").setup(plugins)
