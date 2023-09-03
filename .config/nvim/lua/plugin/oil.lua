@@ -1,4 +1,4 @@
--- plugin/oil.nvim
+-- plugin/oil.nvim.lua
 return {
     {
         'stevearc/oil.nvim',

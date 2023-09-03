@@ -1,5 +1,12 @@
 # ~/.config/fish/config.fish: DO NOT EDIT -- this file has been generated
 # automatically by home-manager.
+function fish_user_key_bindings
+    fish_default_key_bindings -M insert
+    #fish_vi_key_bindings --no-erase insert
+
+    bind \cX "fish_commandline_append ' | wl-copy'"
+    bind \cV "fish_commandline_prepend_full 'wl-paste | '"  # https://github.com/fish-shell/fish-shell/issues/8763
+end
 
 # Only execute this file once per shell.
 set -q __fish_home_manager_config_sourced; and exit
@@ -117,7 +124,6 @@ status --is-interactive; and begin
 
     #PATH
     fish_add_path $HOME/.local/bin
-    fish_add_path $HOME/.nix-profile/bin
     fish_add_path $HOME/.local/share/cargo/bin/
 
     cmd_exists starship && starship init fish | source

@@ -1,3 +1,4 @@
+-- plugins/undotree.lua:
 return {
    'mbbill/undotree',
    lazy = false,
