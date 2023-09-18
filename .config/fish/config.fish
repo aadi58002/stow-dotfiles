@@ -104,7 +104,7 @@ status --is-interactive; and begin
     alias fd 'fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user'
     alias grep rg
     alias ke 'pkill emacs'
-    alias ls exa
+    alias ls eza
     alias n nvim
     alias pdf_join '~/Documents/Scripts/pdf_join.sh'
     alias plocate 'plocate -d ~/.local/share/plocate/plocate.db'
@@ -157,5 +157,6 @@ status --is-interactive; and begin
 
     
     zoxide init fish | source
+    just --completions fish | source
 
 end

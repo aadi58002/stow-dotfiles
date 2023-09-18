@@ -36,6 +36,7 @@
 
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
+;;;###autoload
 (defun copy-current-file (new-name)
   "Copy current file to a NEW-NAME."
   (interactive (list

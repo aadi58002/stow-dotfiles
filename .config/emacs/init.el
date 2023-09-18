@@ -74,8 +74,6 @@
   (interactive)
   (if (not (looking-back "^\\s-*")) (backward-kill-word 1) (delete-horizontal-space)))
 
-(load (concat user-emacs-directory "autoload/+sudo.el"))
-
 (autoload #'+denote/move-from-todo-to-archive (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/add-todo-keyword (concat user-emacs-directory "autoload/+denote"))
 (autoload #'+denote/pick-silo-open (concat user-emacs-directory "autoload/+denote"))
@@ -185,7 +183,8 @@
   :elpaca nil)
 
 (use-package tempel
-  :config
+  :elpaca (tempel :host github :repo "minad/tempel")
+  :init
   (global-tempel-abbrev-mode))
 
 ;; I don't have to write commonly available snippets by hand
@@ -399,7 +398,6 @@ DIR must include a .project file to be considered a project."
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
   (setq eglot-events-buffer-size 0
         eglot-autoshutdown t)
-
   ;; Yaml mode 
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
@@ -480,7 +478,6 @@ DIR must include a .project file to be considered a project."
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-
 
   ;; Silence the pcomplete capf, no errors or messages!
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
@@ -855,7 +852,6 @@ DIR must include a .project file to be considered a project."
  :states 'insert
  "C-s" 'tempel-complete)
 (general-define-key 
- :states '(insert normal)
  :keymaps 'tempel-map
  "S-TAB" 'tempel-previous
  "TAB" 'tempel-next)
