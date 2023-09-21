@@ -31,7 +31,13 @@ return {
             },
             {
                 "<leader><space>",
-                "<cmd>Telescope find_files cwd=%:p:h<cr>",
+                "<cmd>Telescope file_browser path=%:p:h select_buffer=true hidden=true<cr>",
+                desc =
+                "Find Files (root dir)"
+            },
+            {
+                "<leader>ff",
+                "<cmd>Telescope ",
                 desc =
                 "Find Files (root dir)"
             },
@@ -40,10 +46,22 @@ return {
             defaults = {
                 prompt_prefix = " ",
                 selection_caret = " ",
+                extensions = {
+                    file_browser = {
+                        hijack_netrw = true,
+                        follow_symlinks = true,
+                        prompt_path = true,
+                        grouped = true,
+                        auto_depth = true,
+                    }
+                },
                 pickers = {
                 },
             },
         },
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        config = function()
+            require('telescope').load_extension "file_browser"
+        end,
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim' }
     }
 }

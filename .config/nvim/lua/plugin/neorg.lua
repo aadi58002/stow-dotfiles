@@ -16,7 +16,11 @@ return {
             },
           },
           ["core.summary"] = {},
-          ["core.completion"] = {},
+          ["core.completion"] = {
+             config = {
+               engine = "nvim-cmp",
+             },
+          },
           ["core.integrations.telescope"] = {},
         },
       }
