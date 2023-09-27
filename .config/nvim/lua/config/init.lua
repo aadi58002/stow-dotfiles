@@ -1,4 +1,4 @@
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -34,10 +34,3 @@ vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("persistence", { clear = true }),
-  callback = function()
-    require("persistence").load({ last = true })
-  end,
-})

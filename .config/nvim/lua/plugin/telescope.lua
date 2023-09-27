@@ -12,12 +12,6 @@ return {
                 "Open recent files"
             },
             {
-                "<leader>,",
-                "<cmd>Telescope buffers show_all_buffers=true<cr>",
-                desc =
-                "Switch Buffer"
-            },
-            {
                 "<leader>/",
                 "<cmd>Telescope live_grep<cr>",
                 desc =
@@ -41,6 +35,26 @@ return {
                 desc =
                 "Find Files (root dir)"
             },
+
+            {
+                "<leader>bb",
+                "<cmd>Telescope buffers show_all_buffers=true<cr>",
+                desc =
+                "Switch Buffer"
+            },
+            {
+                "<leader>bk",
+                "<cmd>bp|bd #<cr>",
+                desc =
+                "Kill this buffer"
+            },
+
+            {
+                "<leader>is",
+                "<cmd>Telescope luasnip<cr>",
+                desc =
+                "Insert Snippet"
+            },
         },
         opts = {
             defaults = {
@@ -55,13 +69,14 @@ return {
                         auto_depth = true,
                     }
                 },
-                pickers = {
-                },
+                pickers = {},
             },
         },
         config = function()
             require('telescope').load_extension "file_browser"
+            require('telescope').load_extension "ui-select"
+            require('telescope').load_extension "luasnip"
         end,
-        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim', 'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
     }
 }
