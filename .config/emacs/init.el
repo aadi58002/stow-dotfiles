@@ -177,7 +177,7 @@
         undo-tree-auto-save-history t)
   (global-undo-tree-mode))
 
-(use-package eat)
+;; (use-package eat)
 
 (use-package tramp
   :elpaca nil)
@@ -390,7 +390,7 @@ DIR must include a .project file to be considered a project."
   :elpaca nil)
 
 (use-package eglot
-  :elpaca nil
+  :elpaca (:inherit elpaca-menu-gnu-devel-elpa)
   :after (web-mode project)
   :hook ((prog-mode . eglot-ensure))
   :config
@@ -772,7 +772,7 @@ DIR must include a .project file to be considered a project."
 
 (general-define-key
  :states 'normal
- "," 'kitty-async-process)
+ "," 'async-shell-command)
 
 (general-define-key
  :states 'insert

@@ -53,7 +53,7 @@ Stopping Some modules which i don't use from being loaded like menu-bar-mode,too
       gc-cons-percentage 0.6)
 
 ;; Write any customizations to a temp file so they are discarded.
-(setq custom-file (make-temp-file "custom-" nil ".el"))
+(setq custom-file (make-temp-file "custom" nil ".el"))
 
 ;; Faster to disable these here (before they've been initialized)
 (menu-bar-mode -1)
@@ -347,7 +347,7 @@ A package which integrates into emacs keep undo history
 ** Generally helpful Package
 *** Eat
 #+begin_src emacs-lisp
-(use-package eat)
+;; (use-package eat)
 #+end_src
 *** Tramp
 #+begin_src emacs-lisp
@@ -609,7 +609,7 @@ I still have not worked out typescript support with tsx and jsx file completion 
   :elpaca nil)
 
 (use-package eglot
-  :elpaca nil
+  :elpaca (:inherit elpaca-menu-gnu-devel-elpa)
   :after (web-mode project)
   :hook ((prog-mode . eglot-ensure))
   :config
@@ -1055,7 +1055,7 @@ Remove this block with you are using straight.el
 #+begin_src emacs-lisp
 (general-define-key
  :states 'normal
- "," 'kitty-async-process)
+ "," 'async-shell-command)
 
 (general-define-key
  :states 'insert

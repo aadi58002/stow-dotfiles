@@ -44,11 +44,11 @@ return {
         lsp.setup()
 
         cmp.setup({
+            sources = {
+                { name = 'nvim_lsp' }
+            },
             mapping = {
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
-            },
-            sources = {
-                { name = 'orgmode' }
             }
         })
     end
