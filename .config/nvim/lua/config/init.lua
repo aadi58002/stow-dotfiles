@@ -34,3 +34,6 @@ vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true

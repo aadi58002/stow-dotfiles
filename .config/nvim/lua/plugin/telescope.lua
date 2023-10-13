@@ -31,11 +31,29 @@ return {
             },
             {
                 "<leader>ff",
-                "<cmd>Telescope ",
+                function()
+                    require('telescope.builtin').find_files({
+                        cwd = "~/Personal",
+                        find_command = {
+                            "fd",
+                            ".",
+                            "-L",
+                            "--type",
+                            "file",
+                            "-H",
+                            "--strip-cwd-prefix",
+                        }
+                    })
+                end,
                 desc =
                 "Find Files (root dir)"
             },
-
+            {
+                "<leader>fg",
+                "<cmd>Telescope git_files path=%:p:h<cr>",
+                desc =
+                "Find Files (root dir)"
+            },
             {
                 "<leader>bb",
                 "<cmd>Telescope buffers show_all_buffers=true<cr>",
@@ -69,7 +87,12 @@ return {
                         auto_depth = true,
                     }
                 },
-                pickers = {},
+                pickers = {
+                    find_files = {
+                        find_command = {
+                        }
+                    }
+                },
             },
         },
         config = function()
@@ -77,6 +100,7 @@ return {
             require('telescope').load_extension "ui-select"
             require('telescope').load_extension "luasnip"
         end,
-        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim', 'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim',
+            'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
     }
 }
