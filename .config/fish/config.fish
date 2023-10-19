@@ -18,11 +18,11 @@ set -x GPG_TTY (tty)
 ### EXPORT
 export TERM="xterm-256color" # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|poweroff|reboot|history|cd -|cd ..|doomsync|esr|ess|essr)"
-export GIT_EDITOR="emacsclient -c -a \'\'" # $EDITOR use Emacs in terminal
-export EDITOR="emacsclient -c -a \'\'" # $EDITOR use Emacs in terminal
-export KUBE_EDITOR="emacsclient -c -a \'\'"
-export DIFFPROG="emacsclient -c -a emacs"
-export VISUAL="emacsclient -c -a emacs" # $VISUAL use Emacs in GUI mode
+export GIT_EDITOR="nvim"
+export EDITOR="nvim"
+export KUBE_EDITOR="nvim"
+export DIFFPROG="nvim"
+export VISUAL="nvim"
 
 ### SET MANPAGER
 export MANPAGER="bat"

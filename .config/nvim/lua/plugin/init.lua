@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins_list = {
     'autopair',
     'comment',
+    'completion',
     'fidget',
     'gitsigns',
     'lsp',
@@ -26,12 +27,11 @@ local plugins_list = {
     'hop',
     'oil',
     'playground',
-    'snippets',
     'telescope',
-    'trouble',
     'tokyonight',
     'toggleterm',
     'tree-sitter',
+    'snippets',
     'undotree',
     'which-key',
 }

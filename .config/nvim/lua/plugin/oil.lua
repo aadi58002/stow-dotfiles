@@ -2,6 +2,7 @@
 return {
     {
         'stevearc/oil.nvim',
+        cmd = "Oil",
         opts = {
             view_options = {
                 show_hidden = true,
@@ -11,7 +12,7 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = {
             {
-                "gd",
+                "<leader>fd",
                 function()
                     local oil = require('oil')
                     oil.open()

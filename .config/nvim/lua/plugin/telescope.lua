@@ -78,29 +78,33 @@ return {
             defaults = {
                 prompt_prefix = " ",
                 selection_caret = " ",
-                extensions = {
-                    file_browser = {
-                        hijack_netrw = true,
-                        follow_symlinks = true,
-                        prompt_path = true,
-                        grouped = true,
-                        auto_depth = true,
-                    }
-                },
-                pickers = {
-                    find_files = {
-                        find_command = {
-                        }
-                    }
-                },
+            },
+            pickers = {},
+            extensions = {
+                file_browser = {
+                    hijack_netrw = true,
+                    show_symlinks = true,
+                    follow_symlinks = true,
+                    grouped = true,
+                }
             },
         },
-        config = function()
-            require('telescope').load_extension "file_browser"
-            require('telescope').load_extension "ui-select"
-            require('telescope').load_extension "luasnip"
+        config = function(_,opts)
+            local telescope = require 'telescope'
+            telescope.setup(opts)
+            telescope.load_extension "file_browser"
+            telescope.load_extension "ui-select"
+            telescope.load_extension "luasnip"
+
+            vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                    local bind = vim.keymap.set
+                    bind('n', 'gi', "<cmd>Telescope lsp_implementations<cr>", { desc = "Telescope Implementations"})
+                    bind('n', 'gr', "<cmd>Telescope lsp_references<cr>", { desc = "Telescope References"})
+                end,
+            })
         end,
         dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim',
-            'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
+        'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
     }
 }
