@@ -1,16 +1,22 @@
 -- plugins/tree-sitter.lua:
 return {
     "nvim-treesitter/nvim-treesitter",
+    lazy = true,
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync" },
     opts = {
-        ensure_installed = { "lua", "help", "rust", "typescript", "javascript", "query", "astro", "css", "tsx" },
+        ensure_installed = {},
         sync_install = true,
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true },
+        -- Required for https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#plugins-with-a-pre-comment-hook
+        context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+        },
         incremental_selection = {
             enable = true,
             keymaps = {
@@ -64,5 +70,5 @@ return {
                 },
             },
         }
-    }
+    },
 }

@@ -2,7 +2,8 @@
 return {
     {
         "echasnovski/mini.pairs",
-        event = "VeryLazy",
+        event = "InsertEnter",
+        lazy = true,
         opts = {},
     },
 }

@@ -63,4 +63,42 @@ ls.add_snippets(nil,{
         }}
         ]],{i(0)})),
     },
+    yaml = {
+        s("dp",fmt([[
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: {}-deployment
+          labels:
+            app: {} 
+        spec:
+          selector:
+            matchLabels:
+              app: {} 
+          template:
+            metadata:
+              labels:
+                app: {} 
+            spec:
+              containers:
+              - name: {}
+                image: {}:latest
+                ports:
+                - containerPort: {}
+        ]],{i(1),rep(1),rep(1),rep(1),rep(1),i(2),i(3,"80")})),
+        s("se",fmt([[
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: {}-service
+        spec:
+          type: NodePort
+          selector:
+            app: {} 
+          ports:
+          - protocol: TCP
+            port: {} 
+            targetPort: {} 
+        ]],{i(1),rep(1),i(2,"8000"),i(3,"80")}))
+    }
 })

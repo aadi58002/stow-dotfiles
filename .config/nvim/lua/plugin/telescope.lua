@@ -2,6 +2,7 @@
 return {
     {
         "nvim-telescope/telescope.nvim",
+        lazy = true,
         cmd = "Telescope",
         version = false, -- telescope did only one release, so use HEAD for now
         keys = {
@@ -84,12 +85,11 @@ return {
                 file_browser = {
                     hijack_netrw = true,
                     show_symlinks = true,
-                    follow_symlinks = true,
                     grouped = true,
                 }
             },
         },
-        config = function(_,opts)
+        config = function(_, opts)
             local telescope = require 'telescope'
             telescope.setup(opts)
             telescope.load_extension "file_browser"
@@ -99,12 +99,12 @@ return {
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
                     local bind = vim.keymap.set
-                    bind('n', 'gi', "<cmd>Telescope lsp_implementations<cr>", { desc = "Telescope Implementations"})
-                    bind('n', 'gr', "<cmd>Telescope lsp_references<cr>", { desc = "Telescope References"})
+                    bind('n', 'gi', "<cmd>Telescope lsp_implementations<cr>", { desc = "Telescope Implementations" })
+                    bind('n', 'gr', "<cmd>Telescope lsp_references<cr>", { desc = "Telescope References" })
                 end,
             })
         end,
         dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim',
-        'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
+            'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
     }
 }

@@ -4,6 +4,7 @@ function fish_user_key_bindings
     fish_default_key_bindings -M insert
     #fish_vi_key_bindings --no-erase insert
 
+    bind \b backward-kill-word
     bind \cX "fish_commandline_append ' | wl-copy'"
     bind \cV "fish_commandline_prepend_full 'wl-paste | '"  # https://github.com/fish-shell/fish-shell/issues/8763
 end
@@ -28,7 +29,7 @@ export VISUAL="nvim"
 export MANPAGER="bat"
 
 ### XDG variables setup
-# export QT_QPA_PLATFORM="wayland"
+export QT_QPA_PLATFORM="wayland"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -86,6 +87,22 @@ status --is-interactive; and begin
     abbr --add --global -- xr 'sudo xbps-remove -R'
     abbr --add --global -- xx 'xbps-query -Rx'
 
+    # Interactive shell initialisation
+    function cmd_exists
+        # command -v $argv[1] 1>/dev/null && true || false
+        type -q $argv[1] && true || false
+    end
+
+
+    #PATH
+    fish_add_path $HOME/.local/bin
+    fish_add_path $HOME/.local/share/cargo/bin/
+
+    cmd_exists starship && starship init fish | source
+    cmd_exists zoxide && zoxide init fish | source
+    cmd_exists kind && kind completion fish | source
+    cmd_exists helm && helm completion fish | source
+
     # Aliases
     alias c cargo
     alias cat bat
@@ -113,23 +130,13 @@ status --is-interactive; and begin
     alias vim 'emacsclient -a '\''emacs'\'' -t -q'
     alias x11Start 'export DISPLAY=:12 && Xwayland -retro -noreset -noTouchPointerEmulation :12 & disown'
 
-    alias hmr 'home-manager switch --flake ~/Personal/nix-dotfiles/nix/home-manager#aadi58002'
-    alias hmu 'nix flake update ~/Personal/nix-dotfiles/nix/home-manager && hmr'
+    alias ku 'sudo kubectl'
+    alias he 'sudo helm'
+    alias ki 'sudo kind'
+    alias k9 'sudo k9s'
 
-    # Interactive shell initialisation
-    function cmd_exists
-        command -v $argv[1] 1>/dev/null && true || false
-    end
-
-
-    #PATH
-    fish_add_path $HOME/.local/bin
-    fish_add_path $HOME/.local/share/cargo/bin/
-
-    cmd_exists starship && starship init fish | source
-    cmd_exists zoxide && zoxide init fish | source
-    cmd_exists kind && kind completion fish | source
-    cmd_exists helm && helm completion fish | source
+    alias kbns 'sudo kubectl config set-context --current --namespace '
+    alias kbc 'sudo kubectl config use-context '
 
     #/home/$USER/Documents/Scripts/shell-color-scripts/random.sh
 

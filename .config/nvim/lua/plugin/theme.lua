@@ -1,6 +1,7 @@
--- plugins/tokyonight.lua:
+-- plugins/theme.lua:
 return {
     'folke/tokyonight.nvim',
+    event = "VeryLazy",
     opts = {
         style = "moon",
         transparent = true,

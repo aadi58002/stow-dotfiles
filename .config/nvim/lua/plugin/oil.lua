@@ -2,6 +2,7 @@
 return {
     {
         'stevearc/oil.nvim',
+        lazy = true,
         cmd = "Oil",
         opts = {
             view_options = {
