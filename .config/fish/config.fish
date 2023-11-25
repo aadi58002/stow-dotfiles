@@ -1,18 +1,3 @@
-# ~/.config/fish/config.fish: DO NOT EDIT -- this file has been generated
-# automatically by home-manager.
-function fish_user_key_bindings
-    fish_default_key_bindings -M insert
-    #fish_vi_key_bindings --no-erase insert
-
-    bind \b backward-kill-word
-    bind \cX "fish_commandline_append ' | wl-copy'"
-    bind \cV "fish_commandline_prepend_full 'wl-paste | '"  # https://github.com/fish-shell/fish-shell/issues/8763
-end
-
-# Only execute this file once per shell.
-set -q __fish_home_manager_config_sourced; and exit
-set -g __fish_home_manager_config_sourced 1
-
 set -U fish_greeting
 set -x GPG_TTY (tty)
 
@@ -67,18 +52,14 @@ export BLOG_DEVELOPMENT="True"
 export NIXPKGS_ALLOW_UNFREE=1
 
 status --is-login; and begin
-
     # Login shell initialisation
     if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
         Hyprland
     end
-
-
 end
 
 status --is-interactive; and begin
 
-    # Abbreviations
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
     abbr --add --global -- xi 'sudo xbps-install'
@@ -87,21 +68,14 @@ status --is-interactive; and begin
     abbr --add --global -- xr 'sudo xbps-remove -R'
     abbr --add --global -- xx 'xbps-query -Rx'
 
-    # Interactive shell initialisation
-    function cmd_exists
-        # command -v $argv[1] 1>/dev/null && true || false
-        type -q $argv[1] && true || false
-    end
+    set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $PATH
 
-
-    #PATH
-    fish_add_path $HOME/.local/bin
-    fish_add_path $HOME/.local/share/cargo/bin/
-
-    cmd_exists starship && starship init fish | source
-    cmd_exists zoxide && zoxide init fish | source
-    cmd_exists kind && kind completion fish | source
-    cmd_exists helm && helm completion fish | source
+    starship init fish | source
+    zoxide init fish | source
+    just --completions fish | source
+    kubectl completion fish | source
+    kind completion fish | source
+    # helm completion fish | source
 
     # Aliases
     alias c cargo
@@ -138,32 +112,11 @@ status --is-interactive; and begin
     alias kbns 'sudo kubectl config set-context --current --namespace '
     alias kbc 'sudo kubectl config use-context '
 
-    #/home/$USER/Documents/Scripts/shell-color-scripts/random.sh
 
-    function dir_back
-        commandline "cd .."
-        commandline -f execute
-    end
-
-    function dir_prev
-        commandline "cd -"
-        commandline -f execute
-    end
     bind \e\[1\;3D dir_back
     bind \e\[1\;3C dir_prev
 
-    # pnpm
-    set -gx PNPM_HOME "/home/aditya-yadav/.local/share/pnpm"
-    set -gx PATH "$PNPM_HOME" $PATH
-    # pnpm end
-
-
-    # kind completion fish | source
-    # kubectl completion fish | source
-    # helm completion fish | source
-
-    
-    zoxide init fish | source
-    just --completions fish | source
-
+    bind \b backward-kill-word
+    bind \cX "fish_commandline_append ' | wl-copy'"
+    bind \cV "fish_commandline_prepend_full 'wl-paste | '"  # https://github.com/fish-shell/fish-shell/issues/8763
 end

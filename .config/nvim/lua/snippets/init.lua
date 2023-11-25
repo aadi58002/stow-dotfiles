@@ -32,9 +32,6 @@ ls.add_snippets(nil,{
             i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
         })
     },
-    lua = {
-        s("req", fmt([[local {} = require("{}")]],{rep(1),i(1)})),
-    },
     cpp = {
         s("cp",fmt([[
         #include <bits/stdc++.h>
@@ -62,6 +59,36 @@ ls.add_snippets(nil,{
             return 0;
         }}
         ]],{i(0)})),
+    },
+    lua = {
+        s("req", fmt([[local {} = require("{}")]],{rep(1),i(1)})),
+    },
+    norg = {
+        s("journal",fmt([[
+        * Time Line
+          - (-) 06:30..07:00 -> Morning routine with a little game
+          - (-) 07:00..08:00 -> Make plans for the day and touch up on some tech news 
+          - 08:00..09:00 -> 
+          - 09:00..10:00 -> 
+          - 10:00..11:00 -> 
+          - 11:00..12:00 -> 
+          - 12:00..13:00 -> 
+          - 13:00..14:00 -> 
+          - 14:00..15:00 -> 
+          - 15:00..16:00 -> 
+          - 16:00..17:00 -> 
+          - 17:00..18:00 -> 
+          - 18:00..19:00 -> 
+          - 19:00..20:00 -> 
+          - 20:00..21:00 -> 
+          - 21:00..22:00 -> 
+          - 22:00..23:00 -> 
+          - 23:00..06:30 -> Sleep till 6:30
+
+        * Todo List
+          - Read (atmost) 30 chapters of manga
+          - 
+        ]],{}))
     },
     yaml = {
         s("dp",fmt([[
