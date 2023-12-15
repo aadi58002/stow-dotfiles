@@ -104,7 +104,7 @@ return {
                 end,
             })
         end,
-        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-file-browser.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-file-browser.nvim', branch = "personal" },
             'nvim-telescope/telescope-ui-select.nvim', 'benfowler/telescope-luasnip.nvim' }
     }
 }
