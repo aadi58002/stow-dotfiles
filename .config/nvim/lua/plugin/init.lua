@@ -31,7 +31,6 @@ local plugins_list = {
     'statusline',
     'telescope',
     'theme',
-    'toggleterm',
     'tree-sitter',
     'undotree',
 }
