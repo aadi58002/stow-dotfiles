@@ -26,14 +26,21 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
-ls.add_snippets(nil,{
-    all = {
-        s("ternary", {
-            i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
-        })
-    },
-    cpp = {
-        s("cp",fmt([[
+ls.add_snippets(nil, {
+	all = {
+		s("ternary", {
+			i(1, "cond"),
+			t(" ? "),
+			i(2, "then"),
+			t(" : "),
+			i(3, "else"),
+		}),
+	},
+	cpp = {
+		s(
+			"cp",
+			fmt(
+				[[
         #include <bits/stdc++.h>
 
         using namespace std;
@@ -48,8 +55,14 @@ ls.add_snippets(nil,{
             }}
             return 0;
         }}
-        ]],{i(0)})),
-        s("bp",fmt([[
+        ]],
+				{ i(0) }
+			)
+		),
+		s(
+			"bp",
+			fmt(
+				[[
         #include <bits/stdc++.h>
 
         using namespace std;
@@ -58,13 +71,19 @@ ls.add_snippets(nil,{
             {}
             return 0;
         }}
-        ]],{i(0)})),
-    },
-    lua = {
-        s("req", fmt([[local {} = require("{}")]],{rep(1),i(1)})),
-    },
-    norg = {
-        s("journal",fmt([[
+        ]],
+				{ i(0) }
+			)
+		),
+	},
+	lua = {
+		s("req", fmt([[local {} = require("{}")]], { rep(1), i(1) })),
+	},
+	norg = {
+		s(
+			"journal",
+			fmt(
+				[[
         * Time Line
           - (-) 06:30..07:00 -> Morning routine with a little game
           - (-) 07:00..08:00 -> Make plans for the day and touch up on some tech news 
@@ -88,10 +107,16 @@ ls.add_snippets(nil,{
         * Todo List
           - Read (atmost) 30 chapters of manga
           - 
-        ]],{}))
-    },
-    yaml = {
-        s("dp",fmt([[
+        ]],
+				{}
+			)
+		),
+	},
+	yaml = {
+		s(
+			"dp",
+			fmt(
+				[[
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -112,8 +137,14 @@ ls.add_snippets(nil,{
                 image: {}:latest
                 ports:
                 - containerPort: {}
-        ]],{i(1),rep(1),rep(1),rep(1),rep(1),i(2),i(3,"80")})),
-        s("se",fmt([[
+        ]],
+				{ i(1), rep(1), rep(1), rep(1), rep(1), i(2), i(3, "80") }
+			)
+		),
+		s(
+			"se",
+			fmt(
+				[[
         apiVersion: v1
         kind: Service
         metadata:
@@ -126,62 +157,82 @@ ls.add_snippets(nil,{
           - protocol: TCP
             port: {} 
             targetPort: {} 
-        ]],{i(1),rep(1),i(2,"8000"),i(3,"80")}))
-    },
-    rust = {
+        ]],
+				{ i(1), rep(1), i(2, "8000"), i(3, "80") }
+			)
+		),
+	},
+	rust = {
 
-        s('derivedebug', t '#[derive(Debug)]'),
-        s('deadcode', t '#[allow(dead_code)]'),
-        s('allowfreedom', t '#![allow(clippy::disallowed_names, unused_variables, dead_code)]'),
+		s("derivedebug", t("#[derive(Debug)]")),
+		s("deadcode", t("#[allow(dead_code)]")),
+		s("allowfreedom", t("#![allow(clippy::disallowed_names, unused_variables, dead_code)]")),
 
-        s('clippypedantic', t '#![warn(clippy::all, clippy::pedantic)]'),
+		s("clippypedantic", t("#![warn(clippy::all, clippy::pedantic)]")),
 
-        s(':turbofish', { t {'::<'}, i(0), t {'>'} }),
+		s(":turbofish", { t({ "::<" }), i(0), t({ ">" }) }),
 
-        s('print', {
-            -- t {'println!("'}, i(1), t {' {:?}", '}, i(0), t {');'}}),
-            t {'println!("'}, i(1), t {' {'}, i(0), t {':?}");'}}),
+		s("print", {
+			-- t {'println!("'}, i(1), t {' {:?}", '}, i(0), t {');'}}),
+			t({ 'println!("' }),
+			i(1),
+			t({ " {" }),
+			i(0),
+			t({ ':?}");' }),
+		}),
 
-            s('for',
-            {
-                t {'for '}, i(1), t {' in ' }, i(2), t {' {', ''},
-                i(0),
-                t {'}', ''},
-            }),
+		s("for", {
+			t({ "for " }),
+			i(1),
+			t({ " in " }),
+			i(2),
+			t({ " {", "" }),
+			i(0),
+			t({ "}", "" }),
+		}),
 
-            s('struct',
-            {
-                t {'#[derive(Debug)]', ''},
-                t {'struct '}, i(1), t {' {', ''},
-                i(0),
-                t {'}', ''},
-            }),
+		s("struct", {
+			t({ "#[derive(Debug)]", "" }),
+			t({ "struct " }),
+			i(1),
+			t({ " {", "" }),
+			i(0),
+			t({ "}", "" }),
+		}),
 
-            s('test',
-            {
-                t {'#[test]', ''},
-                t {'fn '}, i(1), t {'() {', ''},
-                t {'	assert'}, i(0), t {'', ''},
-                t {'}'},
-            }),
+		s("test", {
+			t({ "#[test]", "" }),
+			t({ "fn " }),
+			i(1),
+			t({ "() {", "" }),
+			t({ "	assert" }),
+			i(0),
+			t({ "", "" }),
+			t({ "}" }),
+		}),
 
-            s('testcfg',
-            {
-                t {'#[cfg(test)]', ''},
-                t {'mod '}, i(1), t {' {', ''},
-                t {'	#[test]', ''},
-                t {'	fn '}, i(2), t {'() {', ''},
-                t {'		assert'}, i(0), t {'', ''},
-                t {'	}', ''},
-                t {'}'},
-            }),
+		s("testcfg", {
+			t({ "#[cfg(test)]", "" }),
+			t({ "mod " }),
+			i(1),
+			t({ " {", "" }),
+			t({ "	#[test]", "" }),
+			t({ "	fn " }),
+			i(2),
+			t({ "() {", "" }),
+			t({ "		assert" }),
+			i(0),
+			t({ "", "" }),
+			t({ "	}", "" }),
+			t({ "}" }),
+		}),
 
-            s('if',
-            {
-                t {'if '}, i(1), t {' {', ''},
-                i(0),
-                t {'}'},
-            }),
-        },
-
-    })
+		s("if", {
+			t({ "if " }),
+			i(1),
+			t({ " {", "" }),
+			i(0),
+			t({ "}" }),
+		}),
+	},
+})

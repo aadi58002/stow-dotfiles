@@ -5,8 +5,8 @@ vim.loader.enable()
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -36,10 +36,10 @@ vim.opt.scrolloff = 999
 
 vim.opt.updatetime = 50
 
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 
 vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'nc'
+vim.opt.concealcursor = "nc"
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -47,3 +47,8 @@ vim.opt.smartcase = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevelstart = 20
+
+-- Disable check health unused providers
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
