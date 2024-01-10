@@ -65,6 +65,8 @@ end
 
 status --is-interactive; and begin
 
+    export ZELLIJ_AUTO_ATTACH=true
+
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
     abbr --add --global -- xi 'sudo xbps-install'
@@ -75,17 +77,17 @@ status --is-interactive; and begin
 
     set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $PATH
 
+    eval (zellij setup --generate-auto-start fish | string collect)
     starship init fish | source
     zoxide init fish | source
     just --completions fish | source
-    kubectl completion fish | source
-    kind completion fish | source
+    # kubectl completion fish | source
+    # kind completion fish | source
     # helm completion fish | source
 
     # Aliases
     alias c cargo
     alias cat bat
-    alias clear 'clear && /home/$USER/Documents/Scripts/shell-color-scripts/random.sh'
     alias clock 'sudo systemctl start cpupower.service && sudo cpupower frequency-set -u 3'
     alias conhs 'sh -c '\''bluetoothctl scan on &> /dev/null & sleep 1 ; bluetoothctl connect 8C:64:A2:A7:2E:43 &> /dev/null'\'''
     alias cr 'cargo run'
@@ -109,19 +111,5 @@ status --is-interactive; and begin
     alias vim 'emacsclient -a '\''emacs'\'' -t -q'
     alias x11Start 'export DISPLAY=:12 && Xwayland -retro -noreset -noTouchPointerEmulation :12 & disown'
 
-    alias ku 'sudo kubectl'
-    alias he 'sudo helm'
-    alias ki 'sudo kind'
-    alias k9 'sudo k9s'
-
-    alias kbns 'sudo kubectl config set-context --current --namespace '
-    alias kbc 'sudo kubectl config use-context '
-
-
-    bind \e\[1\;3D dir_back
-    bind \e\[1\;3C dir_prev
-
     bind \b backward-kill-word
-    bind \cX "fish_commandline_append ' | wl-copy'"
-    bind \cV "fish_commandline_prepend_full 'wl-paste | '"  # https://github.com/fish-shell/fish-shell/issues/8763
 end

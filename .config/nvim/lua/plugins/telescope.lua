@@ -1,5 +1,6 @@
 -- plugins/telescope.lua:
 return {
+    name = "telescope",
 	"nvim-telescope/telescope.nvim",
 	cmd = "Telescope",
 	version = false, -- telescope did only one release, so use HEAD for now
@@ -92,8 +93,8 @@ return {
 		})
 	end,
 	dependencies = {
-		"nvim-lua/plenary.nvim",
-		{ "nvim-telescope/telescope-file-browser.nvim", branch = "personal" },
+		"plenary",
+		{ "aadi58002/telescope-file-browser.nvim", branch = "personal" },
 		"nvim-telescope/telescope-ui-select.nvim",
 		"benfowler/telescope-luasnip.nvim",
 	},
