@@ -1,7 +1,8 @@
 -- plugins/undotree.lua:
 return {
 	"jiaoshijie/undotree",
-	dependencies = "nvim-lua/plenary.nvim",
+	name = "undotree",
+	dependencies = "plenary",
 	config = true,
 	opts = {
 		float_diff = true, -- using float window previews diff, set this `true` will disable layout option

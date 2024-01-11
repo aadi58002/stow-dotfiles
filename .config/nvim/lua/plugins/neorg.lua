@@ -1,5 +1,6 @@
 return {
 	"nvim-neorg/neorg",
+	name = "neorg",
 	build = ":Neorg sync-parsers",
 	dependencies = { "plenary", "telescope" },
 	cmd = "Neorg",

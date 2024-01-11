@@ -1,6 +1,7 @@
 -- plugins/noice.lua:
 return {
 	"folke/noice.nvim",
+	name = "noice",
 	event = "VeryLazy",
 	opts = {
 		lsp = {

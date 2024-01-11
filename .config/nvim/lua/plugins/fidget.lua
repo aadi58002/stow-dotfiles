@@ -1,12 +1,7 @@
 -- plugins/fidget.nvim
 return {
 	"j-hui/fidget.nvim",
-	tag = "legacy",
+	name = "fidget",
 	event = "LspAttach",
-	opts = {
-		window = {
-			blend = 0,
-			relative = "editor",
-		},
-	},
+	opts = {},
 }

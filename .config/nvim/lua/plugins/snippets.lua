@@ -1,6 +1,7 @@
 -- plugin/snippets.lua
 return {
 	"L3MON4D3/LuaSnip",
+	name = "luasnip",
 	build = "make install_jsregexp",
 	opts = {
 		history = true,

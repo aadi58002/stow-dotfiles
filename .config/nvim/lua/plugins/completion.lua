@@ -1,6 +1,7 @@
 -- plugins/nvim-cmp.lua
 return {
 	"hrsh7th/nvim-cmp",
+	name = "nvim-cmp",
 	version = false, -- last release is way too old
 	event = "InsertEnter",
 	dependencies = {

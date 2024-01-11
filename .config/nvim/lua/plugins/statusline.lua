@@ -1,15 +1,31 @@
 -- plugins/statusline.lua:
 return {
-	-- Set lualine as statusline
 	"nvim-lualine/lualine.nvim",
+	name = "lualine",
 	event = "VeryLazy",
 	opts = {
 		options = {
-			icons_enabled = false,
-			theme = "tokyonight",
-			component_separators = "|",
-			section_separators = "",
+			globalstatus = true,
+            theme = "catppuccin",
+		},
+		sections = {
+			lualine_a = { "mode" },
+			lualine_b = { "branch", "diagnostics" },
+			lualine_c = { "filename" },
+			lualine_x = { "filetype" },
+			lualine_y = {
+				"progress",
+				{
+					"diff",
+					symbols = {
+						added = " ",
+						modified = " ",
+						removed = " ",
+					},
+				},
+			},
+			lualine_z = { "location" },
 		},
 	},
-	dependencies = "folke/tokyonight.nvim",
+	dependencies = { "catppuccin", "nvim-tree/nvim-web-devicons" },
 }

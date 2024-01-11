@@ -1,7 +1,7 @@
 -- plugins/telescope.lua:
 return {
-	name = "telescope",
 	"nvim-telescope/telescope.nvim",
+	name = "telescope",
 	cmd = "Telescope",
 	version = false, -- telescope did only one release, so use HEAD for now
 	keys = {
@@ -70,5 +70,6 @@ return {
 	dependencies = {
 		"plenary",
 		"benfowler/telescope-luasnip.nvim",
+		"nvim-tree/nvim-web-devicons",
 	},
 }
