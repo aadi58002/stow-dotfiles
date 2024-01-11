@@ -16,37 +16,14 @@ return {
 			desc = "Grep (root dir)",
 		},
 		{
-			"<leader>:",
-			"<cmd>Telescope command_history<cr>",
-			desc = "Command History",
-		},
-		{
 			"<leader><space>",
-			"<cmd>Telescope file_browser path=%:p:h select_buffer=true hidden=true<cr>",
-			desc = "Find Files (root dir)",
-		},
-		{
-			"<leader>ff",
-			function()
-				require("telescope.builtin").find_files({
-					cwd = "~/Personal",
-					find_command = {
-						"fd",
-						".",
-						"-L",
-						"--type",
-						"file",
-						"-H",
-						"--strip-cwd-prefix",
-					},
-				})
-			end,
+			"<cmd>Telescope find_files cwd=%:p:h hidden=true<cr>",
 			desc = "Find Files (root dir)",
 		},
 		{
 			"<leader>fg",
-			"<cmd>Telescope git_files path=%:p:h<cr>",
-			desc = "Find Files (root dir)",
+			"<cmd>Telescope git_files cwd=%:p:h<cr>",
+			desc = "Find Files (git dir)",
 		},
 		{
 			"<leader>bb",
@@ -81,11 +58,9 @@ return {
 	config = function(_, opts)
 		local telescope = require("telescope")
 		telescope.setup(opts)
-		telescope.load_extension("file_browser")
-		telescope.load_extension("ui-select")
 		telescope.load_extension("luasnip")
 		vim.api.nvim_create_autocmd("LspAttach", {
-			callback = function(args)
+			callback = function(_)
 				local bind = vim.keymap.set
 				bind("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Telescope Implementations" })
 				bind("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Telescope References" })
@@ -94,8 +69,6 @@ return {
 	end,
 	dependencies = {
 		"plenary",
-		{ "aadi58002/telescope-file-browser.nvim", branch = "personal" },
-		"nvim-telescope/telescope-ui-select.nvim",
 		"benfowler/telescope-luasnip.nvim",
 	},
 }

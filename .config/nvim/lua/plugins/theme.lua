@@ -4,7 +4,6 @@ return {
 	event = "VeryLazy",
 	opts = {
 		style = "moon",
-		transparent = true,
 		on_colors = function(colors)
 			colors.fg_gutter = "#707cb2"
 		end,
