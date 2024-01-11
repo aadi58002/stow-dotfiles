@@ -1,6 +1,7 @@
 -- plugins/playground.lua:
 return {
 	"neovim/nvim-lspconfig",
+	name = "nvim-lspconfig",
 	event = { "BufReadPost", "BufNewFile" },
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	config = function()
