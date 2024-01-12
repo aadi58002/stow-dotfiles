@@ -58,3 +58,17 @@ vim.keymap.set("n", "<leader>fd", vim.cmd.Ex)
 
 -- Netrw Config
 vim.g.netrw_localcopydircmd = "cp -r"
+
+
+-- Increase the available ram neovim
+vim.g.maxmempattern = 2000000
+
+vim.api.nvim_create_autocmd("BufRead", {
+    group = vim.api.nvim_create_augroup("BigFile", { clear = true }),
+    pattern = "*.md",
+    callback = function(ev)
+        if vim.api.nvim_buf_line_count(ev.buf) >= 300 then
+            vim.opt_local.syntax:set("off")
+        end
+    end,
+})

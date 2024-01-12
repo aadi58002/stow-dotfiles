@@ -6,7 +6,7 @@ return {
 	opts = {
 		options = {
 			globalstatus = true,
-            theme = "catppuccin",
+			theme = "catppuccin",
 		},
 		sections = {
 			lualine_a = { "mode" },

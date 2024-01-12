@@ -4,7 +4,7 @@ return {
 		"folke/tokyonight.nvim",
 		name = "tokyonight",
 		event = "VeryLazy",
-        priority = 1001,
+		priority = 1001,
 		opts = {
 			style = "moon",
 			on_colors = function(colors)
@@ -20,7 +20,7 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		event = "VeryLazy",
-        priority = 1000,
+		priority = 1000,
 		opts = {
 			integrations = {
 				aerial = true,
