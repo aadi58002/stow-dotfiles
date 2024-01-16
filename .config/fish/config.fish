@@ -35,6 +35,13 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export KDEHOME="$XDG_CONFIG_HOME"/kde
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
+# pnpm
+set -gx PNPM_HOME "/home/aditya-yadav/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
 ##Runit
 export SVDIR="$XDG_DATA_HOME"/service
 
@@ -89,11 +96,11 @@ status --is-interactive; and begin
     alias c cargo
     alias cat bat
     alias clock 'sudo systemctl start cpupower.service && sudo cpupower frequency-set -u 3'
-    alias conhs 'sh -c '\''bluetoothctl scan on &> /dev/null & sleep 1 ; bluetoothctl connect 8C:64:A2:A7:2E:43 &> /dev/null'\'''
+    alias conhs 'sh -c '\''bluetoothctl scan on &> /dev/null & sleep 1 ; bluetoothctl connect B5:3A:C3:A4:5F:11 &> /dev/null'\'''
+    alias disconhs 'sh -c '\''bluetoothctl disconnect B5:3A:C3:A4:5F:11 &> /dev/null'\'''
     alias cr 'cargo run'
     alias cunlock 'sudo systemctl stop cpupower.service'
     alias cws 'cargo watch -c -w src -x run'
-    alias disconhs 'sh -c '\''bluetoothctl disconnect 8C:64:A2:A7:2E:43 &> /dev/null'\'''
     alias downmusic '~/Documents/Scripts/youtube-dl.sh'
     alias downmusic_ffmpeg '~/Documents/Scripts/musicconvert.sh'
     alias downvideos '~/Documents/Scripts/youtube-dl-videos.sh'
