@@ -14,7 +14,6 @@ fish-shell
 font-awesome
 gammastep
 git
-glab
 grim
 grub-x86_64-efi
 iwd
@@ -25,12 +24,11 @@ mesa-dri
 mpd
 neovim
 nvidia
-p7zip
+7zip
 pipewire
 pnpm
 podman
 podman-compose
-pyright
 ripgrep
 rust-sccache
 rustup
@@ -38,7 +36,6 @@ seatd
 slurp
 starship
 stow
-sway
 sway-audio-idle-inhibit
 swaybg
 swayidle
@@ -51,6 +48,5 @@ wl-clipboard
 wofi
 xdg-desktop-portal-wlr
 xtools
-yarn
 yt-dlp
 zoxide
