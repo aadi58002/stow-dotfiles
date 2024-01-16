@@ -16,6 +16,8 @@ return {
 				["rust-analyzer"] = {},
 			},
 		})
+        lspconfig.svelte.setup({})
+
 		lspconfig.ccls.setup({})
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
