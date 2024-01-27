@@ -1,4 +1,3 @@
--- plugins/mini-indentscope.lua:
 return {
 	"echasnovski/mini.indentscope",
 	name = "mini.indentscope",

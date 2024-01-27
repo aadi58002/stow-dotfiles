@@ -1,4 +1,3 @@
--- plugins/undotree.lua:
 return {
 	"jiaoshijie/undotree",
 	name = "undotree",

@@ -1,4 +1,3 @@
--- plugins/nvim-cmp.lua
 return {
 	"hrsh7th/nvim-cmp",
 	name = "nvim-cmp",

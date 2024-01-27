@@ -1,4 +1,3 @@
--- plugins/indent-blankline.nvim
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	name = "indent-blankline",

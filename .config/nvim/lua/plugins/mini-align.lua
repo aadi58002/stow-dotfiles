@@ -1,4 +1,3 @@
--- plugins/mini-align.lua:
 return {
 	"echasnovski/mini.align",
 	name = "mini.align",

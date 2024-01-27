@@ -1,4 +1,3 @@
--- plugins/hop.nvim
 return {
 	"smoka7/hop.nvim",
 	name = "hop",

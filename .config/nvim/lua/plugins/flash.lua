@@ -1,4 +1,3 @@
--- plugins/flash.lua:
 return {
 	"folke/flash.nvim",
 	name = "flash",

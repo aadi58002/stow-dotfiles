@@ -1,4 +1,3 @@
--- plugins/mini-surround.lua:
 return {
 	"echasnovski/mini.surround",
 	name = "mini.surround",

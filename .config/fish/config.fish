@@ -111,12 +111,15 @@ status --is-interactive; and begin
     alias ke 'pkill emacs'
     alias ls eza
     alias n nvim
+    alias l "NVIM_APPNAME=LazyNvim nvim"
     alias pdf_join '~/Documents/Scripts/pdf_join.sh'
     alias plocate 'plocate -d ~/.local/share/plocate/plocate.db'
     alias podmanc 'podman container'
     alias podmani 'podman image'
     alias vim 'emacsclient -a '\''emacs'\'' -t -q'
     alias x11Start 'export DISPLAY=:12 && Xwayland -retro -noreset -noTouchPointerEmulation :12 & disown'
+
+    alias lsblk 'lsblk -fmp'
 
     bind \b backward-kill-word
 end

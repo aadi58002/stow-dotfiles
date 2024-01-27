@@ -1,4 +1,3 @@
--- plugin/snippets.lua
 return {
 	"L3MON4D3/LuaSnip",
 	name = "luasnip",
@@ -12,6 +11,11 @@ return {
 		require("snippets")
 	end,
 	keys = {
+		{
+			"<leader>is",
+			"<cmd>Telescope luasnip<cr>",
+			desc = "Insert Snippet",
+		},
 		{
 			"<tab>",
 			function()
@@ -45,4 +49,5 @@ return {
 			mode = { "i", "s" },
 		},
 	},
+    dependencies = { "telescope" }
 }

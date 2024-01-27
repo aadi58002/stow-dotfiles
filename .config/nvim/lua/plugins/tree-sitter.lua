@@ -1,26 +1,25 @@
--- plugins/tree-sitter.lua:
 return {
 	"nvim-treesitter/nvim-treesitter",
 	name = "nvim-treesitter",
 	build = ":TSUpdate",
 	event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    init = function(plugin)
-        -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-        -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-        -- no longer trigger the **nvim-treeitter** module to be loaded in time.
-        -- Luckily, the only thins that those plugins need are the custom queries, which we make available
-        -- during startup.
-        require("lazy.core.loader").add_to_rtp(plugin)
-        require("nvim-treesitter.query_predicates")
-    end,
+	cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+	init = function(plugin)
+		-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+		-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+		-- no longer trigger the **nvim-treeitter** module to be loaded in time.
+		-- Luckily, the only thins that those plugins need are the custom queries, which we make available
+		-- during startup.
+		require("lazy.core.loader").add_to_rtp(plugin)
+		require("nvim-treesitter.query_predicates")
+	end,
 	opts = {
 		ensure_installed = {},
 		sync_install = true,
 		auto_install = true,
 		highlight = {
-            enable = true,
-        },
+			enable = true,
+		},
 		indent = { enable = true },
 		-- Required for https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#plugins-with-a-pre-comment-hook
 		context_commentstring = {
@@ -81,8 +80,8 @@ return {
 			},
 		},
 	},
-    keys = {
-        { "<c-space>", desc = "Increment selection" },
-        { "<bs>", desc = "Decrement selection", mode = "x" },
-    },
+	keys = {
+		{ "<c-space>", desc = "Increment selection" },
+		{ "<bs>", desc = "Decrement selection", mode = "x" },
+	},
 }
