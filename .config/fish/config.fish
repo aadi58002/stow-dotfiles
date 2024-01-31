@@ -58,15 +58,15 @@ export BLOG_DEVELOPMENT="True"
 ### Nix
 export NIXPKGS_ALLOW_UNFREE=1
 
-export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
-export XDG_SESSION_DESKTOP=Hyprland
+export XDG_SESSION_DESKTOP=sway
 
 status --is-login; and begin
     # Login shell initialisation
 
     if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
-        dbus-run-session Hyprland
+        dbus-run-session sway
     end
 end
 
