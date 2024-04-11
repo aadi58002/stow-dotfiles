@@ -7,17 +7,26 @@ return {
         config = function()
             -- Setup language servers.
             local lspconfig = require("lspconfig")
-            lspconfig.pyright.setup({})
-            lspconfig.tsserver.setup({})
             lspconfig.lua_ls.setup({})
             lspconfig.marksman.setup({})
-            lspconfig.rust_analyzer.setup({
-                -- Server-specific settings. See `:help lspconfig-setup`
-                settings = {
-                    ["rust-analyzer"] = {},
-                },
-            })
+            lspconfig.pyright.setup({})
+            lspconfig.rust_analyzer.setup({})
             lspconfig.svelte.setup({})
+
+            lspconfig.tsserver.setup({
+                init_options = {
+                    plugins = {
+                        {
+                            name = '@vue/typescript-plugin',
+                            location = require('mason-registry').get_package('vue-language-server'):get_install_path() ..
+                                '/node_modules/@vue/language-server',
+                            languages = { 'vue' },
+                        },
+                    },
+                },
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+            })
+            lspconfig.volar.setup({})
 
             lspconfig.clangd.setup({})
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -32,10 +41,10 @@ return {
                     bind("n", "K", vim.lsp.buf.hover, { desc = "Lsp Info at point", buffer = buffer })
                     bind("n", "<leader>cn", vim.lsp.buf.rename, { desc = "Lsp Rename", buffer = buffer })
                     bind(
-                    { "n", "v" },
-                    "<leader>ca",
-                    vim.lsp.buf.code_action,
-                    { desc = "Lsp Code actions", buffer = buffer }
+                        { "n", "v" },
+                        "<leader>ca",
+                        vim.lsp.buf.code_action,
+                        { desc = "Lsp Code actions", buffer = buffer }
                     )
                     bind("n", "<leader>cf", function()
                         vim.lsp.buf.format({ async = true })
@@ -43,7 +52,7 @@ return {
                 end,
             })
         end,
-        dependencies = { "neoconf", "neodev", "mason", "mason-lspconfig",},
+        dependencies = { "neoconf", "neodev", "mason", "mason-lspconfig", },
     },
     {
         "williamboman/mason.nvim",
@@ -56,6 +65,6 @@ return {
         "williamboman/mason-lspconfig.nvim",
         name = "mason-lspconfig",
         opts = {},
-        dependencies = { "mason",},
+        dependencies = { "mason", },
     },
 }

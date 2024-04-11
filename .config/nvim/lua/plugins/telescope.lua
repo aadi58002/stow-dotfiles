@@ -63,6 +63,7 @@ return {
 				local bind = vim.keymap.set
 				bind("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Telescope Implementations" })
 				bind("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Telescope References" })
+				bind("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Telescope Definitions" })
 			end,
 		})
 	end,
