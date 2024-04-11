@@ -100,14 +100,10 @@ status --is-interactive; and begin
     # Aliases
     alias c cargo
     alias cat bat
-    alias clock 'sudo systemctl start cpupower.service && sudo cpupower frequency-set -u 3'
-    alias conhs 'sh -c '\''bluetoothctl scan on &> /dev/null & sleep 1 ; bluetoothctl connect B5:3A:C3:A4:5F:11 &> /dev/null'\'''
-    alias disconhs 'sh -c '\''bluetoothctl disconnect B5:3A:C3:A4:5F:11 &> /dev/null'\'''
     alias cr 'cargo run'
-    alias cunlock 'sudo systemctl stop cpupower.service'
     alias cws 'cargo watch -c -w src -x run'
-    alias downmusic '~/Personal/Scripts/youtube-dl.sh'
-    alias downvideos '~/Personal/Scripts/youtube-dl-videos.sh'
+    alias downmusic '~/Documents/40-49\ Computer/41\ Linux/41.01\ Scripts/youtube-dl.sh'
+    alias downvideos '~/Documents/40-49\ Computer/41\ Linux/41.01\ Scripts/youtube-dl-videos.sh'
     alias e 'emacsclient -c -a '\''emacs'\'' -q . & disown'
     alias ess 'emacsclient -a '\'''\'' -e '\''(server-start)'\'''
     alias fd 'fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow'
@@ -119,9 +115,9 @@ status --is-interactive; and begin
     alias podmanc 'podman container'
     alias podmani 'podman image'
     alias vim 'emacsclient -a '\''emacs'\'' -t -q'
-    alias x11Start 'export DISPLAY=:12 && Xwayland -retro -noreset -noTouchPointerEmulation :12 & disown'
 
     alias lsblk 'lsblk -fmp'
 
     bind \b backward-kill-word
+    bind \e\[1\;2D dir_back
 end
