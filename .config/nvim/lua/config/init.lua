@@ -9,7 +9,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = " "
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -60,8 +60,6 @@ vim.g.loaded_python3_provider = 0
 -- Increase the available ram neovim
 vim.g.maxmempattern = 2000000
 
-vim.keymap.set('n', '<leader>fd', "<cmd>Ex<cr>", { desc = "File Explorer" })
-
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = vim.api.nvim_create_augroup("BigFile", { clear = true }),
     pattern = "*.md",
@@ -71,3 +69,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         end
     end,
 })
+
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')

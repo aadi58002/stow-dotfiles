@@ -1,0 +1,1 @@
+aditya-yadav ALL=(root) NOPASSWD: /usr/bin/zzz, /usr/bin/ZZZ, /usr/bin/reboot, /usr/bin/poweroff, /usr/bin/shutdown, /usr/bin/halt

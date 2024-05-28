@@ -77,8 +77,6 @@ end
 
 status --is-interactive; and begin
 
-    export ZELLIJ_AUTO_ATTACH=true
-
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
     abbr --add --global -- xi 'sudo xbps-install'
@@ -89,7 +87,6 @@ status --is-interactive; and begin
 
     set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $PATH
 
-    eval (zellij setup --generate-auto-start fish | string collect)
     starship init fish | source
     zoxide init fish | source
     just --completions fish | source
@@ -102,8 +99,8 @@ status --is-interactive; and begin
     alias cat bat
     alias cr 'cargo run'
     alias cws 'cargo watch -c -w src -x run'
-    alias downmusic '~/Documents/40-49\ Computer/41\ Linux/41.01\ Scripts/youtube-dl.sh'
-    alias downvideos '~/Documents/40-49\ Computer/41\ Linux/41.01\ Scripts/youtube-dl-videos.sh'
+    alias downmusic '~/Documents/40-49.Computer/41.Linux/41.01.Scripts/youtube-dl.sh'
+    alias downvideos '~/Documents/40-49.Computer/41.Linux/41.01.Scripts/youtube-dl-videos.sh'
     alias e 'emacsclient -c -a '\''emacs'\'' -q . & disown'
     alias ess 'emacsclient -a '\'''\'' -e '\''(server-start)'\'''
     alias fd 'fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow'
