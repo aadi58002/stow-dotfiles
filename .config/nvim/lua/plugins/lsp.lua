@@ -11,7 +11,9 @@ return {
             lspconfig.marksman.setup({})
             lspconfig.pyright.setup({})
             lspconfig.rust_analyzer.setup({})
+            lspconfig.eslint.setup({})
             lspconfig.svelte.setup({})
+            lspconfig.tailwindcss.setup({})
 
             lspconfig.tsserver.setup({
                 init_options = {
