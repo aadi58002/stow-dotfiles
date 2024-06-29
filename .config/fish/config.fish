@@ -76,6 +76,7 @@ status --is-login; and begin
 end
 
 status --is-interactive; and begin
+    export ZELLIJ_AUTO_ATTACH=true
 
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
@@ -85,14 +86,7 @@ status --is-interactive; and begin
     abbr --add --global -- xr 'sudo xbps-remove -R'
     abbr --add --global -- xx 'xbps-query -Rx'
 
-    set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $PATH
-
-    starship init fish | source
-    zoxide init fish | source
-    just --completions fish | source
-    # kubectl completion fish | source
-    # kind completion fish | source
-    # helm completion fish | source
+    set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $HOME/.nix-profile/bin $PATH
 
     # Aliases
     alias c cargo
@@ -117,4 +111,14 @@ status --is-interactive; and begin
 
     bind \b backward-kill-word
     bind \e\[1\;2D dir_back
+
+
+    starship init fish | source
+    zoxide init fish | source
+    just --completions fish | source
+    # kubectl completion fish | source
+    # kind completion fish | source
+    # helm completion fish | source
+    eval (zellij setup --generate-auto-start fish | string collect)
+    # fastfetch
 end
