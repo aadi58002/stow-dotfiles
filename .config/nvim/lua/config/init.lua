@@ -5,12 +5,7 @@ vim.loader.enable()
 -- Disable Mode showing in Message buffer
 vim.opt.showmode = false
 
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 vim.opt.nu = true
-vim.opt.relativenumber = true
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -65,16 +60,16 @@ vim.g.loaded_python3_provider = 0
 vim.g.maxmempattern = 2000000
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = vim.api.nvim_create_augroup("BigFile", { clear = true }),
-    pattern = "*.md",
-    callback = function(ev)
-        if vim.api.nvim_buf_line_count(ev.buf) >= 300 then
-            vim.opt_local.syn = "OFF"
-        end
-    end,
+	group = vim.api.nvim_create_augroup("BigFile", { clear = true }),
+	pattern = "*.md",
+	callback = function(ev)
+		if vim.api.nvim_buf_line_count(ev.buf) >= 300 then
+			vim.opt_local.syn = "OFF"
+		end
+	end,
 })
 
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')

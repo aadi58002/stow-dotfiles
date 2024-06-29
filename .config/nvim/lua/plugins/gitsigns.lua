@@ -1,15 +1,17 @@
-return {
-	"lewis6991/gitsigns.nvim",
-	name = "gitsigns",
-	event = { "BufReadPre", "BufNewFile" },
-	opts = {
-		signs = {
-			add = { text = "▎" },
-			change = { text = "▎" },
-			delete = { text = "" },
-			topdelete = { text = "" },
-			changedelete = { text = "▎" },
-			untracked = { text = "▎" },
-		},
-	},
-}
+local add = MiniDeps.add
+
+add({
+  source = "lewis6991/gitsigns.nvim",
+  name = "gitsigns",
+})
+
+require("gitsigns").setup({
+  signs = {
+    add = { text = "▎" },
+    change = { text = "▎" },
+    delete = { text = "" },
+    topdelete = { text = "" },
+    changedelete = { text = "▎" },
+    untracked = { text = "▎" },
+  },
+})

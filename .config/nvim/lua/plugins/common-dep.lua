@@ -1,6 +1,8 @@
-return {
-    { "nvim-tree/nvim-web-devicons", name = "nvim-web-devicons" },
-    { "rcarriga/nvim-notify", name = "nvim-notify" },
-    { "MunifTanjim/nui.nvim", name = "nui" },
-    { "nvim-lua/plenary.nvim", name = "plenary",},
+local add = MiniDeps.add
+
+local deps = {
 }
+
+for _,dep in ipairs(deps) do
+  add({source = dep.source, name = dep.name })
+end
