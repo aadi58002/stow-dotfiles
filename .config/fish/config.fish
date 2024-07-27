@@ -1,14 +1,9 @@
 set -U fish_greeting
-set -x GPG_TTY (tty)
 
 ### EXPORT
 export TERM="xterm-256color" # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|poweroff|reboot|history|cd -|cd ..|doomsync|esr|ess|essr)"
-export GIT_EDITOR="nvim"
-export EDITOR="nvim"
-export KUBE_EDITOR="nvim"
-export DIFFPROG="nvim"
-export VISUAL="nvim"
+export EDITOR="emacsclient -c -a 'emacs'"
 
 ### SET MANPAGER
 export MANPAGER="bat"
@@ -34,6 +29,10 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export KDEHOME="$XDG_CONFIG_HOME"/kde
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+
+### Aws
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials                                             
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config 
 
 # pnpm
 set -gx PNPM_HOME "/home/aditya-yadav/.local/share/pnpm"
@@ -67,16 +66,16 @@ export XDG_CURRENT_DESKTOP=Hyprland
 export XDG_SESSION_TYPE=wayland
 export XDG_SESSION_DESKTOP=Hyprland
 
-status --is-login; and begin
-    # Login shell initialisation
-
-    if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
-        dbus-run-session Hyprland
-    end
-end
+#status --is-login; and begin
+#    # Login shell initialisation
+#
+#    if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]
+#        dbus-run-session Hyprland
+#    end
+#end
 
 status --is-interactive; and begin
-    export ZELLIJ_AUTO_ATTACH=true
+    # export ZELLIJ_AUTO_ATTACH=true
 
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
@@ -86,15 +85,15 @@ status --is-interactive; and begin
     abbr --add --global -- xr 'sudo xbps-remove -R'
     abbr --add --global -- xx 'xbps-query -Rx'
 
-    set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $HOME/.nix-profile/bin $PATH
+    set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $HOME/.nix-profile/bin $XDG_STATE_HOME/nix/profile/bin $PATH
 
     # Aliases
     alias c cargo
     alias cat bat
     alias cr 'cargo run'
     alias cws 'cargo watch -c -w src -x run'
-    alias downmusic '~/Documents/40-49.Computer/41.Linux/41.01.Scripts/youtube-dl.sh'
-    alias downvideos '~/Documents/40-49.Computer/41.Linux/41.01.Scripts/youtube-dl-videos.sh'
+    alias downmusic '~/Documents/linux/scripts/youtube-dl.sh'
+    alias downvideos '~/Documents/linux/scripts/youtube-dl-videos.sh'
     alias e 'emacsclient -c -a '\''emacs'\'' -q . & disown'
     alias ess 'emacsclient -a '\'''\'' -e '\''(server-start)'\'''
     alias fd 'fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow'
@@ -119,6 +118,6 @@ status --is-interactive; and begin
     # kubectl completion fish | source
     # kind completion fish | source
     # helm completion fish | source
-    eval (zellij setup --generate-auto-start fish | string collect)
+    # eval (zellij setup --generate-auto-start fish | string collect)
     # fastfetch
 end
