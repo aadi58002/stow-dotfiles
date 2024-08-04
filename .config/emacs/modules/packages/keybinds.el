@@ -14,21 +14,7 @@
         evil-vsplit-window-right t
         evil-ex-search-count t)
   :config
-  (evil-mode 1)
-  (defun +evil-shift-right ()
-    (interactive)
-    (evil-shift-right evil-visual-beginning evil-visual-end)
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  (defun +evil-shift-left ()
-    (interactive)
-    (evil-shift-left evil-visual-beginning evil-visual-end)
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  (evil-define-key 'visual global-map (kbd ">") '+evil-shift-right)
-  (evil-define-key 'visual global-map (kbd "<") '+evil-shift-left))
+  (evil-mode 1))
 
 ;; Extend support of vim keybindings on to various other packages
 (use-package evil-collection
@@ -36,16 +22,17 @@
   :config
   (evil-collection-init))
 
-(use-package evil-multiedit
+(use-package avy
   :after evil
   :config
-  (evil-multiedit-default-keybinds))
+  (custom-set-faces
+    `(avy-background-face ((t (:foreground "#666666" :background ,(face-background 'default) :weight bold))))
+    `(avy-lead-face ((t (:foreground   "#ff007c" :background ,(face-background 'default) :weight bold))))
+    `(avy-lead-face-0 ((t (:foreground "#00dfff" :background ,(face-background 'default) :weight bold))))
+    `(avy-lead-face-1 ((t (:foreground "#2b8db3" :background ,(face-background 'default) :weight bold))))
+    `(avy-lead-face-2 ((t (:foreground "#00ff00" :background ,(face-background 'default) :weight bold)))))
 
-;; Used to set keybinds
-(use-package general
-  :after evil
-  :config
-  (general-override-mode)
-  (general-auto-unbind-keys))
+  (setq avy-background nil
+        avy-highlight-first t))
 
 (provide 'keybinds-pkg-setup)

@@ -1,55 +1,68 @@
 ;;; custom-keybindings.el -*- lexical-binding: t; -*-
 
-(general-create-definer leader-key
-  :states '(normal motion visual operator emacs)
-  :keymaps 'override
-  :prefix "SPC")
+;; Helpful Docs - https://github.com/noctuid/evil-guide?tab=readme-ov-file#keybindings-in-emacs, 
+;;                https://evil.readthedocs.io/en/latest/keymaps.html#leader-keys
 
-(leader-key
-  "SPC" #'find-file
-  "fr" #'consult-recent-file
-  "bk" #'kill-this-buffer
-  "bb" #'consult-buffer
-  "<return>" #'denote-silo-extras-open-or-create)
+(global-set-key (kbd "C-;") #'embark-act)
 
-(general-def '(minibuffer-mode-map)
-  "C-S-v" #'evil-paste-after)
+(dolist (state '(normal visual motion operator emacs))
 
-(general-def '(isearch-mode-map)
-  "C-S-v" #'isearch-yank-pop-only)
+  (evil-set-leader state (kbd "SPC"))
 
-(general-def '(normal motion visual global)
-  "C-;"  #'embark-act)
+  (evil-define-key state 'global
+    (kbd "<leader>fr") #'consult-recent-file
 
-;; Remap C-h to helpful package
-(general-define-key
-  :prefix "C-h"
-  "f" #'helpful-callable
-  "v" #'helpful-variable
-  "k" #'helpful-key
-  "F" #'helpful-function
-  "C" #'helpful-command)
+    (kbd "<leader><return>") #'denote-silo-extras-open-or-create
+    (kbd "<leader><SPC>") #'find-file
 
-(general-define-key
- :states 'normal
- "," 'kitty-async-process)
+    (kbd "<leader>bk") #'kill-this-buffer
+    (kbd "<leader>bb") #'consult-buffer-other-window
 
-(general-define-key
- :states '(normal motion operator emacs)
- "K" 'helpful-at-point
- "C-/" 'evilnc-comment-or-uncomment-lines)
+    (kbd "<leader>gg") #'magit
 
-;; Coding
-(leader-key
-  "ca" #'eglot-code-actions
-  "cl" #'consult-line
-  "cr" #'consult-ripgrep
-  "ci" #'consult-imenu
-  "cf" #'consule-fd
-  "ce" #'consult-flymake)
+    ;; Coding
+    (kbd "<leader>ca") #'eglot-code-actions
+    (kbd "<leader>cl") #'consult-line
+    (kbd "<leader>cr") #'consult-ripgrep
+    (kbd "<leader>ci") #'consult-imenu
+    (kbd "<leader>cf") #'consule-fd
+    (kbd "<leader>ce") #'consult-flymake
 
-(leader-key
-  "gg" #'magit)
+    ;; Coding
+    (kbd "<leader>pb") #'consult-project-buffer
+
+    ;; Project 
+    (kbd "<leader>x") #'consult-register-load
+    (kbd "<leader>z") #'consult-register-store 
+
+    (kbd ",") #'kitty-async-process
+
+    (kbd "gw") #'avy-goto-word-0
+    (kbd "gc") #'avy-goto-word-1
+
+    (kbd "K") #'helpful-at-point
+    (kbd "C-/") #'evilnc-comment-or-uncomment-lines
+))
+
+(define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
+(define-key isearch-mode-map (kbd "C-S-v") #'isearch-yank-pop-only)
+;; Vundo
+(define-key vundo-mode-map (kbd "<escape>") #'vundo-quit)
+
+;; Navigation
+(dolist (state '(normal motion operator emacs))
+  (evil-define-key state 'global
+    (kbd "<") #'(lambda () (interactive) (evil-previous-line 10))
+    (kbd ">") #'(lambda () (interactive) (evil-next-line 10))))
+
+(evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
+(evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
+
+;; Helpful Rebinds
+(global-set-key [remap describe-callable] #'helpful-callable)
+(global-set-key [remap describe-variable] #'helpful-variable)
+(global-set-key [remap describe-key] #'helpful-key)
+(global-set-key [remap describe-command] #'helpful-command)
+(global-set-key [remap describe-function] #'helpful-function)
 
 (provide 'custom-keybindings)
-

@@ -2,6 +2,7 @@
 
 ;; Enable vertico
 (use-package vertico
+  :after consult
   :init
   (vertico-mode 1)
   (vertico-multiform-mode 1)
@@ -18,10 +19,12 @@
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   (setq vertico-cycle t)
   :config
-  (setq vertico-multiform-commands '((consult-line buffer)
+  (setq vertico-buffer-display-action '(display-buffer-in-side-window
+                                        (side . right)
+                                        (window-width . 0.3))
+        vertico-multiform-commands '((consult-line buffer)
                                      (consult-ripgrep buffer)
-                                     (consult-fd buffer)))
-  )
+                                     (consult-fd buffer))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -70,12 +73,18 @@
 ;; Example configuration for Consult
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode)
+  :bind (:map consult-narrow-map ("?" . consult-narrow-help))
   :init
-  (setq register-preview-delay 0.5
+  (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
-
   (advice-add #'register-preview :override #'consult-register-window))
 
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map 
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))

@@ -5,6 +5,7 @@ bluez
 btop
 cronie
 delta
+dolphin
 dust
 efibootmgr
 emacs-pgtk
@@ -26,7 +27,9 @@ mesa-vaapi
 mesa-vdpau
 mpc
 mpd
+nerd-fonts-symbols-ttf
 nix
+p7zip
 pipewire
 python3-language-server
 qpwgraph

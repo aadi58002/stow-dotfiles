@@ -49,4 +49,9 @@
 
 (put 'narrow-to-region 'disabled nil)
 
+;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
+
+;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
+(setq switch-to-buffer-obey-display-actions t)
+
 (provide 'better-defaults)

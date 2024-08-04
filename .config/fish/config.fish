@@ -62,9 +62,9 @@ export BLOG_DEVELOPMENT="True"
 ### Nix
 export NIXPKGS_ALLOW_UNFREE=1
 
-export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_CURRENT_DESKTOP=kde
 export XDG_SESSION_TYPE=wayland
-export XDG_SESSION_DESKTOP=Hyprland
+export XDG_SESSION_DESKTOP=kde
 
 #status --is-login; and begin
 #    # Login shell initialisation

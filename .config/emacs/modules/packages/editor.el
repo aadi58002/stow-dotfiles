@@ -12,8 +12,6 @@
 
 ;; make undo history a tree on-the-fly
 (use-package vundo
-  :ensure (vundo :host github :repo "casouri/vundo")
-  :config
-  (general-def 'normal vundo-mode-map "<escape>" #'vundo-quit))
+  :ensure (vundo :host github :repo "casouri/vundo"))
 
 (provide 'editor-pkg-setup)
