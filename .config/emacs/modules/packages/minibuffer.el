@@ -17,14 +17,14 @@
   (setq vertico-resize nil)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  (setq vertico-cycle t)
-  :config
-  (setq vertico-buffer-display-action '(display-buffer-in-side-window
-                                        (side . right)
-                                        (window-width . 0.3))
-        vertico-multiform-commands '((consult-line buffer)
-                                     (consult-ripgrep buffer)
-                                     (consult-fd buffer))))
+  (setq vertico-cycle t))
+  ;; :config
+  ;; (setq vertico-buffer-display-action '(display-buffer-in-side-window
+  ;;                                       (side . right)
+  ;;                                       (window-width . 0.3))
+  ;;       vertico-multiform-commands '((consult-line buffer)
+  ;;                                    (consult-ripgrep buffer)
+  ;;                                    (consult-fd buffer))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -72,6 +72,7 @@
 
 ;; Example configuration for Consult
 (use-package consult
+  :ensure (consult :host github :repo "minad/consult")
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind (:map consult-narrow-map ("?" . consult-narrow-help))
   :init

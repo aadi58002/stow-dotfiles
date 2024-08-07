@@ -1,5 +1,7 @@
 ;;; lsp.el -*- lexical-binding: t; -*-
 
+(use-package tramp)
+
 (use-package eglot
   :after (cape orderless tempel)
   :ensure nil
@@ -66,10 +68,6 @@
 
 ;; Configure Tempel
 (use-package tempel
-  ;; Require trigger prefix before template name when completing.
-  :custom
-  (tempel-trigger-prefix "<")
-
   :init
   (setq completion-at-point-functions
               (cons #'tempel-complete

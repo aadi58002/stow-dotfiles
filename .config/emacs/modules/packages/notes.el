@@ -1,6 +1,7 @@
 ;;; notes.el -*- lexical-binding: t; -*-
 
 (use-package denote
+  :ensure (denote :host github :repo "protesilaos/denote")
   :config
   ;; Load silo extras as well
   (require 'denote-silo-extras)
@@ -8,9 +9,11 @@
         denote-known-keywords ()
         denote-save-buffers t
         denote-date-prompt-use-org-read-date t
-        denote-directory "~/Documents/denote/notes"
-        denote-todo-directory "~/Documents/denote/tasks"
-        denote-silo-extras-directories (list denote-directory "~/Documents/denote/pastime" denote-todo-directory)))
+        denote-directory "~/Documents/denote"
+        denote-notes-directory "~/Documents/denote/notes"
+        denote-tasks-directory "~/Documents/denote/tasks"
+        denote-pastime-directory "~/Documents/denote/pastime"
+        denote-silo-extras-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory)))
 
 (use-package consult-denote
   :after (denote consult)
@@ -24,6 +27,7 @@
     ;; Edit settings
     org-auto-align-tags nil
     org-tags-column 0
+    org-return-follows-link t
     org-catch-invisible-edits 'show-and-error
     org-special-ctrl-a/e t
     org-insert-heading-respect-content t

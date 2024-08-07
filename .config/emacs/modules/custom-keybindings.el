@@ -22,16 +22,21 @@
 
     ;; Coding
     (kbd "<leader>ca") #'eglot-code-actions
-    (kbd "<leader>cl") #'consult-line
-    (kbd "<leader>cr") #'consult-ripgrep
-    (kbd "<leader>ci") #'consult-imenu
-    (kbd "<leader>cf") #'consule-fd
+    (kbd "<leader>cr") #'eglot-rename
+    (kbd "<leader>cs") #'eglot
+    (kbd "<leader>cf") #'eglot-format
     (kbd "<leader>ce") #'consult-flymake
 
-    ;; Coding
+    ;; Project
     (kbd "<leader>pb") #'consult-project-buffer
 
-    ;; Project 
+    ;; Search
+    (kbd "<leader>sl") #'consult-line
+    (kbd "<leader>sr") #'consult-ripgrep
+    (kbd "<leader>si") #'consult-imenu
+    (kbd "<leader>sf") #'consule-fd
+
+    ;; Registers 
     (kbd "<leader>x") #'consult-register-load
     (kbd "<leader>z") #'consult-register-store 
 
@@ -64,5 +69,9 @@
 (global-set-key [remap describe-key] #'helpful-key)
 (global-set-key [remap describe-command] #'helpful-command)
 (global-set-key [remap describe-function] #'helpful-function)
+
+;; Org mode
+(dolist (state '(normal visual motion operator emacs))
+  (evil-define-key state org-mode-map  (kbd "<RET>") #'org-return))
 
 (provide 'custom-keybindings)

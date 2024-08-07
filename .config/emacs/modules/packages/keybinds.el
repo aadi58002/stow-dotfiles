@@ -2,6 +2,7 @@
 
 ;; Emulates vim keybinds & modal editing
 (use-package evil
+  :ensure (evil :host github :repo "emacs-evil/evil")
   :init
   (setq evil-v$-excludes-newline t       ; $ in visual doesn't include \n
         evil-kill-on-visual-paste nil    ; pasting in visual mode won't copy replaced text to clipboard
