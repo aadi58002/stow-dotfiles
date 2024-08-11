@@ -28,7 +28,7 @@
 
 ;; A few more useful configurations...
 (use-package emacs
-  :ensure nil 
+  :ensure nil
   :init
   ;; TAB cycle if there are only few candidates
   ;; (setq completion-cycle-threshold 3)
@@ -45,8 +45,6 @@
   ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
   ;; setting is useful beyond Corfu.
   (setq read-extended-command-predicate #'command-completion-default-include-p))
-
-(use-package compat)
 
 ;; Add extensions
 (use-package cape

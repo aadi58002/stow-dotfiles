@@ -25,13 +25,15 @@
   :config
   (setq
     ;; Edit settings
+    org-pretty-entities nil
+
     org-auto-align-tags nil
     org-tags-column 0
     org-return-follows-link t
     org-catch-invisible-edits 'show-and-error
     org-special-ctrl-a/e t
     org-insert-heading-respect-content t
-    
+
     org-link-file-path-type 'relative
 
     org-enforce-todo-checkbox-dependencies t

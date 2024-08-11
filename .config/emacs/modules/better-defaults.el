@@ -54,4 +54,6 @@
 ;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 (setq switch-to-buffer-obey-display-actions t)
 
+(setq  fill-column 80)
+
 (provide 'better-defaults)

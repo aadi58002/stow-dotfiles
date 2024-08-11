@@ -1,10 +1,8 @@
 ;;; lsp.el -*- lexical-binding: t; -*-
 
-(use-package tramp)
-
 (use-package eglot
-  :after (cape orderless tempel)
   :ensure nil
+  :after (cape orderless tempel)
   :config
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
@@ -15,11 +13,11 @@
   ;; Option 1: Specify explicitly to use Orderless for Eglot
   (setq completion-category-overrides '((eglot (styles orderless))
                                         (eglot-capf (styles orderless))))
-  
+
   ;; Option 2: Undo the Eglot modification of completion-category-defaults
   (with-eval-after-load 'eglot
      (setq completion-category-defaults nil))
-  
+
   ;; Enable cache busting, depending on if your server returns
   ;; sufficiently many candidates in the first place.
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
@@ -40,8 +38,10 @@
                               eglot-signature-eldoc-function
                               eglot-hover-eldoc-function)))))
 
+;; project version dependency
+(use-package xref)
+
 (use-package project
-  :ensure nil
   :config
   (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml")))
 
@@ -53,14 +53,14 @@
                     ("\\.ts\\'" . typescript-ts-mode)
                     ("\\.cpp\\'" . c++-ts-mode)
                     ("\\.py\\'" . python-mode)))
-  
+
   ;; Loop to add file extensions to auto-mode-alist
   (dolist (mode-pair mode-list)
     (add-to-list 'auto-mode-alist mode-pair))
-  
+
   ;; List of modes to add eglot to their hooks
   (setq eglot-modes (mapcar 'cdr mode-list))
-  
+
   ;; Loop to add eglot to the respective mode hooks
   (dolist (mode eglot-modes)
     (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure))
@@ -75,6 +75,14 @@
 
   (global-tempel-abbrev-mode))
 
+;; Comment and Uncommenting
 (use-package evil-nerd-commenter)
+
+;; Additional protocol extension for accessing files
+(use-package tramp)
+
+(use-package prog-mode
+  :ensure nil
+  :hook (prog-mode . which-function-mode))
 
 (provide 'lsp-pkg-setup)

@@ -14,4 +14,12 @@
 (use-package vundo
   :ensure (vundo :host github :repo "casouri/vundo"))
 
+(use-package saveplace
+  :ensure nil
+  :hook (after-init . save-place-mode))
+
+(use-package whitespace
+  :ensure nil
+  :hook (before-save . whitespace-cleanup))
+
 (provide 'editor-pkg-setup)

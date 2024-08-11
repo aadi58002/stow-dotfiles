@@ -1,6 +1,6 @@
 ;;; custom-keybindings.el -*- lexical-binding: t; -*-
 
-;; Helpful Docs - https://github.com/noctuid/evil-guide?tab=readme-ov-file#keybindings-in-emacs, 
+;; Helpful Docs - https://github.com/noctuid/evil-guide?tab=readme-ov-file#keybindings-in-emacs,
 ;;                https://evil.readthedocs.io/en/latest/keymaps.html#leader-keys
 
 (global-set-key (kbd "C-;") #'embark-act)
@@ -36,9 +36,9 @@
     (kbd "<leader>si") #'consult-imenu
     (kbd "<leader>sf") #'consule-fd
 
-    ;; Registers 
+    ;; Registers
     (kbd "<leader>x") #'consult-register-load
-    (kbd "<leader>z") #'consult-register-store 
+    (kbd "<leader>z") #'consult-register-store
 
     (kbd ",") #'kitty-async-process
 
@@ -62,13 +62,6 @@
 
 (evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
 (evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
-
-;; Helpful Rebinds
-(global-set-key [remap describe-callable] #'helpful-callable)
-(global-set-key [remap describe-variable] #'helpful-variable)
-(global-set-key [remap describe-key] #'helpful-key)
-(global-set-key [remap describe-command] #'helpful-command)
-(global-set-key [remap describe-function] #'helpful-function)
 
 ;; Org mode
 (dolist (state '(normal visual motion operator emacs))

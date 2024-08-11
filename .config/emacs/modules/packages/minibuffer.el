@@ -17,24 +17,24 @@
   (setq vertico-resize nil)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  (setq vertico-cycle t))
-  ;; :config
-  ;; (setq vertico-buffer-display-action '(display-buffer-in-side-window
-  ;;                                       (side . right)
-  ;;                                       (window-width . 0.3))
-  ;;       vertico-multiform-commands '((consult-line buffer)
-  ;;                                    (consult-ripgrep buffer)
-  ;;                                    (consult-fd buffer))))
+  (setq vertico-cycle t)
+  :config
+  (setq vertico-buffer-display-action '(display-buffer-in-side-window
+                                        (side . right)
+                                        (window-width . 0.3))
+        vertico-multiform-commands '((consult-line buffer)
+                                     (consult-ripgrep buffer)
+                                     (consult-fd buffer))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :ensure nil 
+  :ensure nil
   :init
   (savehist-mode))
 
 ;; A few more useful configurations...
 (use-package emacs
-  :ensure nil 
+  :ensure nil
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -62,17 +62,16 @@
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
-  :init
+  :config
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless basic flex)
-        completion-category-defaults nil
+        ;; completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Example configuration for Consult
 (use-package consult
-  :ensure (consult :host github :repo "minad/consult")
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind (:map consult-narrow-map ("?" . consult-narrow-help))
   :init
@@ -83,7 +82,7 @@
 (use-package consult-dir
   :ensure t
   :bind (("C-x C-d" . consult-dir)
-         :map vertico-map 
+         :map vertico-map
          ("C-x C-d" . consult-dir)
          ("C-x C-j" . consult-dir-jump-file)))
 
