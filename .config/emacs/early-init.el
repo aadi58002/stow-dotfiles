@@ -10,7 +10,7 @@
       gc-cons-percentage 0.6)
 
 ;; For inhibiting the while flash at startup (colors: doom-one)
-(set-face-attribute 'default nil :background "#282c34" :foreground "#bbc2cf")
+;; (set-face-attribute 'default nil :background "#282c34" :foreground "#bbc2cf")
 
 ;; Reduce startup time due to fonts which are larger than system-font.
 (setq frame-inhibit-implied-resize t

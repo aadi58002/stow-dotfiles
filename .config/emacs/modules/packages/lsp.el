@@ -38,10 +38,8 @@
                               eglot-signature-eldoc-function
                               eglot-hover-eldoc-function)))))
 
-;; project version dependency
-(use-package xref)
-
 (use-package project
+  :ensure nil
   :config
   (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml")))
 
@@ -49,6 +47,23 @@
   :ensure nil
   :config
   ;; List of file extensions and corresponding modes
+  (setq treesit-language-source-alist
+    '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+      (cmake "https://github.com/uyha/tree-sitter-cmake")
+      (css "https://github.com/tree-sitter/tree-sitter-css")
+      (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+      (go "https://github.com/tree-sitter/tree-sitter-go")
+      (html "https://github.com/tree-sitter/tree-sitter-html")
+      (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+      (json "https://github.com/tree-sitter/tree-sitter-json")
+      (make "https://github.com/alemuller/tree-sitter-make")
+      (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+      (python "https://github.com/tree-sitter/tree-sitter-python")
+      (toml "https://github.com/tree-sitter/tree-sitter-toml")
+      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
   (setq mode-list '(("\\.tsx\\'" . tsx-ts-mode)
                     ("\\.ts\\'" . typescript-ts-mode)
                     ("\\.cpp\\'" . c++-ts-mode)
@@ -65,6 +80,10 @@
   (dolist (mode eglot-modes)
     (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure))
 )
+
+(use-package treesit-fold
+  :config
+  (global-treesit-fold-indicators-mode 1))
 
 ;; Configure Tempel
 (use-package tempel

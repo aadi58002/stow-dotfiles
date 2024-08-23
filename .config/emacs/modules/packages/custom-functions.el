@@ -22,4 +22,14 @@
 ;;          (index (random size)))
 ;;     (nth index items)))
 
+(defun +denote/mark-as-archive-task ()
+  ;; Add archived keyword
+  (interactive)
+  (let* ((file (denote--rename-dired-file-or-current-file-or-prompt))
+         (file-type (denote-filetype-heuristics file)))
+    (denote-rename-file
+     file
+     (denote-retrieve-title-value file file-type)
+     (denote-keywords--combine :add '("archived") (denote-extract-keywords-from-path file)))))
+
 (provide 'custom-functions-pkg-setup)

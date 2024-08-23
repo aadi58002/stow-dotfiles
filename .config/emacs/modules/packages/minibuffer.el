@@ -30,6 +30,7 @@
 (use-package savehist
   :ensure nil
   :init
+  (setq savehist-ignored-variables '(extended-command-history))
   (savehist-mode))
 
 ;; A few more useful configurations...
@@ -72,6 +73,7 @@
 
 ;; Example configuration for Consult
 (use-package consult
+  :ensure (consult :host github :repo "minad/consult")
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind (:map consult-narrow-map ("?" . consult-narrow-help))
   :init

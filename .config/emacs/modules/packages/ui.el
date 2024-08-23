@@ -13,7 +13,7 @@
            :default-height 180
            :bold-weight extrabold)
           (t ; our shared fallback properties
-           :default-family "Noto Sans Mono"
+           :default-family "CaskaydiaCove Nerd Font"
            :default-weight normal)))
   (fontaine-set-preset 'regular))
 
@@ -31,6 +31,6 @@
   (defun random-color-theme ()
     (interactive)
     (load-theme (nth (random (length random-themes)) random-themes) t))
-  (run-with-timer 0 (* 10 60) 'random-color-theme))
+  (run-with-timer 0 (* 5 60) 'random-color-theme))
 
 (provide 'ui-pkg-setup)
