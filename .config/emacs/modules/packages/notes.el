@@ -20,7 +20,6 @@
         denote-silo-extras-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory))
 
   (denote-rename-buffer-mode +1)
-
   ;; Org config
   (setq
       org-agenda-files (list denote-tasks-directory)
@@ -69,7 +68,6 @@
   :ensure nil
   :after denote
   :config
-
   (with-eval-after-load 'org-capture
       (setq org-capture-templates
             '(
