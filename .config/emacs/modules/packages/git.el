@@ -15,7 +15,7 @@
 
 (use-package git-gutter-fringe
   :config
-  (setq git-gutter-fr:side 'right-fringe)
+  ;; (setq git-gutter-fr:side 'right-fringe)
   (global-git-gutter-mode +1)
   (setq-default fringes-outside-margins t)
   ;; thin fringe bitmaps

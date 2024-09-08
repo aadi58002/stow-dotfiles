@@ -31,7 +31,11 @@ lspconfig.eslint.setup({})
 lspconfig.svelte.setup({})
 lspconfig.tailwindcss.setup({})
 
-lspconfig.tsserver.setup({})
+lspconfig.tsserver.setup({
+  init_options = {
+    maxTsServerMemory = "8192",
+  }
+})
 lspconfig.volar.setup({})
 
 lspconfig.clangd.setup({})

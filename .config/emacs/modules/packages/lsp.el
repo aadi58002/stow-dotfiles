@@ -6,13 +6,15 @@
   :config
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
-        ;; eglot-ignored-server-capabilities '(:hoverProvider
-        ;;                                     :documentHighlightProvider)
+        eglot-ignored-server-capabilities '(;;:hoverProvider
+                                            :documentHighlightProvider)
         eglot-autoshutdown t)
 
+  (fset #'jsonrpc--log-event #'ignore)
   ;; Option 1: Specify explicitly to use Orderless for Eglot
   (setq completion-category-overrides '((eglot (styles orderless))
                                         (eglot-capf (styles orderless))))
+
 
   ;; Option 2: Undo the Eglot modification of completion-category-defaults
   (with-eval-after-load 'eglot
@@ -36,7 +38,27 @@
             (lambda () (setq eldoc-documentation-functions
                             '(flymake-eldoc-function
                               eglot-signature-eldoc-function
-                              eglot-hover-eldoc-function)))))
+                              eglot-hover-eldoc-function))))
+
+  (add-to-list 'eglot-server-programs
+              `(((js-mode :language-id "javascript")
+                 (js-ts-mode :language-id "javascript")
+                 (tsx-ts-mode :language-id "typescriptreact")
+                 (typescript-ts-mode :language-id "typescript")
+                 (typescript-mode :language-id "typescript"))
+                 .
+                ("typescript-language-server" "--stdio"
+                :initializationOptions (
+                  :maxTsServerMemory 8192
+                  :preferences
+                    (:includeInlayParameterNameHints "literals"
+                      :includeInlayParameterNameHintsWhenArgumentMatchesName t
+                      :includeInlayFunctionParameterTypeHints t
+                      :includeInlayVariableTypeHints t
+                      :includeInlayVariableTypeHintsWhenTypeMatchesName t
+                      :includeInlayPropertyDeclarationTypeHints t
+                      :includeInlayFunctionLikeReturnTypeHints t
+                      :includeInlayEnumMemberValueHints t))))))
 
 (use-package project
   :ensure nil
@@ -82,8 +104,9 @@
 )
 
 (use-package treesit-fold
-  :config
-  (global-treesit-fold-indicators-mode 1))
+  ;; :config
+  ;; (global-treesit-fold-indicators-mode 1)
+)
 
 ;; Configure Tempel
 (use-package tempel
