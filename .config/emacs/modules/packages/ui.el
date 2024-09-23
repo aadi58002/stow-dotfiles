@@ -30,7 +30,16 @@
   (setq random-themes '(ef-duo-dark ef-bio ef-deuteranopia-dark ef-winter ef-night ef-duo-dark))
   (defun random-color-theme ()
     (interactive)
-    (load-theme (nth (random (length random-themes)) random-themes) t))
-  (run-with-timer 0 (* 5 60) 'random-color-theme))
+    (ef-themes-select (nth (random (length random-themes)) random-themes) t))
+  (run-with-timer 0 (* 20 60) 'random-color-theme))
+
+(use-package wgrep
+  :config
+  (setq wgrep-auto-save-buffer t))
+
+;; (use-package which-key
+;;   :ensure nil
+;;   :config
+;;   (which-key-mode))
 
 (provide 'ui-pkg-setup)

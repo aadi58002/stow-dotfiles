@@ -12,8 +12,8 @@
   (corfu-preselect 'first)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-  (corfu-popupinfo-delay 0.0)
-  (corfu-auto-prefix 1)
+  (corfu-popupinfo-delay 0.1)
+  (corfu-auto-prefix 0.1)
   (corfu-auto-delay 0)
 
   :config
@@ -23,6 +23,8 @@
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+
   (corfu-popupinfo-mode 1)
   (global-corfu-mode))
 

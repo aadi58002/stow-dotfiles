@@ -2,12 +2,25 @@
 
 (use-package eglot
   :ensure nil
+  :defer t
   :after (cape orderless tempel)
+  :commands (eglot
+             eglot-code-actions
+             eglot-ensure
+             eglot-rename
+             eglot-format-buffer)
   :config
+  ;; ;; Emacs 30; Activate editor config mode
+  ;; (editorconfig-mode 1)
+
+  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
         eglot-ignored-server-capabilities '(;;:hoverProvider
                                             :documentHighlightProvider)
+        ;; Prevent minibuffer spam
+        eglot-report-progress nil
         eglot-autoshutdown t)
 
   (fset #'jsonrpc--log-event #'ignore)
@@ -22,23 +35,25 @@
 
   ;; Enable cache busting, depending on if your server returns
   ;; sufficiently many candidates in the first place.
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (setq-local completion-at-point-functions
-                          (list (cape-capf-super
-                                 #'tempel-expand
-                                 #'eglot-completion-at-point
-                                 #'cape-keyword
-                                 #'cape-file)))))
-  ;; Eldoc configuration
-  (setq eldoc-documentation-strategy
-            'eldoc-documentation-compose-eagerly)
-  (add-hook 'eglot-managed-mode-hook
-            (lambda () (setq eldoc-documentation-functions
+
+  (defun +lsp/eglot-capf ()
+    (setq-local eldoc-documentation-functions
                             '(flymake-eldoc-function
                               eglot-signature-eldoc-function
-                              eglot-hover-eldoc-function))))
+                              eglot-hover-eldoc-function)))
+
+  (defun +lsp/eglot-eldoc ()
+    (setq-local completion-at-point-functions
+                (list (cape-capf-super
+                          #'tempel-expand
+                          #'eglot-completion-at-point
+                          #'cape-keyword
+                          #'cape-file))))
+
+
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-capf)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-eldoc)
 
   (add-to-list 'eglot-server-programs
               `(((js-mode :language-id "javascript")
@@ -49,16 +64,7 @@
                  .
                 ("typescript-language-server" "--stdio"
                 :initializationOptions (
-                  :maxTsServerMemory 8192
-                  :preferences
-                    (:includeInlayParameterNameHints "literals"
-                      :includeInlayParameterNameHintsWhenArgumentMatchesName t
-                      :includeInlayFunctionParameterTypeHints t
-                      :includeInlayVariableTypeHints t
-                      :includeInlayVariableTypeHintsWhenTypeMatchesName t
-                      :includeInlayPropertyDeclarationTypeHints t
-                      :includeInlayFunctionLikeReturnTypeHints t
-                      :includeInlayEnumMemberValueHints t))))))
+                  :maxTsServerMemory 8192)))))
 
 (use-package project
   :ensure nil
@@ -71,6 +77,8 @@
   ;; List of file extensions and corresponding modes
   (setq treesit-language-source-alist
     '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+      (c "https://github.com/tree-sitter/tree-sitter-c")
+      (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
       (cmake "https://github.com/uyha/tree-sitter-cmake")
       (css "https://github.com/tree-sitter/tree-sitter-css")
       (elisp "https://github.com/Wilfred/tree-sitter-elisp")
@@ -80,6 +88,7 @@
       (json "https://github.com/tree-sitter/tree-sitter-json")
       (make "https://github.com/alemuller/tree-sitter-make")
       (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+      (rust "https://github.com/tree-sitter/tree-sitter-rust")
       (python "https://github.com/tree-sitter/tree-sitter-python")
       (toml "https://github.com/tree-sitter/tree-sitter-toml")
       (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
@@ -88,6 +97,8 @@
 
   (setq mode-list '(("\\.tsx\\'" . tsx-ts-mode)
                     ("\\.ts\\'" . typescript-ts-mode)
+                    ("\\.rs\\'" . rust-ts-mode)
+                    ("\\.c\\'" . c-ts-mode)
                     ("\\.cpp\\'" . c++-ts-mode)
                     ("\\.py\\'" . python-mode)))
 
@@ -110,6 +121,8 @@
 
 ;; Configure Tempel
 (use-package tempel
+  :custom
+  (tempel-trigger-prefix "<")
   :init
   (setq completion-at-point-functions
               (cons #'tempel-complete
@@ -121,7 +134,8 @@
 (use-package evil-nerd-commenter)
 
 ;; Additional protocol extension for accessing files
-(use-package tramp)
+(use-package tramp
+  :ensure nil)
 
 (use-package prog-mode
   :ensure nil

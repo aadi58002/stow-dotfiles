@@ -4,49 +4,82 @@
 ;;                https://evil.readthedocs.io/en/latest/keymaps.html#leader-keys
 
 (global-set-key (kbd "C-;") #'embark-act)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(defvar-keymap +leader-buffer-keymap
+  :doc "Buffer keymap under Leader Key"
+  "k" #'kill-current-buffer
+  "b" #'consult-buffer-other-window)
+
+(defvar-keymap +leader-code-keymap
+  :doc "Code keymap under Leader Key"
+  "a" #'eglot-code-actions
+  "r" #'eglot-rename
+  "s" #'eglot
+  "f" #'eglot-format
+  "e" #'consult-flymake)
+
+(defvar-keymap +leader-file-keymap
+  :doc "File keymap under Leader Key"
+  "r" #'consult-recent-file)
+
+(defvar-keymap +leader-git-keymap
+  :doc "Git keymap under Leader Key"
+  "g" #'magit)
+
+(defvar-keymap +leader-notes-keymap
+  :doc "Notes keymap under Leader Key"
+  "c" #'org-capture
+  "p" #'org-cliplink
+  "f" #'consult-denote-find
+  "r" #'consult-denote-grep
+  "a" #'org-agenda
+  "m" #'+denote/mark-asarchive-task)
+
+(defvar-keymap +leader-project-keymap
+  :doc "Project keymap under Leader Key"
+  "b" #'consult-project-buffer)
+
+(defvar-keymap +leader-search-keymap
+  :doc "Search keymap under Leader Key"
+  "l" #'consult-line
+  "r" #'consult-ripgrep
+  "i" #'consult-imenu
+  "f" #'consult-fd)
+
+(defvar-keymap +leader-keymap
+  :doc "Leader Keymap"
+  "b" +leader-buffer-keymap
+  "c" +leader-code-keymap
+  "f" +leader-file-keymap
+  "g" +leader-git-keymap
+  "n" +leader-notes-keymap
+  "p" +leader-project-keymap
+  "s" +leader-search-keymap
+
+  "<return>" #'denote-silo-extras-open-or-create
+  "<SPC>" #'find-file
+  "x" #'consult-register-load
+  "z" #'consult-register-store)
+
+(defvar-keymap +treesit-fold-keymap
+  :doc "Buffer keymap under Leader Key"
+  "z" #'treesit-fold-toggle
+  "c" #'treesit-fold-close
+  "C" #'treesit-fold-close-all
+  "o" #'treesit-fold-open
+  "O" #'treesit-fold-open-all
+  "r" #'treesit-fold-open-recursively)
 
 (dolist (state '(normal visual motion operator emacs))
   (evil-set-leader state (kbd "SPC"))
+
   (evil-define-key state 'global
-    (kbd "<leader>fr") #'consult-recent-file
+    (kbd "<leader>") +leader-keymap
+    (kbd "z") +treesit-fold-keymap
 
-    (kbd "<leader><return>") #'denote-silo-extras-open-or-create
-    (kbd "<leader><SPC>") #'find-file
-
-    (kbd "<leader>bk") #'kill-this-buffer
-    (kbd "<leader>bb") #'consult-buffer-other-window
-
-    (kbd "<leader>gg") #'magit
-
-    ;; Coding
-    (kbd "<leader>ca") #'eglot-code-actions
-    (kbd "<leader>cr") #'eglot-rename
-    (kbd "<leader>cs") #'eglot
-    (kbd "<leader>cf") #'eglot-format
-    (kbd "<leader>ce") #'consult-flymake
-
-    ;; Notes
-    (kbd "<leader>nc") #'org-capture
-    (kbd "<leader>np") #'org-cliplink
-    (kbd "<leader>nf") #'consult-denote-find
-    (kbd "<leader>nr") #'consult-denote-grep
-    (kbd "<leader>na") #'org-agenda
-    (kbd "<leader>nm") #'+denote/mark-asarchive-task
-
-    ;; Project
-    (kbd "<leader>pb") #'consult-project-buffer
-
-    ;; Search
-    (kbd "<leader>sl") #'consult-line
-    (kbd "<leader>sr") #'consult-ripgrep
-    (kbd "<leader>si") #'consult-imenu
-    (kbd "<leader>sf") #'consult-fd
-
-    ;; Registers
-    (kbd "<leader>x") #'consult-register-load
-    (kbd "<leader>z") #'consult-register-store
-
-    (kbd ",") #'kitty-async-process
+    (kbd ",") #'async-shell-command
+    (kbd "C-,") #'kitty-async-process
 
     (kbd "gw") #'avy-goto-word-0
     (kbd "gc") #'avy-goto-word-1
@@ -54,22 +87,15 @@
     (kbd "K") #'helpful-at-point
     (kbd "C-/") #'evilnc-comment-or-uncomment-lines)
 
-  (evil-define-key state eglot-mode-map
-    ;; Coding
-    (kbd "<leader>ca") #'eglot-code-actions
-    (kbd "<leader>cr") #'eglot-rename
-    (kbd "<leader>cs") #'eglot
-    (kbd "<leader>cf") #'eglot-format
-    (kbd "<leader>ce") #'consult-flymake
+  ;;(evil-define-key state 'org-mode-map (kbd "<return>") #'org-return)
 
-    (kbd "zz") #'treesit-fold-toggle
-    (kbd "zc") #'treesit-fold-close
-    (kbd "zC") #'treesit-fold-close-all
-    (kbd "zo") #'treesit-fold-open
-    (kbd "zO") #'treesit-fold-open-all
-    (kbd "zr") #'treesit-fold-open-recursively)
-)
+  (evil-define-key state org-agenda-mode-map
+    "j" 'org-agenda-next-line
+    "k" 'org-agenda-previous-line))
 
+(evil-define-key 'normal 'dired-mode-map (kbd "<leader>") +leader-keymap)
+
+(define-key minibuffer-mode-map (kbd "M-h") 'consult-history)
 (define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
 (define-key isearch-mode-map (kbd "C-S-v") #'isearch-yank-pop-only)
 ;; Vundo
@@ -83,14 +109,5 @@
 
 (evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
 (evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
-
-;; Org mode
-(dolist (state '(normal visual motion operator emacs))
-  (evil-define-key state org-mode-map  (kbd "<RET>") #'org-return)
-
-  (evil-define-key state org-agenda-mode-map
-    "j" 'org-agenda-next-line
-    "k" 'org-agenda-previous-line)
-)
 
 (provide 'custom-keybindings)

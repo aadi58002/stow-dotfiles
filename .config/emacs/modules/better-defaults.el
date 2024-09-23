@@ -1,5 +1,8 @@
 ;;; better-defaults.el -*- lexical-binding: t; -*-
 
+;; Shell command
+(setq shell-command-prompt-show-cwd t)
+
 ;; Automatically reread from disk if the underlying file changes
 (setq auto-revert-avoid-polling t)
 ;; Some systems don't do file notifications well; see
@@ -11,8 +14,6 @@
 ;; Enable minibuffer history, prioritizes M-x & vim commands with most recent commands issued
 (setq history-length 100)
 
-;; Enable recording recent files & window configuration for going back and forth
-(recentf-mode 1)  ; SPC-f-r
 ;; Set relative lines
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
@@ -54,10 +55,10 @@
 (load custom-file)
 
 ;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
-
 ;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 (setq switch-to-buffer-obey-display-actions t)
 
-(setq  fill-column 80)
+(setq fill-column 120)
+(display-fill-column-indicator-mode 1)
 
 (provide 'better-defaults)

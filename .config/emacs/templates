@@ -3,6 +3,7 @@
 ;; Available everywhere
 fundamental-mode
 (today (format-time-string "%Y-%m-%d"))
+(shrug "¯\_(ツ)_/¯")
 
 ;; Available c++-mode and c++-ts-mode
 c++-mode c++-ts-mode
@@ -29,7 +30,7 @@ text-mode
      "--8<---------------cut here---------------end--------------->8---" n)
 
 ;; Available text-mode
-org-mode 
+org-mode
 (caption "#+caption: ")
 (drawer ":" p ":" n r ":end:")
 (begin "#+begin_" (s name) n> r> n "#+end_" name)

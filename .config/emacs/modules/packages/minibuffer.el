@@ -22,16 +22,8 @@
   (setq vertico-buffer-display-action '(display-buffer-in-side-window
                                         (side . right)
                                         (window-width . 0.3))
-        vertico-multiform-commands '((consult-line buffer)
-                                     (consult-ripgrep buffer)
+        vertico-multiform-commands '((consult-ripgrep buffer)
                                      (consult-fd buffer))))
-
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :ensure nil
-  :init
-  (setq savehist-ignored-variables '(extended-command-history))
-  (savehist-mode))
 
 ;; A few more useful configurations...
 (use-package emacs

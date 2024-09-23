@@ -33,10 +33,6 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 # Ripgrep
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep.conf
 
-### Aws
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
-
 # pnpm
 set -gx PNPM_HOME "/home/aditya-yadav/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
@@ -52,7 +48,7 @@ export SVDIR="$XDG_DATA_HOME"/service
 
 ### Firefox
 export GDK_BACKEND=wayland
-export MOZ_USE_XINPUT=1
+export MOZ_USE_XINPUT2=1
 export MOZ_ENABLE_WAYLAND=1
 
 ##t Rust
