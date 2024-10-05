@@ -8,13 +8,13 @@
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-  (corfu-preselect 'first)      ;; Preselect the prompt
+  (corfu-preview-current t)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'first)       ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-  (corfu-popupinfo-delay 0.1)
-  (corfu-auto-prefix 0.1)
-  (corfu-auto-delay 0)
+  ;; (corfu-popupinfo-delay 1)
+  ;; (corfu-auto-prefix 1)
+  ;; (corfu-auto-delay 0)
 
   :config
   ;; Silence the pcomplete capf, no errors or messages!
@@ -24,6 +24,18 @@
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
   (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+
+  ;; Free the RET key for less intrusive behavior.
+  ;; Option 1: Unbind RET completely
+  ;; (keymap-unset corfu-map "RET")
+  ;; Option 2: Use RET only in shell modes
+  (keymap-set corfu-map "RET" `( menu-item "" nil :filter
+                                 ,(lambda (&optional _)
+                                    (and (derived-mode-p 'eshell-mode 'comint-mode)
+                                         #'corfu-send))))
+
+  ;; Added in emacs 30
+  ;;(global-completion-preview-mode 1)
 
   (corfu-popupinfo-mode 1)
   (global-corfu-mode))

@@ -23,8 +23,13 @@
   :doc "File keymap under Leader Key"
   "r" #'consult-recent-file)
 
+(defvar-keymap +leader-read-feed-keymap
+  :doc "Feed keymap under Leader Key"
+  "r" #'elfeed)
+
 (defvar-keymap +leader-git-keymap
   :doc "Git keymap under Leader Key"
+  "b" #'magit-blame-addition
   "g" #'magit)
 
 (defvar-keymap +leader-notes-keymap
@@ -55,6 +60,7 @@
   "g" +leader-git-keymap
   "n" +leader-notes-keymap
   "p" +leader-project-keymap
+  "r" +leader-read-feed-keymap
   "s" +leader-search-keymap
 
   "<return>" #'denote-silo-extras-open-or-create

@@ -69,6 +69,7 @@
 (use-package project
   :ensure nil
   :config
+  (setq project-mode-line t)
   (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml")))
 
 (use-package treesit

@@ -21,7 +21,9 @@
 ;; Configure automatic line breaks and word-wrap (just in case)
 (setq-default fill-column 120  ; SPC-c
               auto-fill-function 'do-auto-fill)
+(display-fill-column-indicator-mode 1)
 (global-visual-line-mode t)  ; SPC-w
+(add-hook 'prog-mode #'turn-off-auto-fill)
 
 ;; I prefer indentation with spaces
 (electric-indent-mode -1)
@@ -57,8 +59,5 @@
 ;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
 ;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 (setq switch-to-buffer-obey-display-actions t)
-
-(setq fill-column 120)
-(display-fill-column-indicator-mode 1)
 
 (provide 'better-defaults)

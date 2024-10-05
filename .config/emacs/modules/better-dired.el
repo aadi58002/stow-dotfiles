@@ -1,6 +1,7 @@
 ;;; better-dired.el -*- lexical-binding: t; -*-
 
 (setq dired-recursive-copies 'always
+      dired-kill-when-opening-new-dired-buffer t
       dired-recursive-deletes 'always
       delete-by-moving-to-trash t
       dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"

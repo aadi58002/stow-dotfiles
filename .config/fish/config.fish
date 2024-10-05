@@ -76,6 +76,7 @@ export XDG_SESSION_DESKTOP=kde
 status --is-interactive; and begin
     # export ZELLIJ_AUTO_ATTACH=true
 
+    # Xbps Abbr
     abbr --add --global -- xX 'xbps-query -RX'
     abbr --add --global -- xf 'xbps-query -Rf'
     abbr --add --global -- xi 'sudo xbps-install'
@@ -86,10 +87,14 @@ status --is-interactive; and begin
 
     set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $HOME/.nix-profile/bin $XDG_STATE_HOME/nix/profile/bin $PATH
 
+    # Common Abbr
+    abbr --add --global ls -- 'eza -al'
+    abbr --add --global podmanc -- 'podman container'
+    abbr --add --global podmani -- 'podman image'
+    abbr --add --global lsblk -- 'lsblk -fmp'
+
     # Aliases
-    alias c cargo
     alias cat bat
-    alias cr 'cargo run'
     alias cws 'cargo watch -c -w src -x run'
     alias downmusic '~/Documents/linux/scripts/youtube-dl.sh'
     alias downvideos '~/Documents/linux/scripts/youtube-dl-videos.sh'
@@ -101,15 +106,32 @@ status --is-interactive; and begin
     alias ke 'pkill emacs'
     alias ls eza
     alias n nvim
-    alias podmanc 'podman container'
-    alias podmani 'podman image'
-    alias vim 'emacsclient -a '\''emacs'\'' -t -q'
-
-    alias lsblk 'lsblk -fmp'
 
     bind \b backward-kill-word
     bind \e\[1\;2D dir_back
 
+    ###-begin-pnpm-completion-###
+    function _pnpm_completion
+      set cmd (commandline -o)
+      set cursor (commandline -C)
+      set words (count $cmd)
+
+      set completions (eval env DEBUG=\"" \"" COMP_CWORD=\""$words\"" COMP_LINE=\""$cmd \"" COMP_POINT=\""$cursor\"" SHELL=fish pnpm completion-server -- $cmd)
+
+      if [ "$completions" = "__tabtab_complete_files__" ]
+        set -l matches (commandline -ct)*
+        if [ -n "$matches" ]
+          __fish_complete_path (commandline -ct)
+        end
+      else
+        for completion in $completions
+          echo -e $completion
+        end
+      end
+    end
+
+    complete -f -d 'pnpm' -c pnpm -a "(_pnpm_completion)"
+    ###-end-pnpm-completion-###
 
     starship init fish | source
     zoxide init fish | source
