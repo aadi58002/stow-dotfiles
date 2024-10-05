@@ -3,7 +3,7 @@
 (use-package eglot
   :ensure nil
   :defer t
-  :after (cape orderless tempel)
+  :after (cape orderless tempel breadcrumb)
   :commands (eglot
              eglot-code-actions
              eglot-ensure
@@ -13,7 +13,8 @@
   ;; ;; Emacs 30; Activate editor config mode
   ;; (editorconfig-mode 1)
 
-  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
+        eglot-report-progress t)
 
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
@@ -50,13 +51,16 @@
                           #'cape-keyword
                           #'cape-file))))
 
+  (defun +lsp/custom-setup-eglot ()
+    (add-to-list 'mode-line-misc-info '(" [ " (:eval (breadcrumb-imenu-crumbs)) " ] ") 'APPEND))
 
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-capf)
   (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-eldoc)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/custom-setup-eglot)
 
   (add-to-list 'eglot-server-programs
-              `(((js-mode :language-id "javascript")
+             `(((js-mode :language-id "javascript")
                  (js-ts-mode :language-id "javascript")
                  (tsx-ts-mode :language-id "typescriptreact")
                  (typescript-ts-mode :language-id "typescript")
@@ -103,6 +107,7 @@
                     ("\\.cpp\\'" . c++-ts-mode)
                     ("\\.py\\'" . python-mode)))
 
+  (setq treesit-font-lock-level 4)
   ;; Loop to add file extensions to auto-mode-alist
   (dolist (mode-pair mode-list)
     (add-to-list 'auto-mode-alist mode-pair))
@@ -114,6 +119,10 @@
   (dolist (mode eglot-modes)
     (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure))
 )
+
+(use-package breadcrumb
+  :config
+  (fset 'breadcrumb--project-crumbs-1 #'ignore))
 
 (use-package treesit-fold
   ;; :config
@@ -139,7 +148,6 @@
   :ensure nil)
 
 (use-package prog-mode
-  :ensure nil
-  :hook (prog-mode . which-function-mode))
+  :ensure nil)
 
 (provide 'lsp-pkg-setup)
