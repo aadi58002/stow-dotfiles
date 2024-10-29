@@ -1,5 +1,11 @@
 ;;; lsp.el -*- lexical-binding: t; -*-
 
+(use-package flycheck)
+(use-package flycheck-eglot
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))
+
 (use-package eglot
   :ensure nil
   :defer t
@@ -74,7 +80,7 @@
   :ensure nil
   :config
   (setq project-mode-line t)
-  (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml")))
+  (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml" ".project")))
 
 (use-package treesit
   :ensure nil
@@ -121,8 +127,10 @@
 )
 
 (use-package breadcrumb
+  :after (consult)
   :config
-  (fset 'breadcrumb--project-crumbs-1 #'ignore))
+  (fset 'breadcrumb--project-crumbs-1 #'ignore)
+  (advice-add 'breadcrumb-jump :override 'consult-imenu))
 
 (use-package treesit-fold
   ;; :config

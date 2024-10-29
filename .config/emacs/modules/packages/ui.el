@@ -42,7 +42,8 @@
 
   ;; Disable all other themes to avoid awkward blending:
   (mapc #'disable-theme custom-enabled-themes)
-  (run-with-timer 0 (* 5 60) (lambda () (ef-themes-load-random 'dark))))
+  (load-theme 'ef-duo-dark t))
+  ;; (run-with-timer 0 (* 5 60) (lambda () (ef-themes-load-random 'dark))))
 
 (use-package wgrep
   :config

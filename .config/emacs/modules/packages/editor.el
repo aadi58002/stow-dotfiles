@@ -1,9 +1,7 @@
 ;;; editor.el -*- lexical-binding: t; -*-
 
 ;; keep undo history
-(use-package undo-fu
-  :config
-  (setq evil-undo-system 'undo-fu))
+(use-package undo-fu)
 
 ;; keep file's undo history between emacs sessions
 (use-package undo-fu-session
@@ -49,9 +47,14 @@
   :init
   (setq savehist-ignored-variables '(extended-command-history)))
 
-
 (use-package whitespace
   :ensure nil
   :hook (before-save . whitespace-cleanup))
+
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
 
 (provide 'editor-pkg-setup)

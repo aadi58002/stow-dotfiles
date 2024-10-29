@@ -31,13 +31,15 @@ mesa-vulkan-radeon
 mpc
 mpd
 neovim
-nerd-fonts-cascadiacode
-nerd-fonts-symbols-ttf
+nerd-fonts-ttf-cascadiacode
+nerd-fonts-ttf-firacode
 nix
 p7zip
 pipewire
+plasma-firewall
 podman
 podman-compose
+power-profiles-daemon
 ripgrep
 rust-sccache
 rustup
@@ -49,6 +51,7 @@ stow
 topgrade
 torbrowser-launcher
 tree
+ufw
 waydroid
 wireplumber
 wl-clipboard

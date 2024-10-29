@@ -9,23 +9,22 @@
 ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
 (setq auto-revert-interval 5)
 (setq auto-revert-check-vc-info t)
-(global-auto-revert-mode)
 
 ;; Enable minibuffer history, prioritizes M-x & vim commands with most recent commands issued
 (setq history-length 100)
 
 ;; Set relative lines
-(setq display-line-numbers-type 'relative)
+;;(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
 ;; Configure automatic line breaks and word-wrap (just in case)
-(setq-default fill-column 120  ; SPC-c
-              auto-fill-function 'do-auto-fill)
+;; (setq-default fill-column 120  ; SPC-c
+;;               auto-fill-function 'do-auto-fill)
 (display-fill-column-indicator-mode 1)
 (global-visual-line-mode t)  ; SPC-w
 (add-hook 'prog-mode #'turn-off-auto-fill)
 
-;; I prefer indentation with spaces
+(electric-pair-mode 1)
 (electric-indent-mode -1)
 (setq-default tab-width 2
               indent-line-function 'insert-tab
