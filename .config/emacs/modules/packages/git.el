@@ -1,13 +1,5 @@
 ;;; git.el -*- lexical-binding: t; -*-
 
-;; Manually update built in package to the latest version for magit
-(use-package transient)
-
-;; Magit dependency for signing commit
-(use-package pinentry
-  :config
-  (pinentry-start))
-
 (use-package magit
   :config
   (add-hook 'git-commit-post-finish-hook 'magit)

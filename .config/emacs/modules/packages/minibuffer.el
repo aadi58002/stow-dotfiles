@@ -93,6 +93,14 @@
          ([remap man]                              .  #'consult-man)
          ([remap yank-pop]                         .  #'consult-yank-pop))
   :init
+  (setq register-preview-delay 0
+        register-preview-function #'consult-register-format)
+
+  (advice-add #'register-preview :override #'consult-register-window)
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+  :config
   ;; Ref: https://github.com/doomemacs/doomemacs/blob/master/modules/completion/vertico/config.el
   (setq consult-narrow-key "<"
         consult-line-numbers-widen t
@@ -106,12 +114,7 @@
           ;; https://github.com/sharkdp/fd/issues/839
           "--full-path --absolute-path"
           "--hidden --exclude .git"
-          (if (featurep :system 'windows) "--path-separator=/")))
-
-  (setq register-preview-delay 0
-        register-preview-function #'consult-register-format)
-
-  (advice-add #'register-preview :override #'consult-register-window))
+          (if (featurep :system 'windows) "--path-separator=/"))))
 
 (use-package consult-dir
   :after (embark)
