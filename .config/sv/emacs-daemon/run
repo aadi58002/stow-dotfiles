@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 
 exec 2>&1
-
 LOGIN_SHELL=$(getent passwd "$UID" | cut -d: -f7)
-XDG_RUNTIME_DIR=$($LOGIN_SHELL -c 'echo $XDG_RUNTIME_DIR') exec /usr/bin/emacs --fg-daemon
+HOME=$($LOGIN_SHELL -c 'echo $HOME')
+
+
+export XDG_RUNTIME_DIR=$($LOGIN_SHELL -c 'echo $XDG_RUNTIME_DIR') 
+PATH=$($LOGIN_SHELL -c 'echo $PATH') exec /usr/bin/emacs --fg-daemon --chdir=$HOME

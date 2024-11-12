@@ -5,6 +5,15 @@ fundamental-mode
 (today (format-time-string "%Y-%m-%d"))
 (shrug "¯\_(ツ)_/¯")
 
+emacs-lisp-mode
+(autoload ";;;###autoload")
+(header ";;; " (file-name-nondirectory (or (buffer-file-name) (buffer-name)))
+        " -- " p " -*- lexical-binding: t -*-" n
+        ";;; Commentary:" n ";;; Code:" n n)
+(provide "(provide '" (file-name-base (or (buffer-file-name) (buffer-name))) ")" n
+         ";;; " (file-name-nondirectory (or (buffer-file-name) (buffer-name)))
+         " ends here" n)
+
 ;; Available c++-mode and c++-ts-mode
 c++-mode c++-ts-mode
 (chef "#include <bits/stdc++.h>" n n "using namespace std;" n n "int main(int argc, char *argv[]) {" n> "ios_base::sync_with_stdio(false);" n> "cin.tie(nullptr);" n> "int testcase;" n> "cin >> testcase;" n> "while(testcase--){" n> q n "  }" n> "return 0;" n "}")
@@ -16,7 +25,7 @@ rust-ts-mode
 
 ;; Available prog-mode
 prog-mode
-(!! "#!/usr/bin/env python")
+(!! "#!/usr/bin/env")
 
 ;; Available text-mode
 text-mode

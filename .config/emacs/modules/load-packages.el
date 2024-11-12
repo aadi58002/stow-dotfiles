@@ -5,12 +5,14 @@
   (if immediate
      (elpaca-wait)))
 
+;; Load evil first as its a dependency of many other packages
+(load-packages "keybinds")
+
 (load-packages "completion")
 (load-packages "custom-functions")
 (load-packages "editor")
 (load-packages "git")
 (load-packages "icons")
-(load-packages "keybinds")
 (load-packages "lsp")
 (load-packages "minibuffer")
 (load-packages "news")

@@ -1,11 +1,5 @@
 ;;; lsp.el -*- lexical-binding: t; -*-
 
-(use-package flycheck)
-(use-package flycheck-eglot
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
-
 (use-package eglot
   :ensure nil
   :defer t
@@ -99,6 +93,7 @@
       (json "https://github.com/tree-sitter/tree-sitter-json")
       (make "https://github.com/alemuller/tree-sitter-make")
       (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+      (nu "https://github.com/nushell/tree-sitter-nu")
       (rust "https://github.com/tree-sitter/tree-sitter-rust")
       (python "https://github.com/tree-sitter/tree-sitter-python")
       (toml "https://github.com/tree-sitter/tree-sitter-toml")
@@ -109,9 +104,11 @@
   (setq mode-list '(("\\.tsx\\'" . tsx-ts-mode)
                     ("\\.ts\\'" . typescript-ts-mode)
                     ("\\.rs\\'" . rust-ts-mode)
+                    ("\\.go\\'" . go-ts-mode)
+                    ("\\.nu\\'" . shell-mode)
                     ("\\.c\\'" . c-ts-mode)
                     ("\\.cpp\\'" . c++-ts-mode)
-                    ("\\.py\\'" . python-mode)))
+                    ("\\.py\\'" . python-ts-mode)))
 
   (setq treesit-font-lock-level 4)
   ;; Loop to add file extensions to auto-mode-alist

@@ -1,0 +1,21 @@
+alias xX = xbps-query -RX
+alias xf = xbps-query -Rf
+alias xi = sudo xbps-install
+alias xp = sudo xbps-pkgdb
+alias xq = xbps-query -Rs
+alias xr = sudo xbps-remove -R
+alias xx = xbps-query -Rx
+
+alias podmanc = podman container
+alias podmani = podman image
+alias lsblk = lsblk -fmp
+alias cat = bat
+alias cws = cargo watch -c -w src -x run
+alias downmusic = ~/Documents/linux/scripts/youtube-dl.sh
+alias downvideos = ~/Documents/linux/scripts/youtube-dl-videos.sh
+alias e = bash -c "emacsclient -c -a 'emacs' -q . & disown"
+alias ess = emacsclient -a '' -e '(server-start)'
+alias fd = fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow
+alias rg = rg --hidden --follow
+alias ke = pkill emacs
+alias n = nvim

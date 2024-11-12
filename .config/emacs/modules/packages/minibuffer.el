@@ -83,6 +83,7 @@
 
          ;; Buffer
          ([remap switch-to-buffer]                 .  #'consult-buffer)
+         ([remap list-buffers]                 .  #'consult-buffer)
          ([remap switch-to-buffer-other-window]    .  #'consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame]     .  #'consult-buffer-other-frame)
 

@@ -43,6 +43,9 @@ end
 ## Cmake Extra flags
 export CMAKE_EXTRA_FLAGS="-DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache"
 
+##Runit
+export SVDIR="$XDG_DATA_HOME"/service
+
 ### Firefox
 export GDK_BACKEND=wayland
 export MOZ_USE_XINPUT2=1
@@ -91,15 +94,16 @@ status --is-interactive; and begin
     abbr --add --global lsblk -- 'lsblk -fmp'
 
     # Aliases
-    alias svu "SVDIR=$HOME/.local/share/service sv"
     alias cat bat
     alias cws 'cargo watch -c -w src -x run'
     alias downmusic '~/Documents/linux/scripts/youtube-dl.sh'
     alias downvideos '~/Documents/linux/scripts/youtube-dl-videos.sh'
     alias e 'emacsclient -c -a '\''emacs'\'' -q . & disown'
+    alias ess 'emacsclient -a '\'''\'' -e '\''(server-start)'\'''
     alias fd 'fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow'
     alias rg 'rg --hidden --follow'
     alias grep rg
+    alias ke 'pkill emacs'
     alias ls eza
     alias n nvim
 

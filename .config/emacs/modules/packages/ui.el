@@ -59,7 +59,7 @@
   (("C-<iso-lefttab>" . tab-line-switch-to-prev-tab)
    ("C-<tab>" . tab-line-switch-to-next-tab))
   :config
-  (global-tab-line-mode 1)
+  ;;(global-tab-line-mode 1)
   (setq tab-line-new-button-show nil
         tab-line-close-button-show nil))
 

@@ -1,5 +1,7 @@
 ;;; git.el -*- lexical-binding: t; -*-
 
+(use-package transient)
+
 (use-package magit
   :config
   (add-hook 'git-commit-post-finish-hook 'magit)

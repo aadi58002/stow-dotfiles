@@ -51,10 +51,16 @@
   :ensure nil
   :hook (before-save . whitespace-cleanup))
 
-(use-package multiple-cursors
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
+(use-package evil-multiedit
+  :config
+  (evil-multiedit-default-keybinds))
+
+(use-package evil-mc
+  :after (evil)
+  :config
+  (global-evil-mc-mode 1)
+  (evil-define-key 'visual evil-mc-key-map
+    "A" #'evil-mc-make-cursor-in-visual-selection-end
+    "I" #'evil-mc-make-cursor-in-visual-selection-beg))
 
 (provide 'editor-pkg-setup)

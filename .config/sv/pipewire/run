@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+exec 2>&1
+LOGIN_SHELL=$(getent passwd "$UID" | cut -d: -f7)
+echo $LOGIN_SHELL
+$LOGIN_SHELL -c 'echo $XDG_RUNTIME_DIR'
+XDG_RUNTIME_DIR=$($LOGIN_SHELL -c 'echo $XDG_RUNTIME_DIR') exec dbus-run-session /usr/bin/pipewire

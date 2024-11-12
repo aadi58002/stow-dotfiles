@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+exec 2>&1
+LOGIN_SHELL=$(getent passwd "$UID" | cut -d: -f7)
+XDG_RUNTIME_DIR=$($LOGIN_SHELL -c 'echo $XDG_RUNTIME_DIR') exec unlink $XDG_RUNTIME_DIR/mpd/socket 

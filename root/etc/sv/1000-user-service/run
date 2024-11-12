@@ -7,4 +7,4 @@ HOME=$(getent passwd "$UID" | cut -d: -f6)
 groups="$(id -Gn "$USER" | tr ' ' ':')"
 svdir="$HOME/.local/share/service"
 
-exec chpst -u "$USER:$groups" runsvdir "$svdir"
+exec chpst -u "$USER:$groups" -U "$USER" runsvdir "$svdir"
