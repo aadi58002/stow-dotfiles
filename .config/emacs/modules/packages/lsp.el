@@ -123,21 +123,21 @@
     (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure))
 )
 
+(use-package treesit-fold
+  ;; :config
+  ;; (global-treesit-fold-indicators-mode 1)
+)
+
 (use-package breadcrumb
   :after (consult)
   :config
   (fset 'breadcrumb--project-crumbs-1 #'ignore)
   (advice-add 'breadcrumb-jump :override 'consult-imenu))
 
-(use-package treesit-fold
-  ;; :config
-  ;; (global-treesit-fold-indicators-mode 1)
-)
-
 ;; Configure Tempel
 (use-package tempel
-  :custom
-  (tempel-trigger-prefix "<")
+  ;;:custom
+  ;; (tempel-trigger-prefix "<")
   :init
   (setq completion-at-point-functions
               (cons #'tempel-complete
@@ -150,9 +150,6 @@
 
 ;; Additional protocol extension for accessing files
 (use-package tramp
-  :ensure nil)
-
-(use-package prog-mode
   :ensure nil)
 
 (provide 'lsp-pkg-setup)

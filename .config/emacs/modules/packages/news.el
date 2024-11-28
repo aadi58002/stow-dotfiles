@@ -19,7 +19,6 @@
           ("https://www.reddit.com/r/emacs.rss" reddit emacs)
           ("https://www.reddit.com/r/neovim.rss" reddit neovim)
           ("https://www.reddit.com/r/linux.rss" reddit linux)
-          ("https://www.reddit.com/r/HonkaiStarRail_leaks.rss" reddit hsr)
 
           ;;youtube
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw" youtube medium ltt hardware tech)
