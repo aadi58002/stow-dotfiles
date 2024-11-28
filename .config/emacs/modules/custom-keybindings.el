@@ -102,6 +102,8 @@
     "k" 'org-agenda-previous-line))
 
 (evil-define-key 'normal 'dired-mode-map (kbd "<leader>") +leader-keymap)
+(evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+(evil-define-key 'normal 'eglot-mode-map (kbd "M-n") 'flymake-goto-next-error)
 
 (define-key minibuffer-mode-map (kbd "M-h") 'consult-history)
 (define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
