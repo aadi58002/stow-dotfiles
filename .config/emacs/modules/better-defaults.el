@@ -53,7 +53,7 @@
 
 ;; Use custom.el in emacs directory to save variable changes
 (setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+(load custom-file :no-error-if-file-is-missing)
 
 ;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
 ;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
