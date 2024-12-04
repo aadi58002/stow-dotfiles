@@ -47,8 +47,20 @@
   :init
   (setq savehist-ignored-variables '(extended-command-history)))
 
-;;(use-package whitespace
-;;  :ensure nil
-;;  :hook (before-save . whitespace-cleanup))
+(use-package whitespace
+  :ensure nil
+  :hook (before-save . whitespace-cleanup))
+
+(use-package evil-multiedit
+  :config
+  (evil-multiedit-default-keybinds))
+
+(use-package evil-mc
+  :after (evil)
+  :config
+  (global-evil-mc-mode 1)
+  (evil-define-key 'visual evil-mc-key-map
+    "A" #'evil-mc-make-cursor-in-visual-selection-end
+    "I" #'evil-mc-make-cursor-in-visual-selection-beg))
 
 (provide 'editor-pkg-setup)
