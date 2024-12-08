@@ -2,7 +2,6 @@
 
 ;; Emulates vim keybinds & modal editing
 (use-package evil
-  :ensure (evil :host github :repo "emacs-evil/evil")
   :init
   (setq evil-v$-excludes-newline t       ; $ in visual doesn't include \n
         evil-kill-on-visual-paste nil    ; pasting in visual mode won't copy replaced text to clipboard
@@ -25,18 +24,5 @@
   :config
   (setq evil-collection-want-unimpaired-p nil)
   (evil-collection-init))
-
-(use-package avy
-  :after evil
-  :config
-  (custom-set-faces
-    `(avy-background-face ((t (:foreground "#666666" :background ,(face-background 'default) :weight bold))))
-    `(avy-lead-face ((t (:foreground   "#ff007c" :background ,(face-background 'default) :weight bold))))
-    `(avy-lead-face-0 ((t (:foreground "#00dfff" :background ,(face-background 'default) :weight bold))))
-    `(avy-lead-face-1 ((t (:foreground "#2b8db3" :background ,(face-background 'default) :weight bold))))
-    `(avy-lead-face-2 ((t (:foreground "#00ff00" :background ,(face-background 'default) :weight bold)))))
-
-  (setq avy-background nil
-        avy-highlight-first t))
 
 (provide 'keybinds-pkg-setup)

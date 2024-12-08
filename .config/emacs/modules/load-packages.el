@@ -15,7 +15,6 @@
 (load-packages "icons")
 (load-packages "lsp")
 (load-packages "minibuffer")
-(load-packages "news")
 (load-packages "notes")
 (load-packages "ui")
 

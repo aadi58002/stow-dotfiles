@@ -59,7 +59,7 @@
   "o" #'consult-outline
   "i" #'imenu
   "I" #'consult-imenu-multi
-  "f" #'consult-f)
+  "f" #'consult-fd)
 
 (defvar-keymap +leader-keymap
   :doc "Leader Keymap"

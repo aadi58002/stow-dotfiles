@@ -7,9 +7,6 @@
   ;; Emacs 30; Activate editor config mode
   ;;(editorconfig-mode 1)
 
-  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-        eglot-report-progress t)
-
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
         eglot-ignored-server-capabilities '(;;:hoverProvider
@@ -32,9 +29,12 @@
   ;; sufficiently many candidates in the first place. 
   (defun +lsp/setup-eglot ()
     (setq-local eldoc-documentation-functions
+
                             '(flymake-eldoc-function
                               eglot-signature-eldoc-function
                               eglot-hover-eldoc-function)
+
+                eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
              
                 completion-at-point-functions
                     (list (cape-capf-super
@@ -62,7 +62,6 @@
 (use-package project
   :ensure nil
   :config
-  (setq project-mode-line t)
   (setq project-vc-extra-root-markers '(".git" "package.json" "Cargo.toml" ".project")))
 
 (use-package treesit
@@ -100,22 +99,17 @@
                     ("\\.py\\'" . python-ts-mode)))
 
   (setq treesit-font-lock-level 4)
-  ;; Loop to add file extensions to auto-mode-alist
   (dolist (mode-pair mode-list)
     (add-to-list 'auto-mode-alist mode-pair))
 
-  ;; List of modes to add eglot to their hooks
   (setq eglot-modes (mapcar 'cdr mode-list))
 
-  ;; Loop to add eglot to the respective mode hooks
   (dolist (mode eglot-modes)
-    (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure))
-)
+    (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure)))
 
-(use-package treesit-fold
+(use-package treesit-fold)
   ;; :config
-  ;; (global-treesit-fold-indicators-mode 1)
-)
+  ;; (global-treesit-fold-indicators-mode 1))
 
 ;; Configure Tempel
 (use-package tempel
@@ -127,7 +121,6 @@
                     completion-at-point-functions))
 
   (global-tempel-abbrev-mode))
-
 
 ;; Comment and Uncommenting
 (use-package evil-nerd-commenter)

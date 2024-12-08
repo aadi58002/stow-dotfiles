@@ -6,12 +6,10 @@
   (load (concat user-emacs-modules-directory name)))
 
 ;; Install all packages before other configuration
-(enable-modules "better-defaults")
-(enable-modules "better-dired")
-(enable-modules "file-cleanup")
+(enable-modules "inbuild-config")
 
 (enable-modules "elpaca-setup")
 (enable-modules "load-packages")
 
-(enable-modules "ui")
+;; Loading keybinding at the end because we are using evil specific function to bind keys
 (enable-modules "custom-keybindings")

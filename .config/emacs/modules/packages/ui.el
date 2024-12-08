@@ -25,10 +25,6 @@
   (global-set-key [remap describe-command] #'helpful-command)
   (global-set-key [remap describe-function] #'helpful-function))
 
-(use-package wgrep
-  :config
-  (setq wgrep-auto-save-buffer t))
-
 (use-package which-key
   :config
   (which-key-mode))

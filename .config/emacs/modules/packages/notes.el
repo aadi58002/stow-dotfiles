@@ -13,6 +13,7 @@
         denote-known-keywords ()
         denote-save-buffers t
         denote-date-prompt-use-org-read-date t
+
         denote-directory "~/Documents/denote"
         denote-notes-directory "~/Documents/denote/notes"
         denote-tasks-directory "~/Documents/denote/tasks"
@@ -79,7 +80,7 @@
                 :immediate-finish nil
                 :kill-buffer t
                 :jump-to-captured t)
-=              ("n" "note" plain
+              ("n" "note" plain
                 (file denote-last-path)
                 (function
                   (lambda ()

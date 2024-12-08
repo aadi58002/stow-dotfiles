@@ -5,24 +5,10 @@
   :after consult
   :init
   (vertico-mode 1)
-  ;; (vertico-multiform-mode 1)
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
-
-  ;; Show more candidates
   (setq vertico-count 20
-  ;; Grow and shrink the Vertico minibuffer
         vertico-resize nil
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
         vertico-cycle t))
-  ;; :config
-  ;; (setq vertico-buffer-display-action '(display-buffer-in-side-window
-  ;;                                       (side . right)
-  ;;                                       (window-width . 0.3))
-  ;;       vertico-multiform-commands '((consult-ripgrep buffer)
-  ;;                                    (consult-fd buffer))))
 
-;; A few more useful configurations...
 (use-package emacs
   :ensure nil
   :init
@@ -45,6 +31,19 @@
   ;; Support opening new minibuffers from inside existing minibuffers.
   (setq enable-recursive-minibuffers t)
 
+  ;; TAB cycle if there are only few candidates
+  ;; (setq completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete)
+
+
+  ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
+  ;; try `cape-dict'.
+  (setq text-mode-ispell-word-completion nil)
+
+
   ;; Emacs 28 and newer: Hide commands in M-x which do not work in the current
   ;; mode.  Vertico commands are hidden in normal buffers. This setting is
   ;; useful beyond Vertico.
@@ -53,11 +52,7 @@
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :config
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless basic flex)
-        ;; completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult
@@ -103,31 +98,9 @@
         xref-show-definitions-function #'consult-xref)
   :config
   ;; Ref: https://github.com/doomemacs/doomemacs/blob/master/modules/completion/vertico/config.el
-  (setq consult-narrow-key "<"
-        consult-line-numbers-widen t
-        consult-async-min-input 2
-        consult-async-refresh-delay  0.15
-        consult-async-input-throttle 0.2
-        consult-async-input-debounce 0.1
-        consult-fd-args
+  (setq consult-fd-args
         '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
-          "--color=never"
-          ;; https://github.com/sharkdp/fd/issues/839
-          "--full-path --absolute-path"
-          "--hidden --exclude .git"
-          (if (featurep :system 'windows) "--path-separator=/"))))
-
-(use-package consult-dir
-  :after (embark)
-  :bind (([remap project-switch-project] .  #'consult-dir)
-         ("C-x C-d" . consult-dir)
-         :map vertico-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file))
-  :config
-  (setq consult-dir-shadow-filenames nil
-        consult-dir-jump-file-command 'consult-fd))
-
+          "--hidden --full-path --color=never")))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
@@ -141,8 +114,6 @@
           ("C-;" . embark-act))
   :config
   (setq prefix-help-command #'embark-prefix-help-command
-        embark-mixed-indicator-delay 0.1
-        embark-quit-after-action '((kill-buffer . t) (t . nil))
         embark-verbose-indicator-display-action '(display-buffer-at-bottom)
         embark-quit-after-action nil)
 

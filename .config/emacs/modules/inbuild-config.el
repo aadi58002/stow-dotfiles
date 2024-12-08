@@ -59,4 +59,49 @@
 ;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 (setq switch-to-buffer-obey-display-actions t)
 
+;; Backup and locked file
+(defvar backupdir (concat user-emacs-directory "file-backups/"))
+(defvar lockdir (concat user-emacs-directory "file-locks/"))
+(make-directory backupdir t)
+(make-directory lockdir t)
+
+(setq auto-save-list-file-prefix (concat backupdir ".auto-saves-")
+      auto-save-file-name-transforms `((".*" ,backupdir t))
+      lock-file-name-transforms `((".*" ,lockdir t))
+      backup-directory-alist `(("." . ,backupdir))
+      tramp-auto-save-directory backupdir
+      tramp-backup-directory-alist `((".*" . ,backupdir)))
+
+(provide 'file-cleanup)
+
+;; Dired
+(setq dired-recursive-copies 'always
+      dired-kill-when-opening-new-dired-buffer t
+      dired-recursive-deletes 'always
+      delete-by-moving-to-trash t
+      dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"
+      dired-dwim-target t
+      dired-create-destination-dirs 'ask)
+
+;; Theme
+(setq mode-line-format (delq 'mode-line-modes mode-line-format))
+(setq mode-line-percent-position nil)
+;; Dynamic calculation of line number width leads to window shift to right on scroll down
+(setq display-line-numbers-width-start t)
+
+;; Modus theme
+(setq modus-themes-italic-constructs t
+      modus-themes-bold-constructs t)
+
+;; Keep the border but make it the same color as the background of the
+;; mode line (thus appearing borderless).  The difference with the
+;; above is that this version is a bit thicker because the border are
+;; still there.
+(setq modus-themes-common-palette-overrides
+      '((border-mode-line-active bg-mode-line-active)
+        (border-mode-line-inactive bg-mode-line-inactive)))
+
+(load-theme 'modus-vivendi :no-confirm)
+
+
 (provide 'better-defaults)
