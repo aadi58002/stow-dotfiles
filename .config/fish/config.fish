@@ -88,7 +88,6 @@ status --is-interactive; and begin
     set PATH $HOME/.local/bin $HOME/.local/share/cargo/bin $HOME/.local/share/pnpm $HOME/.nix-profile/bin $XDG_STATE_HOME/nix/profile/bin $PATH
 
     # Common Abbr
-    abbr --add --global ls -- 'eza -al'
     abbr --add --global podmanc -- 'podman container'
     abbr --add --global podmani -- 'podman image'
     abbr --add --global lsblk -- 'lsblk -fmp'
@@ -104,7 +103,13 @@ status --is-interactive; and begin
     alias rg 'rg --hidden --follow'
     alias grep rg
     alias ke 'pkill emacs'
-    alias ls eza
+
+    # Ls commands  
+    alias ls='lsd'
+    alias l='ls -l'
+    alias la='ls -a'
+    alias lla='ls -la'
+    alias lt='ls --tree'
 
     bind \b backward-kill-word
     bind \e\[1\;2D dir_back

@@ -14,7 +14,7 @@
 (setq history-length 100)
 
 ;; Set relative lines
-;;(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
 ;; Configure automatic line breaks and word-wrap (just in case)
@@ -101,7 +101,7 @@
       '((border-mode-line-active bg-mode-line-active)
         (border-mode-line-inactive bg-mode-line-inactive)))
 
-(load-theme 'modus-vivendi :no-confirm)
+(load-theme 'modus-vivendi-tinted :no-confirm)
 
 
 (provide 'better-defaults)

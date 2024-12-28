@@ -16,7 +16,6 @@ ffmpeg
 firefox
 fish-shell
 git
-gummiboot-efistub
 iwd
 just
 kde5
@@ -48,6 +47,7 @@ socklog-void
 spectacle
 starship
 stow
+systemd-boot-efistub
 topgrade
 torbrowser-launcher
 tree

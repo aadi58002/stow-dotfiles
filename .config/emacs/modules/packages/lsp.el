@@ -5,7 +5,7 @@
   :after (cape tempel breadcrumb)
   :config
   ;; Emacs 30; Activate editor config mode
-  ;;(editorconfig-mode 1)
+  (editorconfig-mode 1)
 
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0

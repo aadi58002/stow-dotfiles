@@ -1,0 +1,111 @@
+# The font families to use.
+#
+# You can generate the list of valid values using the CLI:
+#
+#     ghostty +list-fonts
+#
+# This configuration can be repeated multiple times to specify preferred
+# fallback fonts when the requested codepoint is not available in the primary
+# font. This is particularly useful for multiple languages, symbolic fonts,
+# etc.
+#
+# Notes on emoji specifically: On macOS, Ghostty by default will always use
+# Apple Color Emoji and on Linux will always use Noto Emoji. You can
+# override this behavior by specifying a font family here that contains
+# emoji glyphs.
+#
+# The specific styles (bold, italic, bold italic) do not need to be
+# explicitly set. If a style is not set, then the regular style (font-family)
+# will be searched for stylistic variants. If a stylistic variant is not
+# found, Ghostty will use the regular style. This prevents falling back to a
+# different font family just to get a style such as bold. This also applies
+# if you explicitly specify a font family for a style. For example, if you
+# set `font-family-bold = FooBar` and "FooBar" cannot be found, Ghostty will
+# use whatever font is set for `font-family` for the bold style.
+#
+# Finally, some styles may be synthesized if they are not supported.
+# For example, if a font does not have an italic style and no alternative
+# italic font is specified, Ghostty will synthesize an italic style by
+# applying a slant to the regular style. If you want to disable these
+# synthesized styles then you can use the `font-style` configurations
+# as documented below.
+#
+# You can disable styles completely by using the `font-style` set of
+# configurations. See the documentation for `font-style` for more information.
+#
+# If you want to overwrite a previous set value rather than append a fallback,
+# specify the value as `""` (empty string) to reset the list and then set the
+# new values. For example:
+#
+font-family = "CaskaydiaCove Nerd Font Mono"
+
+# The opacity level (opposite of transparency) of the background. A value of
+# 1 is fully opaque and a value of 0 is fully transparent. A value less than 0
+# or greater than 1 will be clamped to the nearest valid value.
+# 
+# On macOS, background opacity is disabled when the terminal enters native
+# fullscreen. This is because the background becomes gray and it can cause
+# widgets to show through which isn't generally desirable.
+background-opacity = 0.8
+
+# Valid values:
+# 
+#   * `true`
+#   * `false` - windows won't have native decorations, i.e. titlebar and
+#      borders. On macOS this also disables tabs and tab overview.
+# 
+# The "toggle_window_decorations" keybind action can be used to create
+# a keybinding to toggle this setting at runtime.
+# 
+# Changing this configuration in your configuration and reloading will
+# only affect new windows. Existing windows will not be affected.
+# 
+# macOS: To hide the titlebar without removing the native window borders
+#        or rounded corners, use `macos-titlebar-style = hidden` instead.
+window-decoration = false
+
+# Whether to automatically copy selected text to the clipboard. `true`
+# will prefer to copy to the selection clipboard if supported by the
+# OS, otherwise it will copy to the system clipboard.
+# 
+# The value `clipboard` will always copy text to the selection clipboard
+# (for supported systems) as well as the system clipboard. This is sometimes
+# a preferred behavior on Linux.
+# 
+# Middle-click paste will always use the selection clipboard on Linux
+# and the system clipboard on macOS. Middle-click paste is always enabled
+# even if this is `false`.
+# 
+# The default value is true on Linux and false on macOS. macOS copy on
+# select behavior is not typical for applications so it is disabled by
+# default. On Linux, this is a standard behavior so it is enabled by
+# default.
+copy-on-select = false
+
+# Confirms that a surface should be closed before closing it. This defaults to
+# true. If set to false, surfaces will close without any confirmation.
+confirm-close-surface = false
+
+# Dracula theme for ghostty
+palette = 0=#21222c
+palette = 1=#ff5555
+palette = 2=#50fa7b
+palette = 3=#f1fa8c
+palette = 4=#bd93f9
+palette = 5=#ff79c6
+palette = 6=#8be9fd
+palette = 7=#f8f8f2
+palette = 8=#6272a4
+palette = 9=#ff6e6e
+palette = 10=#69ff94
+palette = 11=#ffffa5
+palette = 12=#d6acff
+palette = 13=#ff92df
+palette = 14=#a4ffff
+palette = 15=#ffffff
+
+background = 282a36
+foreground = f8f8f2
+cursor-color = f8f8f2
+selection-background = 44475a
+selection-foreground = f8f8f2
