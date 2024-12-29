@@ -105,6 +105,8 @@ status --is-interactive; and begin
     alias grep rg
     alias ke 'pkill emacs'
     alias ls eza
+    alias nvim 'emacsclient -c -a \'emacs\' -nw -q'
+    alias n 'emacsclient -c -a \'emacs\' -nw -q'
 
     bind \b backward-kill-word
     bind \e\[1\;2D dir_back

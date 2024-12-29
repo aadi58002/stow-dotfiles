@@ -62,6 +62,8 @@
         consult-denote-find-command #'consult-fd)
   (consult-denote-mode 1))
 
+(use-package org-cliplink)
+
 (use-package org-capture
   :ensure nil
   :after denote
@@ -78,18 +80,7 @@
                 :no-save t
                 :immediate-finish nil
                 :kill-buffer t
-                :jump-to-captured t)
-=              ("n" "note" plain
-                (file denote-last-path)
-                (function
-                  (lambda ()
-                    (let ((denote-directory (file-name-as-directory denote-notes-directory)))
-                      (denote-org-capture))))
-                :no-save t
-                :immediate-finish nil
-                :kill-buffer t
-                :jump-to-captured t)
-              )
+                :jump-to-captured t))
             )))
 
 (provide 'notes-pkg-setup)

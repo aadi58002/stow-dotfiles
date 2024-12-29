@@ -36,7 +36,7 @@
 
   ;; Added in emacs 30
   ;;(global-completion-preview-mode 1)
-  
+
   (corfu-popupinfo-mode 1)
   (global-corfu-mode))
 

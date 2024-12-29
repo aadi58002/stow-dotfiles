@@ -12,6 +12,7 @@
   (evil-shift-right evil-visual-beginning evil-visual-end)
   (evil-normal-state)
   (evil-visual-restore))
+
 ;;;###autoload
 (defun +evil-shift-left ()
   (interactive)

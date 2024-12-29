@@ -2,10 +2,16 @@
 
 (use-package eglot
   :ensure nil
-  :after (cape tempel breadcrumb)
+  :defer t
+  :after (cape orderless tempel breadcrumb)
+  :commands (eglot
+             eglot-code-actions
+             eglot-ensure
+             eglot-rename
+             eglot-format-buffer)
   :config
-  ;; Emacs 30; Activate editor config mode
-  ;;(editorconfig-mode 1)
+  ;; ;; Emacs 30; Activate editor config mode
+  ;; (editorconfig-mode 1)
 
   (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
         eglot-report-progress t)
@@ -29,24 +35,29 @@
      (setq completion-category-defaults nil))
 
   ;; Enable cache busting, depending on if your server returns
-  ;; sufficiently many candidates in the first place. 
-  (defun +lsp/setup-eglot ()
+  ;; sufficiently many candidates in the first place.
+
+  (defun +lsp/eglot-capf ()
     (setq-local eldoc-documentation-functions
                             '(flymake-eldoc-function
                               eglot-signature-eldoc-function
-                              eglot-hover-eldoc-function)
-             
-                completion-at-point-functions
-                    (list (cape-capf-super
-                              #'tempel-complete
-                              #'eglot-completion-at-point
-                              #'cape-keyword
-                              #'cape-file)))
+                              eglot-hover-eldoc-function)))
 
+  (defun +lsp/eglot-eldoc ()
+    (setq-local completion-at-point-functions
+                (list (cape-capf-super
+                          #'tempel-expand
+                          #'eglot-completion-at-point
+                          #'cape-keyword
+                          #'cape-file))))
+
+  (defun +lsp/custom-setup-eglot ()
     (add-to-list 'mode-line-misc-info '(" [ " (:eval (breadcrumb-imenu-crumbs)) " ] ") 'APPEND))
 
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-  (add-hook 'eglot-managed-mode-hook #'+lsp/setup-eglot)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-capf)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/eglot-eldoc)
+  (add-hook 'eglot-managed-mode-hook #'+lsp/custom-setup-eglot)
 
   (add-to-list 'eglot-server-programs
              `(((js-mode :language-id "javascript")
@@ -117,6 +128,12 @@
   ;; (global-treesit-fold-indicators-mode 1)
 )
 
+(use-package breadcrumb
+  :after (consult)
+  :config
+  (fset 'breadcrumb--project-crumbs-1 #'ignore)
+  (advice-add 'breadcrumb-jump :override 'consult-imenu))
+
 ;; Configure Tempel
 (use-package tempel
   ;;:custom
@@ -128,8 +145,11 @@
 
   (global-tempel-abbrev-mode))
 
-
 ;; Comment and Uncommenting
 (use-package evil-nerd-commenter)
+
+;; Additional protocol extension for accessing files
+(use-package tramp
+  :ensure nil)
 
 (provide 'lsp-pkg-setup)

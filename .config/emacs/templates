@@ -26,10 +26,6 @@ rust-ts-mode
 ;; Available prog-mode
 prog-mode
 (!! "#!/usr/bin/env")
-(fixme (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "FIXME ")
-(todo (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "TODO ")
-(bug (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "BUG ")
-(hack (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "HACK ")
 
 ;; Available text-mode
 text-mode
@@ -43,13 +39,6 @@ text-mode
      "--8<---------------cut here---------------end--------------->8---" n)
 
 ;; Available text-mode
-text-mode
-(table (p (read-number "Rows: ") rows noinsert)
-       (p (read-number "Cols: ") cols noinsert)
-       "| " (p "  ") (* (1- cols) " | " (p "  ")) " |" n
-       "|" (* cols "----|") n
-       (* rows "| " (p "  ") (* (1- cols) " | " (p "  ")) " |" n))
-
 org-mode
 (caption "#+caption: ")
 (drawer ":" p ":" n r ":end:")

@@ -11,7 +11,7 @@
 (defvar-keymap +leader-buffer-keymap
   :doc "Buffer keymap under Leader Key"
   "k" #'kill-current-buffer
-  "b" #'switch-to-buffer-other-window)
+  "b" #'consult-buffer-other-window)
 
 (defvar-keymap +leader-code-keymap
   :doc "Code keymap under Leader Key"
@@ -19,19 +19,11 @@
   "r" #'eglot-rename
   "s" #'eglot
   "f" #'eglot-format
-  "e" #'flymake-show-buffer-diagnostics)
+  "e" #'consult-flymake)
 
 (defvar-keymap +leader-file-keymap
   :doc "File keymap under Leader Key"
-  "r" #'recentf-open-files)
-
-(defvar-keymap +leader-project-keymap
-  :doc "Project keymap under Leader Key"
-  "d" 'project-dired
-  "c" 'project-compile
-  "s" '+project-save-all-buffers
-  "k" 'project-kill-buffers
-  "p" 'project-switch-project)
+  "r" #'consult-recent-file)
 
 (defvar-keymap +leader-read-feed-keymap
   :doc "Feed keymap under Leader Key"
@@ -51,15 +43,16 @@
   "a" #'org-agenda
   "m" #'+denote/mark-asarchive-task)
 
+(defvar-keymap +leader-project-keymap
+  :doc "Project keymap under Leader Key"
+  "b" #'consult-project-buffer)
+
 (defvar-keymap +leader-search-keymap
   :doc "Search keymap under Leader Key"
   "l" #'consult-line
-  "L" #'consult-line-multi
   "r" #'consult-ripgrep
-  "o" #'consult-outline
-  "i" #'imenu
-  "I" #'consult-imenu-multi
-  "f" #'consult-f)
+  "i" #'consult-imenu
+  "f" #'consult-fd)
 
 (defvar-keymap +leader-keymap
   :doc "Leader Keymap"
