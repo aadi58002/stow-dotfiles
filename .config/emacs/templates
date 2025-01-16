@@ -44,7 +44,7 @@ text-mode
 
 ;; Available text-mode
 text-mode
-(table (p (read-number "Rows: ") rows noinsert)
+(make-table (p (read-number "Rows: ") rows noinsert)
        (p (read-number "Cols: ") cols noinsert)
        "| " (p "  ") (* (1- cols) " | " (p "  ")) " |" n
        "|" (* cols "----|") n

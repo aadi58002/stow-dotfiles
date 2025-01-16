@@ -104,7 +104,8 @@
 
 (use-package marginalia
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
-  :init
+  :init 
+  (setq marginalia-align 'center)
   (marginalia-mode))
 
 (use-package embark-consult)

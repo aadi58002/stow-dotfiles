@@ -101,7 +101,8 @@
       '((border-mode-line-active bg-mode-line-active)
         (border-mode-line-inactive bg-mode-line-inactive)))
 
-(load-theme 'modus-vivendi-tinted :no-confirm)
+(pixel-scroll-precision-mode +1)
 
+;; (load-theme 'modus-vivendi :no-confirm)
 
 (provide 'better-defaults)

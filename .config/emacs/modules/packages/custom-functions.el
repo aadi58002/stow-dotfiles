@@ -1,8 +1,8 @@
 ;;; custom-functions.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
-(defun kitty-async-process ()
-  "Launch a kitty terminal process in the current emacs directory"
+(defun terminal-async-process ()
+  "Launch a terminal process in the current emacs directory"
   (interactive)
   (start-process "kitty" nil "setsid" "kitty" "-d" default-directory))
 
@@ -19,3 +19,9 @@
   (evil-shift-left evil-visual-beginning evil-visual-end)
   (evil-normal-state)
   (evil-visual-restore))
+
+;;;###autoload
+(defun random-element-of-list (items)
+  (let* ((size (length items))
+         (index (random size)))
+    (nth index items)))

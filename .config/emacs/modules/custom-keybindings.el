@@ -94,7 +94,7 @@
     (kbd "z") +treesit-fold-keymap
 
     (kbd ",") #'async-shell-command
-    (kbd "C-,") #'kitty-async-process
+    (kbd "C-,") #'terminal-async-process
 
     (kbd "gw") #'avy-goto-word-0
     (kbd "gc") #'avy-goto-word-1

@@ -5,7 +5,7 @@
   :after (cape tempel breadcrumb)
   :config
   ;; Emacs 30; Activate editor config mode
-  (editorconfig-mode 1)
+  ;;(editorconfig-mode 1)
 
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
@@ -29,19 +29,11 @@
   ;; sufficiently many candidates in the first place. 
   (defun +lsp/setup-eglot ()
     (setq-local eldoc-documentation-functions
-
                             '(flymake-eldoc-function
                               eglot-signature-eldoc-function
                               eglot-hover-eldoc-function)
 
-                eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-             
-                completion-at-point-functions
-                    (list (cape-capf-super
-                              #'tempel-complete
-                              #'eglot-completion-at-point
-                              #'cape-keyword
-                              #'cape-file)))
+                eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 
     (add-to-list 'mode-line-misc-info '(" [ " (:eval (breadcrumb-imenu-crumbs)) " ] ") 'APPEND))
 
@@ -113,14 +105,25 @@
 
 ;; Configure Tempel
 (use-package tempel
-  ;;:custom
-  ;; (tempel-trigger-prefix "<")
+  :custom
+  (tempel-trigger-prefix "<")
   :init
-  (setq completion-at-point-functions
-              (cons #'tempel-complete
-                    completion-at-point-functions))
-
-  (global-tempel-abbrev-mode))
+ 
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-complete
+                      completion-at-point-functions))) 
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'eglot-managed-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf))
 
 ;; Comment and Uncommenting
 (use-package evil-nerd-commenter)
