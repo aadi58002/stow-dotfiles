@@ -105,4 +105,6 @@
 
 ;; (load-theme 'modus-vivendi :no-confirm)
 
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 (provide 'better-defaults)

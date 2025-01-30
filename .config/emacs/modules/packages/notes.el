@@ -6,6 +6,7 @@
   :config
   ;; Load silo extras as well
   (require 'denote-silo-extras)
+  (require 'denote-sequence)
 
   (setq denote-excluded-directories-regexp ".*(archived|addons).*"
         denote-rename-buffer-format "%b%t [%k]"
