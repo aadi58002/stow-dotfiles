@@ -62,5 +62,9 @@ $env.PATH = (
     append (echo $env.HOME | path join ".local/bin") |
     append (echo $env.HOME | path join ".local/share/pnpm") |
     append (echo $env.HOME | path join ".local/share/cargo/bin") | 
-    append (echo $env.HOME | path join ".local/share/go/bin")
+    append (echo $env.HOME | path join ".local/share/go/bin") |
+    append (echo $env.HOME | path join ".nix-profile/bin") |
+    append (echo $env.XDG_STATE_HOME | path join "nix/profile/bin") | 
+    append "/opt/android-sdk/platform-tools"
+    
 )

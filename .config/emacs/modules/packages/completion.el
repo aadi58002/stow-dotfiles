@@ -11,7 +11,7 @@
                                  ,(lambda (&optional _)
                                     (and (derived-mode-p 'eshell-mode 'comint-mode)
                                          #'corfu-send))))
-  ;;(global-completion-preview-mode 1)
+  (global-completion-preview-mode 1)
   (corfu-popupinfo-mode 1)
   (global-corfu-mode))
 
