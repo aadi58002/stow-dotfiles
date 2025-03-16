@@ -4,7 +4,7 @@ SETUVAR ALACRITTY_OPACITY_ON:0
 SETUVAR FZF_ALT_C_COMMAND:fd\x20\x2dt\x20d\x20\x2e\x20\x24dir
 SETUVAR FZF_CTRL_T_COMMAND:rg\x20\x2d\x2dfiles\x20\x2d\x2dno\x2drequire\x2dgit
 SETUVAR FZF_DEFAULT_OPTS:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2d\x2dmulti\x20\x2d\x2dcycle\x20\x2d\x2dkeep\x2dright\x20\x2d1\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2d\x2dheight\x3d80\x25\x20\x2d\x2dlayout\x3dreverse\x20\x2d\x2dinfo\x3ddefault\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2d\x2dpreview\x2dwindow\x20right\x3a50\x25\x3awrap\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2d\x2dpreview\x20\x27__fzf_preview\x20\x7b\x7d\x27\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2d\x2dansi
-SETUVAR __fish_initialized:3400
+SETUVAR __fish_initialized:3800
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
@@ -23,7 +23,7 @@ SETUVAR fish_color_operator:brcyan
 SETUVAR fish_color_param:cyan
 SETUVAR fish_color_quote:yellow
 SETUVAR fish_color_redirection:cyan\x1e\x2d\x2dbold
-SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_search_match:white\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen

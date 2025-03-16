@@ -2,7 +2,7 @@
 
 (use-package eglot
   :ensure nil
-  :after (cape tempel breadcrumb)
+  :after (cape breadcrumb)
   :config
   ;; Emacs 30; Activate editor config mode
   (editorconfig-mode 1)
@@ -98,32 +98,6 @@
 
   (dolist (mode eglot-modes)
     (add-hook (intern (concat (symbol-name mode) "-hook")) 'eglot-ensure)))
-
-(use-package treesit-fold)
-  ;; :config
-  ;; (global-treesit-fold-indicators-mode 1))
-
-;; Configure Tempel
-(use-package tempel
-  :custom
-  (tempel-trigger-prefix "<")
-  :init
- 
-  ;; Setup completion at point
-  (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
-    (setq-local completion-at-point-functions
-                (cons #'tempel-complete
-                      completion-at-point-functions))) 
-  (add-hook 'conf-mode-hook 'tempel-setup-capf)
-  (add-hook 'eglot-managed-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf))
 
 ;; Comment and Uncommenting
 (use-package evil-nerd-commenter)

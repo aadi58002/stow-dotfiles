@@ -33,10 +33,6 @@
   "k" 'project-kill-buffers
   "p" 'project-switch-project)
 
-(defvar-keymap +leader-read-feed-keymap
-  :doc "Feed keymap under Leader Key"
-  "r" #'elfeed)
-
 (defvar-keymap +leader-git-keymap
   :doc "Git keymap under Leader Key"
   "b" #'magit-blame-addition
@@ -69,7 +65,6 @@
   "g" +leader-git-keymap
   "n" +leader-notes-keymap
   "p" +leader-project-keymap
-  "r" +leader-read-feed-keymap
   "s" +leader-search-keymap
 
   "<return>" #'denote-silo-extras-open-or-create
@@ -77,21 +72,11 @@
   "x" #'consult-register-load
   "z" #'consult-register-store)
 
-(defvar-keymap +treesit-fold-keymap
-  :doc "Buffer keymap under Leader Key"
-  "z" #'treesit-fold-toggle
-  "c" #'treesit-fold-close
-  "C" #'treesit-fold-close-all
-  "o" #'treesit-fold-open
-  "O" #'treesit-fold-open-all
-  "r" #'treesit-fold-open-recursively)
-
 (dolist (state '(normal visual motion operator emacs))
   (evil-set-leader state (kbd "SPC"))
 
   (evil-define-key state 'global
     (kbd "<leader>") +leader-keymap
-    (kbd "z") +treesit-fold-keymap
 
     (kbd ",") #'async-shell-command
     (kbd "C-,") #'terminal-async-process
@@ -108,7 +93,7 @@
     "j" 'org-agenda-next-line
     "k" 'org-agenda-previous-line))
 
-(evil-define-key 'normal 'dired-mode-map (kbd "<leader>") +leader-keymap)
+(evil-define-key 'normal 'dired-mode-map (kbd "<SPC>") +leader-keymap)
 (evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error)
 (evil-define-key 'normal 'eglot-mode-map (kbd "M-n") 'flymake-goto-next-error)
 
