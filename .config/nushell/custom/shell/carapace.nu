@@ -13,7 +13,7 @@ let carapace_completer = {|spans|
     # put the first word of the expanded alias first in the span
     $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
   } else {
-    $spans
+    $spans | skip 1 | prepend ($spans.0)
   })
 
   carapace $spans.0 nushell ...$spans

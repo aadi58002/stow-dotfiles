@@ -16,7 +16,6 @@
 (load-packages "lsp")
 (load-packages "minibuffer")
 (load-packages "notes")
-(load-packages "news")
 (load-packages "ui")
 
 (elpaca-wait)

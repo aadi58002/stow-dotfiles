@@ -27,6 +27,8 @@
    5 nil
    (lambda () (unless (frame-focus-state) (garbage-collect)))))
 
+(setq inhibit-compacting-font-caches t)
+
 (defun +reset-init-values ()
   (run-with-idle-timer
    1 nil

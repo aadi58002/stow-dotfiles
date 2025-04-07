@@ -43,8 +43,36 @@
 ;;   :ensure nil
 ;;   :hook (before-save . whitespace-cleanup))
 
+(use-package paren
+  :ensure nil
+  :hook (after-init . show-paren-mode)
+  :custom
+  (show-paren-style 'expression))
+
 (use-package wgrep
   :config
   (setq wgrep-auto-save-buffer t))
+
+;; Credit: https://github.com/LionyxML/emacs-solo/blob/main/init.el
+;;; CONF
+(use-package conf-mode
+  :ensure nil
+  :mode ("\\.env\\..*\\'" "\\.env\\'")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.env\\'" . conf-mode)))
+
+
+;;; COMPILATION
+(use-package compile
+  :ensure nil
+  :hook
+  (;; Not ideal, but I do not want this poluting the modeline
+   (compilation-start . (lambda () (setq compilation-in-progress nil))))
+  :custom
+  (compilation-always-kill t)
+  (compilation-scroll-output t)
+  (ansi-color-for-compilation-mode t)
+  :config
+  (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
 
 (provide 'editor-pkg-setup)

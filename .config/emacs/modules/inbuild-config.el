@@ -24,6 +24,8 @@
 (global-visual-line-mode t)  ; SPC-w
 (add-hook 'prog-mode #'turn-off-auto-fill)
 
+(setq kill-do-not-save-duplicates t)
+
 (electric-pair-mode 1)
 (electric-indent-mode -1)
 (setq-default tab-width 2
@@ -60,19 +62,9 @@
 (setq switch-to-buffer-obey-display-actions t)
 
 ;; Backup and locked file
-(defvar backupdir (concat user-emacs-directory "file-backups/"))
-(defvar lockdir (concat user-emacs-directory "file-locks/"))
-(make-directory backupdir t)
-(make-directory lockdir t)
-
-(setq auto-save-list-file-prefix (concat backupdir ".auto-saves-")
-      auto-save-file-name-transforms `((".*" ,backupdir t))
-      lock-file-name-transforms `((".*" ,lockdir t))
-      backup-directory-alist `(("." . ,backupdir))
-      tramp-auto-save-directory backupdir
-      tramp-backup-directory-alist `((".*" . ,backupdir)))
-
-(provide 'file-cleanup)
+(setq create-lockfiles nil
+      make-backup-files nil
+      backup-inhibited t)
 
 ;; Dired
 (setq dired-recursive-copies 'always
@@ -102,8 +94,11 @@
         (border-mode-line-inactive bg-mode-line-inactive)))
 
 (pixel-scroll-precision-mode +1)
+(setq window-resize-pixelwise nil
+      window-combination-resize t)
 
-;; (load-theme 'modus-vivendi :no-confirm)
+
+(load-theme 'modus-vivendi-tinted :no-confirm)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 

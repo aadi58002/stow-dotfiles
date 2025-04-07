@@ -67,7 +67,7 @@
   "p" +leader-project-keymap
   "s" +leader-search-keymap
 
-  "<return>" #'denote-silo-extras-open-or-create
+  "<return>" #'denote-silo-open-or-create
   "<SPC>" #'find-file
   "x" #'consult-register-load
   "z" #'consult-register-store)

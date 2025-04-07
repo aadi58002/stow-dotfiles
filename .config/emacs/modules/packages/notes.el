@@ -1,13 +1,10 @@
 ;;; notes.el -*- lexical-binding: t; -*-
 
+
 (use-package denote
   :ensure (denote :host github :repo "protesilaos/denote")
   :demand t
   :config
-  ;; Load silo extras as well
-  (require 'denote-silo-extras)
-  (require 'denote-sequence)
-
   (setq denote-excluded-directories-regexp ".*(archived|addons).*"
         denote-rename-buffer-format "%b%t [%k]"
         denote-rename-confirmations '()
@@ -19,7 +16,7 @@
         denote-notes-directory "~/Documents/denote/notes"
         denote-tasks-directory "~/Documents/denote/tasks"
         denote-pastime-directory "~/Documents/denote/pastime"
-        denote-silo-extras-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory))
+        denote-silo-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory))
 
   (denote-rename-buffer-mode +1)
   ;; Org config
@@ -54,8 +51,11 @@
         (800 1000 1200 1400 1600 1800 2000)
         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
       org-agenda-current-time-string
-      "◀── now ─────────────────────────────────────────────────")
-  )
+      "◀── now ─────────────────────────────────────────────────"))
+
+(use-package denote-silo
+  :ensure (denote-silo :host github :repo "protesilaos/denote-silo")
+  :demand t)
 
 (use-package consult-denote
   :after (denote consult)
