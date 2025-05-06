@@ -8,6 +8,15 @@
 (global-set-key (kbd "C-;") #'embark-act)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+(which-key-add-key-based-replacements
+  "<SPC> b" "buffers"
+  "<SPC> c" "code"
+  "<SPC> f" "files"
+  "<SPC> g" "git"
+  "<SPC> n" "notes"
+  "<SPC> p" "project"
+  "<SPC> s" "search")
+
 (defvar-keymap +leader-buffer-keymap
   :doc "Buffer keymap under Leader Key"
   "k" #'kill-current-buffer

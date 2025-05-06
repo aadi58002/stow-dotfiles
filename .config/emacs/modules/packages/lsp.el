@@ -39,6 +39,7 @@
                 eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 
     (add-hook 'eldoc-box-buffer-setup-hook #'eldoc-box-prettify-ts-errors 0 t)
+    (electric-pair-local-mode 1)
     (eldoc-box-hover-at-point-mode t))
     ;; (add-to-list 'mode-line-misc-info '(" [ " (:eval (breadcrumb-imenu-crumbs)) " ] ") 'APPEND))
 

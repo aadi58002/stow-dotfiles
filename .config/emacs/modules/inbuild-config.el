@@ -26,7 +26,6 @@
 
 (setq kill-do-not-save-duplicates t)
 
-(electric-pair-mode 1)
 (electric-indent-mode -1)
 (setq-default tab-width 2
               indent-line-function 'insert-tab

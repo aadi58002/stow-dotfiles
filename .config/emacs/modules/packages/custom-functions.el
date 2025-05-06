@@ -4,7 +4,7 @@
 (defun terminal-async-process ()
   "Launch a terminal process in the current emacs directory"
   (interactive)
-  (start-process "kitty" nil "setsid" "kitty" "-d" default-directory))
+  (start-process "konsole" nil "setsid" "konsole" "--workdir" default-directory))
 
 ;;;###autoload
 (defun +evil-shift-right ()

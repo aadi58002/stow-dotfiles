@@ -89,6 +89,15 @@
          ([remap man]                              .  #'consult-man)
          ([remap yank-pop]                         .  #'consult-yank-pop))
   :init
+  (defun consult--orderless-regexp-compiler (input type &rest _config)
+    (setq input (cdr (orderless-compile input)))
+    (cons
+    (mapcar (lambda (r) (consult--convert-regexp r type)) input)
+    (lambda (str) (orderless--highlight input t str))))
+
+  ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
+  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+
   (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
 
@@ -102,13 +111,25 @@
         '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
           "--hidden --full-path --color=never")))
 
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+
 (use-package marginalia
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
   :init 
   (setq marginalia-align 'center)
   (marginalia-mode))
 
-(use-package embark-consult)
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package embark
   :after (which-key)
   :bind (([remap> describe-bindings] . embark-bindings)

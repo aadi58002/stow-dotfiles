@@ -7,10 +7,10 @@
   (add-hook 'git-commit-post-finish-hook 'magit)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
-(use-package git-gutter-fringe
+(use-package diff-hl
+  :after (magit)
   :config
-  ;; (setq git-gutter-fr:side 'right-fringe)
-  (global-git-gutter-mode +1)
-  (setq-default fringes-outside-margins t))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (global-diff-hl-mode))
 
 (provide 'git-pkg-setup)

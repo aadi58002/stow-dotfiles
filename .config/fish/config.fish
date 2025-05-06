@@ -144,5 +144,5 @@ status --is-interactive; and begin
     # kind completion fish | source
     # helm completion fish | source
     # eval (zellij setup --generate-auto-start fish | string collect)
-    # fastfetch
+    fastfetch
 end

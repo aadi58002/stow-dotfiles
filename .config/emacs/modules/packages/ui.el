@@ -26,6 +26,7 @@
   (global-set-key [remap describe-function] #'helpful-function))
 
 (use-package which-key
+  :ensure nil
   :config
   (which-key-mode))
 
