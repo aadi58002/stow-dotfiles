@@ -1,21 +1,22 @@
 ;;; custom-keybindings.el -*- lexical-binding: t; -*-
 
-;;; custom-keybindings.el -*- lexical-binding: t; -*-
-
 ;; Helpful Docs - https://github.com/noctuid/evil-guide?tab=readme-ov-file#keybindings-in-emacs,
 ;;                https://evil.readthedocs.io/en/latest/keymaps.html#leader-keys
 
 (global-set-key (kbd "C-;") #'embark-act)
+(global-set-key (kbd "C-,") #'terminal-async-process)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+
+
 (which-key-add-key-based-replacements
-  "<SPC> b" "buffers"
-  "<SPC> c" "code"
-  "<SPC> f" "files"
-  "<SPC> g" "git"
-  "<SPC> n" "notes"
-  "<SPC> p" "project"
-  "<SPC> s" "search")
+  "C-c b" "buffers"
+  "C-c c" "code"
+;;  "<SPC> f" "files"
+  "C-c g" "git"
+  "C-c n" "notes"
+  "C-c p" "project"
+  "C-c s" "search")
 
 (defvar-keymap +leader-buffer-keymap
   :doc "Buffer keymap under Leader Key"
@@ -28,11 +29,12 @@
   "r" #'eglot-rename
   "s" #'eglot
   "f" #'eglot-format
+  "w" #'aider-transient-menu
   "e" #'flymake-show-buffer-diagnostics)
 
-(defvar-keymap +leader-file-keymap
-  :doc "File keymap under Leader Key"
-  "r" #'recentf-open-files)
+;;(defvar-keymap +leader-file-keymap
+;;  :doc "File keymap under Leader Key"
+;;  "r" #'recentf-open-files)
 
 (defvar-keymap +leader-project-keymap
   :doc "Project keymap under Leader Key"
@@ -70,7 +72,7 @@
   :doc "Leader Keymap"
   "b" +leader-buffer-keymap
   "c" +leader-code-keymap
-  "f" +leader-file-keymap
+;;  "f" +leader-file-keymap
   "g" +leader-git-keymap
   "n" +leader-notes-keymap
   "p" +leader-project-keymap
@@ -81,44 +83,46 @@
   "x" #'consult-register-load
   "z" #'consult-register-store)
 
-(dolist (state '(normal visual motion operator emacs))
-  (evil-set-leader state (kbd "SPC"))
+;;(dolist (state '(normal visual motion operator emacs))
+;;  (evil-set-leader state (kbd "SPC"))
+;;
+;;  (evil-define-key state 'global
+;;    (kbd "<leader>") +leader-keymap
+;;
+;;    (kbd ",") #'async-shell-command
+;;    (kbd "C-,") #'terminal-async-process
+;;
+;;    (kbd "gw") #'avy-goto-word-0
+;;    (kbd "gc") #'avy-goto-word-1
+;;
+;;    (kbd "K") #'helpful-at-point
+;;    (kbd "C-/") #'evilnc-comment-or-uncomment-lines)
+;;
+;;  ;;(evil-define-key state 'org-mode-map (kbd "<return>") #'org-return)
+;;
+;;  (evil-define-key state org-agenda-mode-map
+;;    "j" 'org-agenda-next-line
+;;    "k" 'org-agenda-previous-line))
+;;
+;;(evil-define-key 'normal 'dired-mode-map (kbd "<SPC>") +leader-keymap)
+;;(evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+;;(evil-define-key 'normal 'eglot-mode-map (kbd "M-n") 'flymake-goto-next-error)
 
-  (evil-define-key state 'global
-    (kbd "<leader>") +leader-keymap
-
-    (kbd ",") #'async-shell-command
-    (kbd "C-,") #'terminal-async-process
-
-    (kbd "gw") #'avy-goto-word-0
-    (kbd "gc") #'avy-goto-word-1
-
-    (kbd "K") #'helpful-at-point
-    (kbd "C-/") #'evilnc-comment-or-uncomment-lines)
-
-  ;;(evil-define-key state 'org-mode-map (kbd "<return>") #'org-return)
-
-  (evil-define-key state org-agenda-mode-map
-    "j" 'org-agenda-next-line
-    "k" 'org-agenda-previous-line))
-
-(evil-define-key 'normal 'dired-mode-map (kbd "<SPC>") +leader-keymap)
-(evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-(evil-define-key 'normal 'eglot-mode-map (kbd "M-n") 'flymake-goto-next-error)
+(define-key global-map (kbd "C-c") +leader-keymap)
 
 (define-key minibuffer-mode-map (kbd "M-h") 'consult-history)
-(define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
+;; (define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
 (define-key isearch-mode-map (kbd "C-S-v") #'isearch-yank-pop-only)
 ;; Vundo
 (define-key vundo-mode-map (kbd "<escape>") #'vundo-quit)
 
 ;; Navigation
-(dolist (state '(normal motion operator emacs))
-  (evil-define-key state 'global
-    (kbd "<") #'(lambda () (interactive) (evil-previous-line 10))
-    (kbd ">") #'(lambda () (interactive) (evil-next-line 10))))
-
-(evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
-(evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
+;;(dolist (state '(normal motion operator emacs))
+;;  (evil-define-key state 'global
+;;    (kbd "<") #'(lambda () (interactive) (evil-previous-line 10))
+;;    (kbd ">") #'(lambda () (interactive) (evil-next-line 10))))
+;;
+;;(evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
+;;(evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
 
 (provide 'custom-keybindings)

@@ -1,6 +1,5 @@
 ;;; notes.el -*- lexical-binding: t; -*-
 
-
 (use-package denote
   :ensure (denote :host github :repo "protesilaos/denote")
   :demand t

@@ -4,10 +4,10 @@
 (use-package vertico
   :after consult
   :init
-  (vertico-mode 1)
   (setq vertico-count 20
         vertico-resize nil
-        vertico-cycle t))
+        vertico-cycle t)
+  (vertico-mode))
 
 (use-package emacs
   :ensure nil
@@ -23,10 +23,13 @@
           (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
+  ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
+  ;; to switch display modes.
+  (context-menu-mode t)
+
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
   ;; Support opening new minibuffers from inside existing minibuffers.
   (setq enable-recursive-minibuffers t)
@@ -151,7 +154,7 @@
         (which-key--show-keymap
         (if (eq (plist-get (car targets) :type) 'embark-become)
             "Become"
-          (format "Act on %s '%s'%s"
+  (format "Act on %s '%s'%s"
                   (plist-get (car targets) :type)
                   (embark--truncate-target (plist-get (car targets) :target))
                   (if (cdr targets) "…" "")))

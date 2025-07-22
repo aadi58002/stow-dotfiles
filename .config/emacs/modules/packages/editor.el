@@ -1,5 +1,4 @@
 ;;; editor.el -*- lexical-binding: t; -*-
-
 ;; make undo history a tree on-the-fly
 (use-package vundo
   :ensure (vundo :host github :repo "casouri/vundo"))
@@ -37,11 +36,11 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :init
-  (setq savehist-ignored-variables '(extended-command-history)))
+   (setq savehist-additional-variables '(kill-ring register-alist)))
 
-;; (use-package whitespace
-;;   :ensure nil
-;;   :hook (before-save . whitespace-cleanup))
+(use-package whitespace
+  :ensure nil
+  :hook (before-save . whitespace-cleanup))
 
 (use-package paren
   :ensure nil

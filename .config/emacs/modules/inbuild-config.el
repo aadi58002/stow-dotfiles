@@ -97,7 +97,7 @@
       window-combination-resize t)
 
 
-(load-theme 'modus-vivendi-tinted :no-confirm)
+;; (load-theme 'modus-vivendi-tinted :no-confirm)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
