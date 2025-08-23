@@ -2,11 +2,12 @@
 
 ;; Enable vertico
 (use-package vertico
-  :after consult
+  :ensure (:repo "minad/vertico")
+  :custom
+  (vertico-count 20)
+  (vertico-resize nil)
+  (vertico-cycle t)
   :init
-  (setq vertico-count 20
-        vertico-resize nil
-        vertico-cycle t)
   (vertico-mode))
 
 (use-package emacs
@@ -59,7 +60,7 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult
-  :ensure (consult :host github :repo "minad/consult")
+  :ensure (:repo "minad/consult")
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind (;; Navigation
          ([remap bookmark-jump]                    .  #'consult-bookmark)
@@ -123,7 +124,7 @@
 
 (use-package marginalia
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
-  :init 
+  :init
   (setq marginalia-align 'center)
   (marginalia-mode))
 
@@ -181,4 +182,4 @@
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
 
-(provide 'minibuffer-pkg-setup)
+(provide 'minibuffer)

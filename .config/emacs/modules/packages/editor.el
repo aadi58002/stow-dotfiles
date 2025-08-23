@@ -1,7 +1,7 @@
 ;;; editor.el -*- lexical-binding: t; -*-
 ;; make undo history a tree on-the-fly
 (use-package vundo
-  :ensure (vundo :host github :repo "casouri/vundo"))
+  :ensure (:repo "casouri/vundo"))
 
 ; Auto Save buffers
 (auto-save-visited-mode 1);
@@ -74,4 +74,4 @@
   :config
   (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
 
-(provide 'editor-pkg-setup)
+(provide 'editor)

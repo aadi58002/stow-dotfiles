@@ -1,7 +1,7 @@
 ;;; notes.el -*- lexical-binding: t; -*-
 
 (use-package denote
-  :ensure (denote :host github :repo "protesilaos/denote")
+  :ensure (:repo "protesilaos/denote")
   :demand t
   :config
   (setq denote-excluded-directories-regexp ".*(archived|addons).*"
@@ -53,7 +53,7 @@
       "◀── now ─────────────────────────────────────────────────"))
 
 (use-package denote-silo
-  :ensure (denote-silo :host github :repo "protesilaos/denote-silo")
+  :ensure (:repo "protesilaos/denote-silo")
   :demand t)
 
 (use-package consult-denote
@@ -93,4 +93,4 @@
               )
             )))
 
-(provide 'notes-pkg-setup)
+(provide 'notes)

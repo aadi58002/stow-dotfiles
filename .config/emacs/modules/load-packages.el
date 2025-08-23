@@ -17,5 +17,6 @@
 (load-packages "minibuffer")
 (load-packages "notes")
 (load-packages "ui")
+(load-packages "ai")
 
 (elpaca-wait)

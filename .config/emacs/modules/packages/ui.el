@@ -52,4 +52,4 @@
 
  (run-with-timer 0 (* 10 60) 'random-color-theme))
 
-(provide 'ui-pkg-setup)
+(provide 'ui)

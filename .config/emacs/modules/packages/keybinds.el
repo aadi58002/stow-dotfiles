@@ -25,4 +25,4 @@
 ;;  (setq evil-collection-want-unimpaired-p nil)
 ;;  (evil-collection-init))
 
-(provide 'keybinds-pkg-setup)
+(provide 'keybinds)

@@ -7,10 +7,8 @@
 (global-set-key (kbd "C-,") #'terminal-async-process)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-
-
 (which-key-add-key-based-replacements
-  "C-c b" "buffers"
+;;  "C-c b" "buffers"
   "C-c c" "code"
 ;;  "<SPC> f" "files"
   "C-c g" "git"
@@ -18,10 +16,10 @@
   "C-c p" "project"
   "C-c s" "search")
 
-(defvar-keymap +leader-buffer-keymap
-  :doc "Buffer keymap under Leader Key"
-  "k" #'kill-current-buffer
-  "b" #'switch-to-buffer-other-window)
+;;(defvar-keymap +leader-buffer-keymap
+;;  :doc "Buffer keymap under Leader Key"
+;;  "k" #'kill-current-buffer
+;;  "b" #'switch-to-buffer-other-window)
 
 (defvar-keymap +leader-code-keymap
   :doc "Code keymap under Leader Key"
@@ -36,18 +34,18 @@
 ;;  :doc "File keymap under Leader Key"
 ;;  "r" #'recentf-open-files)
 
-(defvar-keymap +leader-project-keymap
-  :doc "Project keymap under Leader Key"
-  "d" 'project-dired
-  "c" 'project-compile
-  "s" '+project-save-all-buffers
-  "k" 'project-kill-buffers
-  "p" 'project-switch-project)
+;;(defvar-keymap +leader-project-keymap
+;;  :doc "Project keymap under Leader Key"
+;;  "d" 'project-dired
+;;  "c" 'project-compile
+;;  "s" '+project-save-all-buffers
+;;  "k" 'project-kill-buffers
+;;  "p" 'project-switch-project)
 
-(defvar-keymap +leader-git-keymap
-  :doc "Git keymap under Leader Key"
-  "b" #'magit-blame-addition
-  "g" #'magit)
+;;(defvar-keymap +leader-git-keymap
+;;  :doc "Git keymap under Leader Key"
+;;  "b" #'magit-blame-addition
+;;  "g" #'magit)
 
 (defvar-keymap +leader-notes-keymap
   :doc "Notes keymap under Leader Key"
@@ -55,8 +53,8 @@
   "p" #'org-cliplink
   "f" #'consult-denote-find
   "r" #'consult-denote-grep
-  "a" #'org-agenda
-  "m" #'+denote/mark-asarchive-task)
+  "a" #'org-agenda)
+;;  "m" #'+denote/mark-asarchive-task)
 
 (defvar-keymap +leader-search-keymap
   :doc "Search keymap under Leader Key"
@@ -70,18 +68,19 @@
 
 (defvar-keymap +leader-keymap
   :doc "Leader Keymap"
-  "b" +leader-buffer-keymap
+;;  "b" +leader-buffer-keymap
   "c" +leader-code-keymap
 ;;  "f" +leader-file-keymap
-  "g" +leader-git-keymap
+;;  "g" +leader-git-keymap
   "n" +leader-notes-keymap
-  "p" +leader-project-keymap
+;;  "p" +leader-project-keymap
+  "p" 'project-switch-project
   "s" +leader-search-keymap
 
-  "<return>" #'denote-silo-open-or-create
-  "<SPC>" #'find-file
-  "x" #'consult-register-load
-  "z" #'consult-register-store)
+  "<return>" #'denote-silo-open-or-create)
+;;  "<SPC>" #'find-file
+;;  "x" #'consult-register-load
+;;  "z" #'consult-register-store)
 
 ;;(dolist (state '(normal visual motion operator emacs))
 ;;  (evil-set-leader state (kbd "SPC"))

@@ -15,4 +15,4 @@
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
-(provide 'icons-pkg-setup)
+(provide 'icons)

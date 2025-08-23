@@ -109,4 +109,4 @@
 
 (use-package eldoc-box)
 
-(provide 'lsp-pkg-setup)
+(provide 'lsp)

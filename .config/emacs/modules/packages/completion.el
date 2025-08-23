@@ -30,4 +30,4 @@
   ;; (add-hook 'completion-at-point-functions #'cape-line)
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
-(provide 'completion-pkg-setup)
+(provide 'completion)

@@ -13,4 +13,3 @@
 
 ;; Loading keybinding at the end because we are using evil specific function to bind keys
 (enable-modules "custom-keybindings")
-(put 'set-goal-column 'disabled nil)

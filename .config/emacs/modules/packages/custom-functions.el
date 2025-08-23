@@ -25,3 +25,5 @@
   (let* ((size (length items))
          (index (random size)))
     (nth index items)))
+
+(provide 'custom-functions)
