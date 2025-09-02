@@ -28,7 +28,7 @@
     (setq completion-category-defaults nil))
 
   ;; Enable cache busting, depending on if your server returns
-  ;; sufficiently many candidates in the first place. 
+  ;; sufficiently many candidates in the first place.
   (defun +lsp/setup-eglot ()
     (setq-local eldoc-documentation-functions
                 '(flymake-eldoc-function
@@ -91,8 +91,8 @@
                     ("\\.rs\\'" . rust-ts-mode)
                     ("\\.go\\'" . go-ts-mode)
                     ("\\.nu\\'" . shell-mode)
-                    ("\\.c\\'" . c-ts-mode)
                     ("\\.cpp\\'" . c++-ts-mode)
+                    ("\\.c\\'" . c-ts-mode)
                     ("\\.py\\'" . python-ts-mode)))
 
   (setq treesit-font-lock-level 4)

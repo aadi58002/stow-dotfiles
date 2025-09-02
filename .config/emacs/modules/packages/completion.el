@@ -30,4 +30,16 @@
   ;; (add-hook 'completion-at-point-functions #'cape-line)
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
+;; Configure Tempel
+(use-package tempel
+  :custom
+  (tempel-trigger-prefix "<")
+  :init
+  (setq completion-at-point-functions
+              (cons #'tempel-complete
+                    completion-at-point-functions))
+
+  (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  (global-tempel-abbrev-mode))
+
 (provide 'completion)

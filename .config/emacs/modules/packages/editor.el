@@ -1,7 +1,7 @@
 ;;; editor.el -*- lexical-binding: t; -*-
 ;; make undo history a tree on-the-fly
 (use-package vundo
-  :ensure (:repo "casouri/vundo"))
+  :ensure (:host github :repo "casouri/vundo"))
 
 ; Auto Save buffers
 (auto-save-visited-mode 1);

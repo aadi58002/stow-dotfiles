@@ -2,7 +2,7 @@
 
 ;; Enable vertico
 (use-package vertico
-  :ensure (:repo "minad/vertico")
+  :ensure (:host github :repo "minad/vertico")
   :custom
   (vertico-count 20)
   (vertico-resize nil)
@@ -60,7 +60,7 @@
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult
-  :ensure (:repo "minad/consult")
+  :ensure (:host github :repo "minad/consult")
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind (;; Navigation
          ([remap bookmark-jump]                    .  #'consult-bookmark)

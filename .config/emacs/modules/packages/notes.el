@@ -1,7 +1,7 @@
 ;;; notes.el -*- lexical-binding: t; -*-
 
 (use-package denote
-  :ensure (:repo "protesilaos/denote")
+  :ensure (:host github :repo "protesilaos/denote")
   :demand t
   :config
   (setq denote-excluded-directories-regexp ".*(archived|addons).*"
@@ -53,8 +53,14 @@
       "◀── now ─────────────────────────────────────────────────"))
 
 (use-package denote-silo
-  :ensure (:repo "protesilaos/denote-silo")
+  :ensure (:host github :repo "protesilaos/denote-silo")
   :demand t)
+
+(use-package denote-journal
+  :ensure (:host github :repo "protesilaos/denote-journal")
+  :demand t
+  :config
+  (setq denote-journal-title-format "%Y-%B-%e"))
 
 (use-package consult-denote
   :after (denote consult)
@@ -79,7 +85,18 @@
                 :no-save t
                 :immediate-finish nil
                 :kill-buffer t
-                :jump-to-captured t)
+                :jump-to-captured t
+                :empty-lines 1)
+
+              ("j" "Journal" entry
+                 (file denote-journal-path-to-new-or-existing-entry)
+                 "* %U %?\n%i\n%a"
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t
+                 :empty-lines 1)
+
               ("n" "note" plain
                 (file denote-last-path)
                 (function
@@ -89,7 +106,8 @@
                 :no-save t
                 :immediate-finish nil
                 :kill-buffer t
-                :jump-to-captured t)
+                :jump-to-captured t
+                :empty-lines t)
               )
             )))
 
