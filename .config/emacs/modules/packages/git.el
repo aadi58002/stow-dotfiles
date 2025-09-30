@@ -7,6 +7,9 @@
   (add-hook 'git-commit-post-finish-hook 'magit)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
+(use-package forge
+  :after magit)
+
 (use-package diff-hl
   :after (magit)
   :config

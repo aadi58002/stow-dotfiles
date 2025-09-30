@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/usr/bin/emacsclient -a '' -e '(server-start)'  %F
+Icon=emacs
+Name=Emacs (Client)
+Path=
+Terminal=False
+Type=Application

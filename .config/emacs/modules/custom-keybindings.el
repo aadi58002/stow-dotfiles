@@ -26,6 +26,7 @@
   "r" #'eglot-rename
   "s" #'eglot
   "f" #'eglot-format
+  "w" #'aider-transient-menu
   "e" #'flymake-show-buffer-diagnostics)
 
 (defvar-keymap +leader-file-keymap

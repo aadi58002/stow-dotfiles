@@ -101,4 +101,6 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(setq auth-sources '("~/.local/share/gnupg/emacs-authinfo.gpg"))
+
 (provide 'better-defaults)

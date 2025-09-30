@@ -3,6 +3,11 @@
 # version = "0.106.2"
 
 $env.config.show_banner = false
+$env.config.history.file_format = "sqlite"
+$env.config.completions.algorithm = "substring"
+$env.config.rm.always_trash = true
+$env.config.display_errors.exit_code = true
+$env.config.history.isolation = true
 $env.config.color_config = {
     separator: default
     lading_trailing_space_bg: { attr: n }

@@ -12,3 +12,8 @@ justfile
 README.org
 
 ^/pkglist
+
+kde-configuration.konsave
+
+# Kde autostart does not work with symlinks for some reason
+.config/autostart

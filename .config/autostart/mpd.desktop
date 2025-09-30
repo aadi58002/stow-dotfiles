@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/usr/bin/mpd --no-daemon
+Icon=
+Name=mpd
+Path=
+Terminal=False
+Type=Application
