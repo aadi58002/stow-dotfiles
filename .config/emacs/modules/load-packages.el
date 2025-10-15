@@ -15,6 +15,7 @@
 (load-packages "icons")
 (load-packages "lsp")
 (load-packages "minibuffer")
+(load-packages "music")
 (load-packages "notes")
 (load-packages "ui")
 (load-packages "ai")

@@ -16,6 +16,5 @@ alias downvideos = ~/Documents/linux/scripts/youtube-dl-videos.sh
 alias e = bash -c "emacsclient -c -a 'emacs' -q . & disown"
 alias ess = emacsclient -a '' -e '(server-start)'
 alias fd = fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow
-alias rg = rg --hidden --follow
 alias ke = pkill emacs
 alias n = nvim

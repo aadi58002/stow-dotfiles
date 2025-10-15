@@ -64,6 +64,10 @@
 (use-package treesit
   :ensure nil
   :config
+  ;; Performance increases credit:- https://github.com/D4lj337/Emacs-performance
+  (setenv "LSP_USE_PLISTS" "true")
+  (setq lsp-use-plists t)
+
   ;; List of file extensions and corresponding modes
   (setq treesit-language-source-alist
         '((bash "https://github.com/tree-sitter/tree-sitter-bash")
