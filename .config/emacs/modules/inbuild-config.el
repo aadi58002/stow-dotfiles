@@ -18,13 +18,15 @@
 (global-display-line-numbers-mode t)
 
 ;; Configure automatic line breaks and word-wrap (just in case)
-;; (setq-default fill-column 120  ; SPC-c
-;;               auto-fill-function 'do-auto-fill)
-(display-fill-column-indicator-mode 1)
+(setq-default fill-column 120  ; SPC-c
+              auto-fill-function 'do-auto-fill)
+(display-fill-column-indicator-mode t)
 (global-visual-line-mode t)  ; SPC-w
 (add-hook 'prog-mode #'turn-off-auto-fill)
 
 (setq kill-do-not-save-duplicates t)
+
+(setq switch-to-buffer-obey-display-actions t)
 
 (electric-indent-mode -1)
 (setq-default tab-width 2
@@ -57,8 +59,10 @@
 (load custom-file :no-error-if-file-is-missing)
 
 ;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
-;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 (setq switch-to-buffer-obey-display-actions t)
+
+;; Ref: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
+;; Consistent behaviour between manually and programatically swithcing buffers (Requires Emacs 27+)
 
 ;; Backup and locked file
 (setq create-lockfiles nil

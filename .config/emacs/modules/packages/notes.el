@@ -14,8 +14,9 @@
         denote-directory "~/Documents/denote"
         denote-notes-directory "~/Documents/denote/notes"
         denote-tasks-directory "~/Documents/denote/tasks"
+        denote-study-directory "~/Documents/denote/study"
         denote-pastime-directory "~/Documents/denote/pastime"
-        denote-silo-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory))
+        denote-silo-directories (list denote-notes-directory denote-pastime-directory denote-tasks-directory denote-study-directory))
 
   (denote-rename-buffer-mode +1)
   ;; Org config

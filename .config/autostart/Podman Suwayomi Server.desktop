@@ -1,0 +1,17 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=/usr/bin/podman compose -f /home/aadi58002/Documents/linux/podman/suwayomi/docker-compose.yml up -d
+GenericName[en_US]=
+GenericName=
+Icon=
+MimeType=
+Name[en_US]=Podman Suwayomi Server
+Name=Podman Suwayomi Server
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

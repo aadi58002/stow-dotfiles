@@ -88,7 +88,7 @@ skip_notify = true
 
 # Commands to run after anything
 [post_commands]
-# "Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
+"Xbps Package cleanup" = "sudo xbps-remove -oO"
 
 
 # Custom commands

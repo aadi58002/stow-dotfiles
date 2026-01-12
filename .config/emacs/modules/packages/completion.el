@@ -4,9 +4,6 @@
   :custom
   (corfu-auto t)
   :config
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
-  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
-
   (keymap-set corfu-map "RET" `( menu-item "" nil :filter
                                  ,(lambda (&optional _)
                                     (and (derived-mode-p 'eshell-mode 'comint-mode)

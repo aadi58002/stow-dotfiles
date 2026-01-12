@@ -102,9 +102,8 @@
     "k" 'org-agenda-previous-line))
 
 (evil-define-key 'normal 'dired-mode-map (kbd "<SPC>") +leader-keymap)
-(evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-(evil-define-key 'normal 'eglot-mode-map (kbd "M-n") 'flymake-goto-next-error)
-
+(evil-define-key 'normal 'eglot-mode-map (kbd "M-p") 'flymake-goto-prev-error
+                                         (kbd "M-n") 'flymake-goto-next-error)
 (define-key minibuffer-mode-map (kbd "M-h") 'consult-history)
 (define-key minibuffer-mode-map (kbd "C-S-v") #'evil-paste-after)
 (define-key isearch-mode-map (kbd "C-S-v") #'isearch-yank-pop-only)
@@ -119,5 +118,3 @@
 
 (evil-define-key 'visual 'global (kbd ">") '+evil-shift-right)
 (evil-define-key 'visual 'global (kbd "<") '+evil-shift-left)
-
-(provide 'custom-keybindings)

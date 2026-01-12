@@ -14,6 +14,7 @@
         evil-undo-system 'undo-redo      ; Use built-in emacs undo since emacs 28.1
         evil-split-window-below t
         evil-vsplit-window-right t
+        evil-visual-state-cursor 'hollow
         evil-ex-search-count t)
   :config
   (evil-mode 1))

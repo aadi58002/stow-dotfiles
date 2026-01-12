@@ -1,0 +1,17 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec='/usr/bin/podman system service'
+GenericName[en_US]=
+GenericName=
+Icon=
+MimeType=
+Name[en_US]=Podman User Socket
+Name=Podman User Socket
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

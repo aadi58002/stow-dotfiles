@@ -45,6 +45,7 @@
 
   (add-hook 'eglot-managed-mode-hook #'+lsp/setup-eglot)
 
+  ;; Ref: - https://github.com/minad/corfu/wiki#continuously-update-the-candidates
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   (add-to-list 'eglot-server-programs
                `(((js-mode :language-id "javascript")
