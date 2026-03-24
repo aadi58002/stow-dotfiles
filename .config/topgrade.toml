@@ -15,7 +15,7 @@
 # sudo_command = "sudo"
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "containers"]
+disable = ["emacs","rustup"]
 
 # Ignore failures for these steps
 # ignore_failures = ["powershell"]
@@ -93,6 +93,7 @@ skip_notify = true
 
 # Custom commands
 [commands]
+"Emacs" = "emacsclient -e \"(elpaca-update-all)\""
 # "Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
 # "Custom command using interactive shell (unix)" = "-i vim_upgrade"
 

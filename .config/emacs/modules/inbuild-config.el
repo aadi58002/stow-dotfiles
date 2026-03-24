@@ -24,9 +24,10 @@
 (global-visual-line-mode t)  ; SPC-w
 (add-hook 'prog-mode #'turn-off-auto-fill)
 
-(setq kill-do-not-save-duplicates t)
-
 (setq switch-to-buffer-obey-display-actions t)
+
+;; Auto-Chmod Scripts on Save (Multiple Configs)
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 
 (electric-indent-mode -1)
 (setq-default tab-width 2
@@ -50,9 +51,15 @@
 (column-number-mode 1)
 
 ;;Emacs can read output from programs faster (makes lsp mode faster)
-(setq read-process-output-max (* 1024 1024))
+(setq read-process-output-max (* 20 1024 1024))
 
 (put 'narrow-to-region 'disabled nil)
+
+;; Save the Clipboard Before Killing (Purcell, Prot, Centaur)
+(setq save-interprogram-paste-before-kill t)
+
+;; No Duplicates in the Kill Ring (Doom, Prot)
+(setq kill-do-not-save-duplicates t)
 
 ;; Use custom.el in emacs directory to save variable changes
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -97,9 +104,16 @@
         (border-mode-line-inactive bg-mode-line-inactive)))
 
 (pixel-scroll-precision-mode +1)
+
+;; Proportional Window Resizing (Purcell, Prot)
 (setq window-resize-pixelwise nil
       window-combination-resize t)
 
+;; Sane Syntax in re-builder (Multiple Configs)
+(setq reb-re-syntax 'string)
+
+;; Prevent find-file-at-point from Pinging Hostnames (Centaur Emacs)
+(setq ffap-machine-p-known 'reject)
 
 ;; (load-theme 'modus-vivendi-tinted :no-confirm)
 

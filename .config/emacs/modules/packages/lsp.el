@@ -9,6 +9,7 @@
 
   ;; No event buffers, disable providers cause a lot of hover traffic. Shutdown unused servers.
   (setq eglot-events-buffer-size 0
+        eglot-sync-connect nil
         eglot-events-buffer-config '(:size 0 :format full)
         eglot-ignored-server-capabilities '(;;:hoverProvider
                                             :documentHighlightProvider)
@@ -16,6 +17,10 @@
         ;; Prevent minibuffer spam
         eglot-report-progress nil
         eglot-autoshutdown t)
+
+  (setq-default eglot-workspace-configuration
+                '(:completions
+                  (:completeFunctionCalls t)))
 
   (fset #'jsonrpc--log-event #'ignore)
   ;; Option 1: Specify explicitly to use Orderless for Eglot
@@ -57,6 +62,14 @@
                  ("typescript-language-server" "--stdio"
                   :initializationOptions (:maxTsServerMemory 8192)))))
 
+
+(use-package eglot-tempel
+  :after (eglot tempel)
+  :preface (eglot-tempel-mode)
+  :init
+  (eglot-tempel-mode))
+
+
 (use-package project
   :ensure nil
   :config
@@ -85,6 +98,7 @@
           (markdown "https://github.com/ikatyang/tree-sitter-markdown")
           (nu "https://github.com/nushell/tree-sitter-nu")
           (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")
           (python "https://github.com/tree-sitter/tree-sitter-python")
           (toml "https://github.com/tree-sitter/tree-sitter-toml")
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")

@@ -1,3 +1,5 @@
+;;; load-packages.el | -*- lexical-binding: t; -*-
+
 (setq user-emacs-packages-directory (concat user-emacs-modules-directory "packages/"))
 (defun load-packages (name &optional immediate)
   "Load modules from the packages dir in user-emacs-packages-directory"

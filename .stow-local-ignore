@@ -3,13 +3,13 @@
 
 \#.*\#       # emacs autosave files
 
-LICENSE
+^/LICENSE
 
 ^/root
 
-justfile
+^/justfile
 
-README.org
+^/README.org
 
 ^/pkglist
 

@@ -36,7 +36,9 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :init
-   (setq savehist-additional-variables '(kill-ring register-alist)))
+   (setq history-delete-duplicates t)
+   (setq savehist-additional-variables '(search-ring regexp-search-ring kill-ring))
+   (setq kill-ring (mapcar #'substring-no-properties (cl-remove-if-not #'stringp kill-ring))))
 
 (use-package whitespace
   :ensure nil
@@ -53,7 +55,6 @@
   (setq wgrep-auto-save-buffer t))
 
 ;; Credit: https://github.com/LionyxML/emacs-solo/blob/main/init.el
-;;; CONF
 (use-package conf-mode
   :ensure nil
   :mode ("\\.env\\..*\\'" "\\.env\\'")

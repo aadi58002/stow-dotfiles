@@ -18,3 +18,7 @@ alias ess = emacsclient -a '' -e '(server-start)'
 alias fd = fd -E /run/timeshift -E /usr/share/man -E /proc -E /tmp -E /run/user --follow
 alias ke = pkill emacs
 alias n = nvim
+alias nix-clean = bash -c "nix-collect-garbage -d; nix store gc; nix store optimise;"
+
+alias arknights = ~/Documents/linux/scripts/start-arknights.sh
+alias e7 = ~/Documents/linux/scripts/start-e7.sh
