@@ -33,49 +33,49 @@
 (use-package indent-bars
   :hook ((tsx-ts-mode typescript-ts-mode) . indent-bars-mode))
 
-;;(use-package ef-themes
-;; :config
-;; (setq random-themes '(ef-bio ef-cherie ef-dark ef-deuteranopia-dark ef-duo-dark ef-maris-dark ef-night))
+(use-package ef-themes
+ :config
+ (setq random-themes '(ef-bio ef-cherie ef-dark ef-deuteranopia-dark ef-duo-dark ef-maris-dark ef-night))
+
+ (defun +ef-themes-mode-line ()
+   "Tweak the style of the mode lines."
+   (ef-themes-with-colors
+    (custom-set-faces
+     `(mode-line ((,c :background ,bg-mode-line :foreground ,fg-mode-line)))
+     `(mode-line-inactive ((,c))))))
+ (add-hook 'ef-themes-post-load-hook #'+ef-themes-mode-line)
+
+ (defun random-color-theme ()
+   (interactive)
+   (load-theme (nth (random (length random-themes)) random-themes) t))
+ (random-color-theme)
+ (run-with-timer 0 (* 10 60) 'random-color-theme))
+
+;;(use-package doom-themes
+;;  :ensure t
+;;  :custom
+;;  ;; Global settings (defaults)
+;;  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+;;  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;  :config
+;;  ;; Enable flashing mode-line on errors
+;;  (doom-themes-visual-bell-config)
+;;  ;; Corrects (and improves) org-mode's native fontification.
+;;  (doom-themes-org-config)
+;;  (setq random-themes '(doom-tokyo-night doom-dracula doom-horizon doom-vibrant doom-moonlight))
 ;;
-;; (defun +ef-themes-mode-line ()
-;;   "Tweak the style of the mode lines."
-;;   (ef-themes-with-colors
-;;    (custom-set-faces
-;;     `(mode-line ((,c :background ,bg-mode-line :foreground ,fg-mode-line)))
-;;     `(mode-line-inactive ((,c))))))
-;; (add-hook 'ef-themes-post-load-hook #'+ef-themes-mode-line)
+;;  (defun +ef-themes-mode-line ()
+;;    "Tweak the style of the mode lines."
+;;    (ef-themes-with-colors
+;;     (custom-set-faces
+;;      `(mode-line ((,c :background ,bg-mode-line :foreground ,fg-mode-line)))
+;;      `(mode-line-inactive ((,c))))))
+;;  (add-hook 'ef-themes-post-load-hook #'+ef-themes-mode-line)
 ;;
-;; (defun random-color-theme ()
-;;   (interactive)
-;;   (load-theme (nth (random (length random-themes)) random-themes) t))
-;; (random-color-theme)
-;; (run-with-timer 0 (* 10 60) 'random-color-theme))
-
-(use-package doom-themes
-  :ensure t
-  :custom
-  ;; Global settings (defaults)
-  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
-  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  :config
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-  (setq random-themes '(doom-tokyo-night doom-dracula doom-horizon doom-vibrant doom-moonlight))
-
-  (defun +ef-themes-mode-line ()
-    "Tweak the style of the mode lines."
-    (ef-themes-with-colors
-     (custom-set-faces
-      `(mode-line ((,c :background ,bg-mode-line :foreground ,fg-mode-line)))
-      `(mode-line-inactive ((,c))))))
-  (add-hook 'ef-themes-post-load-hook #'+ef-themes-mode-line)
-
-  (defun random-color-theme ()
-    (interactive)
-    (load-theme (nth (random (length random-themes)) random-themes) t))
-  (random-color-theme)
-  (run-with-timer 0 (* 10 60) 'random-color-theme))
+;;  (defun random-color-theme ()
+;;    (interactive)
+;;    (load-theme (nth (random (length random-themes)) random-themes) t))
+;;  (random-color-theme)
+;;  (run-with-timer 0 (* 10 60) 'random-color-theme))
 
 (provide 'ui)

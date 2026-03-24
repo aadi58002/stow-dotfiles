@@ -3,6 +3,8 @@
 (use-package corfu
   :custom
   (corfu-auto t)
+  (corfu-auto-delay 0)
+  (corfu-auto-prefix 1)
   :config
   (keymap-set corfu-map "RET" `( menu-item "" nil :filter
                                  ,(lambda (&optional _)
@@ -29,14 +31,21 @@
 
 ;; Configure Tempel
 (use-package tempel
-  :custom
-  (tempel-trigger-prefix "<")
+  :bind (:map tempel-map
+              ("TAB" . tempel-next)
+              ("S-TAB" . tempel-previous))
   :init
-  (setq completion-at-point-functions
-              (cons #'tempel-complete
-                    completion-at-point-functions))
+  (defun tempel-setup-capf ()
+    (setq-local corfu-auto-trigger "<"
+                completion-at-point-functions
+                (cons (cape-capf-trigger #'tempel-complete ?<)
+                      completion-at-point-functions))
+  )
 
-  (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
   (global-tempel-abbrev-mode))
 
 (provide 'completion)

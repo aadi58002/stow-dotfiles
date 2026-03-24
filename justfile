@@ -1,6 +1,5 @@
 PROFILE_NAME := `echo $(date +%F)-kde-configuration`
 
-
 restore:
    stow . -t ~/
    cp -r ./.config/autostart/* ~/.config/autostart/

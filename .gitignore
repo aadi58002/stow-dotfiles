@@ -2,6 +2,7 @@
 .config/git
 .config/glab-cli
 
+.android
 .var
 
 *history*
@@ -21,3 +22,4 @@ Pictures
 Projects
 Documents
 .config/emacs/auto-save-list
+.aider*

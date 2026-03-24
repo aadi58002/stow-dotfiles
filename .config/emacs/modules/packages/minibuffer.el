@@ -56,7 +56,9 @@
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :config
-  (setq completion-styles '(orderless basic flex)
+  (setq completion-styles '(orderless partial-completion basic flex)
+        completion-category-defaults nil
+        completion-category-overrides nil
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult

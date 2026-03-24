@@ -36,6 +36,7 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :init
+   (setq history-delete-duplicates t)
    (setq savehist-additional-variables '(kill-ring register-alist)))
 
 (use-package whitespace
